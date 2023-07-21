@@ -19,6 +19,10 @@ class InputTextLayer extends StickerLayer
     protected int $strokeSize;
     protected Color $strokeColor;
 
+    protected Color $shadowColor;
+    protected int $shadowOffsetX;
+    protected int $shadowOffsetY;
+
     protected HorizontalAlignment $horizontalAlignment;
     protected VerticalAlignment $verticalAlignment;
 
@@ -30,6 +34,9 @@ class InputTextLayer extends StickerLayer
         ?int $fontSize = null,
         int $strokeSize = 0,
         Color $strokeColor = new Color([0, 0, 0]),
+        Color $shadowColor = new Color([0, 0, 0]),
+        int $shadowOffsetX = 0,
+        int $shadowOffsetY = 0,
         HorizontalAlignment $horizontalAlignment = HorizontalAlignment::CENTER,
         VerticalAlignment $verticalAlignment = VerticalAlignment::MIDDLE,
         float $lineHeight = 1,
@@ -43,6 +50,10 @@ class InputTextLayer extends StickerLayer
         $this->strokeSize = $strokeSize;
         $this->strokeColor = $strokeColor;
 
+        $this->shadowColor = $shadowColor;
+        $this->shadowOffsetX = $shadowOffsetX;
+        $this->shadowOffsetY = $shadowOffsetY;
+
         $this->horizontalAlignment = $horizontalAlignment;
         $this->verticalAlignment = $verticalAlignment;
 
@@ -55,6 +66,9 @@ class InputTextLayer extends StickerLayer
         ?int $fontSize = null,
         int $strokeSize = 0,
         Color $strokeColor = new Color([0, 0, 0]),
+        Color $shadowColor = new Color([0, 0, 0]),
+        int $shadowOffsetX = 0,
+        int $shadowOffsetY = 0,
         HorizontalAlignment $horizontalAlignment = HorizontalAlignment::CENTER,
         VerticalAlignment $verticalAlignment = VerticalAlignment::MIDDLE,
         float $lineHeight = 1,
@@ -65,6 +79,9 @@ class InputTextLayer extends StickerLayer
             fontSize: $fontSize,
             strokeSize: $strokeSize,
             strokeColor: $strokeColor,
+            shadowColor: $shadowColor,
+            shadowOffsetX: $shadowOffsetX,
+            shadowOffsetY: $shadowOffsetY,
             horizontalAlignment: $horizontalAlignment,
             verticalAlignment: $verticalAlignment,
             lineHeight: $lineHeight,
@@ -101,8 +118,26 @@ class InputTextLayer extends StickerLayer
 
         //set stroke style
         $box->setStrokeSize($this->strokeSize);
-        $box->setStrokeColor(new \GDText\Color($this->strokeColor->r, $this->strokeColor->g, $this->strokeColor->b,
-            $this->strokeColor->a));
+        $box->setStrokeColor(new \GDText\Color(
+            red: $this->strokeColor->r,
+            green: $this->strokeColor->g,
+            blue: $this->strokeColor->b,
+            alpha: $this->strokeColor->a
+        ));
+
+        //set shadow style
+        if ($this->shadowOffsetX > 0 || $this->shadowOffsetY > 0) {
+            $box->setTextShadow(
+                color: new \GDText\Color(
+                    red: $this->shadowColor->r,
+                    green: $this->shadowColor->g,
+                    blue: $this->shadowColor->b,
+                    alpha: $this->shadowColor->a
+                ),
+                xShift: $this->strokeSize + $this->shadowOffsetX,
+                yShift: $this->strokeSize + $this->shadowOffsetY,
+            );
+        }
 
         //set text alignment
         $box->setTextAlign($this->horizontalAlignment->value, $this->verticalAlignment->value);
