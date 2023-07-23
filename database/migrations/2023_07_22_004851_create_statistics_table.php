@@ -12,8 +12,7 @@ return new class extends Migration {
             $table->timestamp('collected_at')->index();
             $table->foreignId('user_id')->index()->nullable()->constrained();
             $table->text('action');
-            $table->json('value')->nullable();
-            $table->text('category')->nullable();
+            $table->json('payload')->nullable();
         });
     }
 
