@@ -5,8 +5,9 @@ namespace App\Stickerizer\Layers;
 use App\Stickerizer\Styles\LayerPosition;
 use App\Stickerizer\Styles\LayerSize;
 use Intervention\Image\Image;
+use JsonSerializable;
 
-abstract class StickerLayer
+abstract class StickerLayer implements JsonSerializable
 {
     protected LayerPosition $layerPosition;
     protected ?LayerSize $layerSize;
@@ -41,4 +42,6 @@ abstract class StickerLayer
 
         $this->layerSize = LayerSize::make($canvas->width(), $canvas->height());
     }
+
+    abstract public static function fromArray(array $data): static;
 }

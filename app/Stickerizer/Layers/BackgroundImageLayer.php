@@ -22,6 +22,14 @@ class BackgroundImageLayer extends StickerLayer
         return new self($path, $opacity);
     }
 
+    public static function fromArray(array $data): static
+    {
+        return new static(
+            path: $data['path'],
+            opacity: $data['opacity']
+        );
+    }
+
     public function handle(Image $canvas): void
     {
         $layer = imagecreatefrompng($this->path);
@@ -32,5 +40,14 @@ class BackgroundImageLayer extends StickerLayer
         $layer = ImageFacade::make($layer)->resize($this->layerSize->width, $this->layerSize->height);
 
         $canvas->insert($layer, 'top-left', $this->layerPosition->x, $this->layerPosition->y);
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'type' => static::class,
+            'path' => $this->path,
+            'opacity' => $this->opacity,
+        ];
     }
 }

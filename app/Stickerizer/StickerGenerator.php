@@ -71,7 +71,7 @@ class StickerGenerator
      */
     public function addLayers(array $layers): self
     {
-        $this->layers = $this->layers->merge(...$layers);
+        $this->layers = $this->layers->merge($layers);
 
         return $this;
     }

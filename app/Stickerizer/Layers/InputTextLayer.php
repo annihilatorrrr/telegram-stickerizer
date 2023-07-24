@@ -11,7 +11,7 @@ use Intervention\Image\Image;
 
 class InputTextLayer extends StickerLayer
 {
-    protected string $text;
+    protected ?string $text = null;
 
     protected Color $fontColor;
     protected ?int $fontSize;
@@ -89,7 +89,7 @@ class InputTextLayer extends StickerLayer
         );
     }
 
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 
@@ -157,5 +157,43 @@ class InputTextLayer extends StickerLayer
 
         //handle layer
         $canvas->insert($layer, 'top-left', 0, 0);
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'type' => static::class,
+            'text' => $this->text,
+            'fontColor' => $this->fontColor->getArray(),
+            'fontSize' => $this->fontSize,
+            'strokeSize' => $this->strokeSize,
+            'strokeColor' => $this->strokeColor->getArray(),
+            'shadowColor' => $this->shadowColor->getArray(),
+            'shadowOffsetX' => $this->shadowOffsetX,
+            'shadowOffsetY' => $this->shadowOffsetY,
+            'horizontalAlignment' => $this->horizontalAlignment->value,
+            'verticalAlignment' => $this->verticalAlignment->value,
+            'lineHeight' => $this->lineHeight,
+            'wrap' => $this->wrap,
+        ];
+    }
+
+    public static function fromArray(array $data): static
+    {
+        $layer = new static(
+            fontColor: new Color($data['fontColor']),
+            fontSize: $data['fontSize'],
+            strokeSize: $data['strokeSize'],
+            strokeColor: new Color($data['strokeColor']),
+            shadowColor: new Color($data['shadowColor']),
+            shadowOffsetX: $data['shadowOffsetX'],
+            shadowOffsetY: $data['shadowOffsetY'],
+            horizontalAlignment: HorizontalAlignment::from($data['horizontalAlignment']),
+            verticalAlignment: VerticalAlignment::from($data['verticalAlignment']),
+            lineHeight: $data['lineHeight'],
+            wrap: $data['wrap'],
+        );
+        $layer->setText($data['text']);
+        return $layer;
     }
 }

@@ -21,10 +21,23 @@ class BackgroundColorLayer extends StickerLayer
         return new self($color);
     }
 
+    public static function fromArray(array $data): static
+    {
+        return new static(new Color($data['color']));
+    }
+
     public function handle(Image $canvas): void
     {
         $layer = ImageFacade::canvas($this->layerSize->width, $this->layerSize->height, $this->color->getRgba());
 
         $canvas->insert($layer, 'top-left', $this->layerPosition->x, $this->layerPosition->y);
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'type' => static::class,
+            'color' => $this->color->getArray(),
+        ];
     }
 }
