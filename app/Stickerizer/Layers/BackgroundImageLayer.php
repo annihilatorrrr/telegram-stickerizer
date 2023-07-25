@@ -40,6 +40,8 @@ class BackgroundImageLayer extends StickerLayer
         $layer = ImageFacade::make($layer)->resize($this->layerSize->width, $this->layerSize->height);
 
         $canvas->insert($layer, 'top-left', $this->layerPosition->x, $this->layerPosition->y);
+
+        parent::handle($canvas);
     }
 
     public function jsonSerialize(): array

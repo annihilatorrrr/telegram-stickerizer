@@ -157,6 +157,8 @@ class InputTextLayer extends StickerLayer
 
         //handle layer
         $canvas->insert($layer, 'top-left', 0, 0);
+
+        parent::handle($canvas);
     }
 
     public function jsonSerialize(): array

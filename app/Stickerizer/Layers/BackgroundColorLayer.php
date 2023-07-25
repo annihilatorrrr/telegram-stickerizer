@@ -31,6 +31,8 @@ class BackgroundColorLayer extends StickerLayer
         $layer = ImageFacade::canvas($this->layerSize->width, $this->layerSize->height, $this->color->getRgba());
 
         $canvas->insert($layer, 'top-left', $this->layerPosition->x, $this->layerPosition->y);
+
+        parent::handle($canvas);
     }
 
     public function jsonSerialize(): array
