@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'packs' => [
+            'driver' => 'local',
+            'root' => storage_path('app/packs'),
+            'throw' => false,
+        ]
+
     ],
 
     /*
