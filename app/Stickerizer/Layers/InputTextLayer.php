@@ -7,6 +7,7 @@ use App\Stickerizer\Styles\HorizontalAlignment;
 use App\Stickerizer\Styles\VerticalAlignment;
 use GDText\Box;
 use GDText\TextWrapping;
+use Intervention\Image\Facades\Image as ImageFacade;
 use Intervention\Image\Image;
 
 class InputTextLayer extends StickerLayer
@@ -30,6 +31,7 @@ class InputTextLayer extends StickerLayer
     protected float $lineHeight;
     protected bool $wrap;
     protected float $baseLine;
+    protected int $angle;
 
     public function __construct(
         Color $fontColor = new Color([255, 255, 255]),
@@ -45,6 +47,7 @@ class InputTextLayer extends StickerLayer
         float $lineHeight = 1,
         bool $wrap = true,
         float $baseLine = 0.2,
+        int $angle = 0,
     ) {
         parent::__construct();
 
@@ -65,6 +68,7 @@ class InputTextLayer extends StickerLayer
         $this->lineHeight = $lineHeight;
         $this->wrap = $wrap;
         $this->baseLine = $baseLine;
+        $this->angle = $angle;
     }
 
     public static function make(
@@ -81,6 +85,7 @@ class InputTextLayer extends StickerLayer
         float $lineHeight = 1,
         bool $wrap = true,
         float $baseLine = 0.2,
+        int $angle = 0,
     ): static {
         return new static(
             fontColor: $fontColor,
@@ -96,6 +101,7 @@ class InputTextLayer extends StickerLayer
             lineHeight: $lineHeight,
             wrap: $wrap,
             baseLine: $baseLine,
+            angle: $angle,
         );
     }
 
@@ -161,6 +167,9 @@ class InputTextLayer extends StickerLayer
         //set baseline
         $box->setBaseLine($this->baseLine);
 
+        //set angle
+        $box->setAngle($this->angle);
+
         //write text
         if ($this->fontSize !== null) {
             $box->draw($this->text);
@@ -192,6 +201,7 @@ class InputTextLayer extends StickerLayer
             'lineHeight' => $this->lineHeight,
             'wrap' => $this->wrap,
             'baseLine' => $this->baseLine,
+            'angle' => $this->angle,
             'layerPosition' => [
                 'x' => $this->layerPosition->x,
                 'y' => $this->layerPosition->y,
@@ -219,6 +229,7 @@ class InputTextLayer extends StickerLayer
             lineHeight: $data['lineHeight'],
             wrap: $data['wrap'],
             baseLine: $data['baseLine'],
+            angle: $data['angle'],
         );
         $layer->setText($data['text']);
         $layer->setLayerPosition($data['layerPosition']['x'], $data['layerPosition']['y']);
