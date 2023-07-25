@@ -23,7 +23,12 @@ class BackgroundColorLayer extends StickerLayer
 
     public static function fromArray(array $data): static
     {
-        return new static(new Color($data['color']));
+        $layer = new static(new Color($data['color']));
+        $layer->setLayerPosition($data['layerPosition']['x'], $data['layerPosition']['y']);
+        if ($data['layerSize'] !== null) {
+            $layer->setLayerSize($data['layerSize']['width'], $data['layerSize']['height']);
+        }
+        return $layer;
     }
 
     public function handle(Image $canvas): void
@@ -40,6 +45,14 @@ class BackgroundColorLayer extends StickerLayer
         return [
             'type' => static::class,
             'color' => $this->color->getArray(),
+            'layerPosition' => [
+                'x' => $this->layerPosition->x,
+                'y' => $this->layerPosition->y,
+            ],
+            'layerSize' => $this->layerSize === null ? null : [
+                'width' => $this->layerSize->width,
+                'height' => $this->layerSize->height,
+            ],
         ];
     }
 }

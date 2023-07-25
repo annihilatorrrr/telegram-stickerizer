@@ -24,10 +24,15 @@ class BackgroundImageLayer extends StickerLayer
 
     public static function fromArray(array $data): static
     {
-        return new static(
+        $layer = new static(
             path: $data['path'],
             opacity: $data['opacity']
         );
+        $layer->setLayerPosition($data['layerPosition']['x'], $data['layerPosition']['y']);
+        if ($data['layerSize'] !== null) {
+            $layer->setLayerSize($data['layerSize']['width'], $data['layerSize']['height']);
+        }
+        return $layer;
     }
 
     public function handle(Image $canvas): void
@@ -50,6 +55,14 @@ class BackgroundImageLayer extends StickerLayer
             'type' => static::class,
             'path' => $this->path,
             'opacity' => $this->opacity,
+            'layerPosition' => [
+                'x' => $this->layerPosition->x,
+                'y' => $this->layerPosition->y,
+            ],
+            'layerSize' => $this->layerSize === null ? null : [
+                'width' => $this->layerSize->width,
+                'height' => $this->layerSize->height,
+            ],
         ];
     }
 }

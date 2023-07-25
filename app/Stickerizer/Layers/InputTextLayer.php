@@ -177,6 +177,14 @@ class InputTextLayer extends StickerLayer
             'verticalAlignment' => $this->verticalAlignment->value,
             'lineHeight' => $this->lineHeight,
             'wrap' => $this->wrap,
+            'layerPosition' => [
+                'x' => $this->layerPosition->x,
+                'y' => $this->layerPosition->y,
+            ],
+            'layerSize' => $this->layerSize === null ? null : [
+                'width' => $this->layerSize->width,
+                'height' => $this->layerSize->height,
+            ],
         ];
     }
 
@@ -196,6 +204,10 @@ class InputTextLayer extends StickerLayer
             wrap: $data['wrap'],
         );
         $layer->setText($data['text']);
+        $layer->setLayerPosition($data['layerPosition']['x'], $data['layerPosition']['y']);
+        if ($data['layerSize'] !== null) {
+            $layer->setLayerSize($data['layerSize']['width'], $data['layerSize']['height']);
+        }
         return $layer;
     }
 }
