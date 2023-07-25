@@ -15,6 +15,7 @@ class InputTextLayer extends StickerLayer
 
     protected Color $fontColor;
     protected ?int $fontSize;
+    protected ?string $fontFamily;
 
     protected int $strokeSize;
     protected Color $strokeColor;
@@ -32,6 +33,7 @@ class InputTextLayer extends StickerLayer
     public function __construct(
         Color $fontColor = new Color([255, 255, 255]),
         ?int $fontSize = null,
+        ?string $fontFamily = null,
         int $strokeSize = 0,
         Color $strokeColor = new Color([0, 0, 0]),
         Color $shadowColor = new Color([0, 0, 0]),
@@ -46,6 +48,7 @@ class InputTextLayer extends StickerLayer
 
         $this->fontColor = $fontColor;
         $this->fontSize = $fontSize;
+        $this->fontFamily = $fontFamily ?? resource_path('fonts/OpenSansEmoji.ttf');
 
         $this->strokeSize = $strokeSize;
         $this->strokeColor = $strokeColor;
@@ -64,6 +67,7 @@ class InputTextLayer extends StickerLayer
     public static function make(
         Color $fontColor = new Color([255, 255, 255]),
         ?int $fontSize = null,
+        ?string $fontFamily = null,
         int $strokeSize = 0,
         Color $strokeColor = new Color([0, 0, 0]),
         Color $shadowColor = new Color([0, 0, 0]),
@@ -77,6 +81,7 @@ class InputTextLayer extends StickerLayer
         return new static(
             fontColor: $fontColor,
             fontSize: $fontSize,
+            fontFamily: $fontFamily,
             strokeSize: $strokeSize,
             strokeColor: $strokeColor,
             shadowColor: $shadowColor,
@@ -109,7 +114,7 @@ class InputTextLayer extends StickerLayer
             $this->layerSize->height);
 
         //set font style
-        $box->setFontFace(resource_path('fonts/OpenSansEmoji.ttf'));
+        $box->setFontFace($this->fontFamily);
         if ($this->fontSize !== null) {
             $box->setFontSize($this->fontSize);
         }
@@ -168,6 +173,7 @@ class InputTextLayer extends StickerLayer
             'text' => $this->text,
             'fontColor' => $this->fontColor->getArray(),
             'fontSize' => $this->fontSize,
+            'fontFamily' => $this->fontFamily,
             'strokeSize' => $this->strokeSize,
             'strokeColor' => $this->strokeColor->getArray(),
             'shadowColor' => $this->shadowColor->getArray(),
@@ -193,6 +199,7 @@ class InputTextLayer extends StickerLayer
         $layer = new static(
             fontColor: new Color($data['fontColor']),
             fontSize: $data['fontSize'],
+            fontFamily: $data['fontFamily'],
             strokeSize: $data['strokeSize'],
             strokeColor: new Color($data['strokeColor']),
             shadowColor: new Color($data['shadowColor']),
