@@ -29,6 +29,7 @@ class InputTextLayer extends StickerLayer
 
     protected float $lineHeight;
     protected bool $wrap;
+    protected float $baseLine;
 
     public function __construct(
         Color $fontColor = new Color([255, 255, 255]),
@@ -43,6 +44,7 @@ class InputTextLayer extends StickerLayer
         VerticalAlignment $verticalAlignment = VerticalAlignment::MIDDLE,
         float $lineHeight = 1,
         bool $wrap = true,
+        float $baseLine = 0.2,
     ) {
         parent::__construct();
 
@@ -62,6 +64,7 @@ class InputTextLayer extends StickerLayer
 
         $this->lineHeight = $lineHeight;
         $this->wrap = $wrap;
+        $this->baseLine = $baseLine;
     }
 
     public static function make(
@@ -77,6 +80,7 @@ class InputTextLayer extends StickerLayer
         VerticalAlignment $verticalAlignment = VerticalAlignment::MIDDLE,
         float $lineHeight = 1,
         bool $wrap = true,
+        float $baseLine = 0.2,
     ): static {
         return new static(
             fontColor: $fontColor,
@@ -91,6 +95,7 @@ class InputTextLayer extends StickerLayer
             verticalAlignment: $verticalAlignment,
             lineHeight: $lineHeight,
             wrap: $wrap,
+            baseLine: $baseLine,
         );
     }
 
@@ -153,6 +158,9 @@ class InputTextLayer extends StickerLayer
         //set wrap
         $box->setTextWrapping($this->wrap ? TextWrapping::WrapWithOverflow : TextWrapping::NoWrap);
 
+        //set baseline
+        $box->setBaseLine($this->baseLine);
+
         //write text
         if ($this->fontSize !== null) {
             $box->draw($this->text);
@@ -183,6 +191,7 @@ class InputTextLayer extends StickerLayer
             'verticalAlignment' => $this->verticalAlignment->value,
             'lineHeight' => $this->lineHeight,
             'wrap' => $this->wrap,
+            'baseLine' => $this->baseLine,
             'layerPosition' => [
                 'x' => $this->layerPosition->x,
                 'y' => $this->layerPosition->y,
@@ -209,6 +218,7 @@ class InputTextLayer extends StickerLayer
             verticalAlignment: VerticalAlignment::from($data['verticalAlignment']),
             lineHeight: $data['lineHeight'],
             wrap: $data['wrap'],
+            baseLine: $data['baseLine'],
         );
         $layer->setText($data['text']);
         $layer->setLayerPosition($data['layerPosition']['x'], $data['layerPosition']['y']);
