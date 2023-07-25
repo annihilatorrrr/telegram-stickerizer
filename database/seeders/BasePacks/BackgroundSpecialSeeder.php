@@ -616,14 +616,15 @@ class BackgroundSpecialSeeder extends Seeder
             ]
         ]);
 
-        //TODO: fix angle => implement rotation to layer
         $pack->stickers()->create([
             'width' => 512,
             'height' => 512,
             'layers' => [
                 BackgroundImageLayer::make($packsDisk->path('SpecialImage/yugioh.png')),
-                InputTextLayer::make(Color::fromRgba(0, 0, 0))
-                    ->setLayerControl(5, 10, 285, 320),
+                InputTextLayer::make(
+                    fontColor: Color::fromRgba(0, 0, 0),
+                    angle: 10,
+                )->setLayerControl(30, 10, 285, 320),
             ]
         ]);
 

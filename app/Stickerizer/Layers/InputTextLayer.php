@@ -115,22 +115,29 @@ class InputTextLayer extends StickerLayer
     public function handle(Image $canvas): void
     {
         //create a new layer
-        $layer = imagecreatetruecolor($canvas->getWidth(), $canvas->getHeight());
-        imagesavealpha($layer, true);
-        imagefill($layer, 0, 0, imagecolorallocatealpha($layer, 0, 0, 0, 127));
+        $layer = ImageFacade::canvas($canvas->getWidth(), $canvas->getHeight());
+        $layerCore = $layer->getCore();
 
         //initialize box
-        $box = new Box($layer);
-        $box->setBox($this->layerPosition->x, $this->layerPosition->y, $this->layerSize->width,
-            $this->layerSize->height);
+        $box = new Box($layerCore);
+        $box->setBox(
+            x: $this->layerPosition->x,
+            y: $this->layerPosition->y,
+            width: $this->layerSize->width,
+            height: $this->layerSize->height,
+        );
 
         //set font style
         $box->setFontFace($this->fontFamily);
         if ($this->fontSize !== null) {
             $box->setFontSize($this->fontSize);
         }
-        $box->setFontColor(new \GDText\Color($this->fontColor->r, $this->fontColor->g, $this->fontColor->b,
-            $this->fontColor->a));
+        $box->setFontColor(new \GDText\Color(
+            red: $this->fontColor->r,
+            green: $this->fontColor->g,
+            blue: $this->fontColor->b,
+            alpha: $this->fontColor->a,
+        ));
 
         //set stroke style
         $box->setStrokeSize($this->strokeSize);
@@ -138,7 +145,7 @@ class InputTextLayer extends StickerLayer
             red: $this->strokeColor->r,
             green: $this->strokeColor->g,
             blue: $this->strokeColor->b,
-            alpha: $this->strokeColor->a
+            alpha: $this->strokeColor->a,
         ));
 
         //set shadow style
@@ -148,7 +155,7 @@ class InputTextLayer extends StickerLayer
                     red: $this->shadowColor->r,
                     green: $this->shadowColor->g,
                     blue: $this->shadowColor->b,
-                    alpha: $this->shadowColor->a
+                    alpha: $this->shadowColor->a,
                 ),
                 xShift: $this->strokeSize + $this->shadowOffsetX,
                 yShift: $this->strokeSize + $this->shadowOffsetY,
