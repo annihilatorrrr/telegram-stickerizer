@@ -34,6 +34,13 @@ abstract class StickerLayer implements JsonSerializable
         return $this;
     }
 
+    public function setLayerControl(int $x, int $y, int $width, int $height): self
+    {
+        $this->setLayerPosition($x, $y);
+        $this->setLayerSize($width, $height);
+        return $this;
+    }
+
     public function applyLayerSizeIfNeeded(Image $canvas): void
     {
         if ($this->layerSize !== null) {
