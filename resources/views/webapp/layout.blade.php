@@ -15,6 +15,7 @@
 <body>
 @yield('content')
 
+@routes
 @stack('scripts')
 </body>
 </html>
