@@ -6,7 +6,14 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'tg-bg': 'var(--tg-theme-bg-color)',
+                'tg-text': 'var(--tg-theme-text-color)',
+                'tg-button-bg': 'var(--tg-theme-button-color)',
+                'tg-button-text': 'var(--tg-theme-button-text-color)',
+            }
+        },
     },
     plugins: [],
 }
