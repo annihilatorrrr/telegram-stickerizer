@@ -9,8 +9,14 @@ onMounted(() => {
     webapp.ready();
 });
 
-const sendStickerCode = () => {
-    webapp.switchInlineQuery('Ꜣ' + text.value);
+const sendStickerCode = async () => {
+    const response = await axios.post(route('webapp.sticker.send'),{
+        user_id: window.initUser,
+        sticker_id: 1,
+        text: text.value,
+    });
+
+    webapp.switchInlineQuery('Ꜣ' + response.data.telegram_sticker_id);
 };
 
 </script>

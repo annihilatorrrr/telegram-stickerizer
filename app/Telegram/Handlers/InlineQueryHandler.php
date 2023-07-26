@@ -16,25 +16,26 @@ class InlineQueryHandler
             cache_time: 0,
             button: InlineQueryResultsButton::make(
                 text: "Click here to create your sticker!",
-                web_app: new WebAppInfo(route('webapp.index', ['text' => $bot->inlineQuery()->query])),
+                web_app: new WebAppInfo(route('webapp.index', [
+                    'text' => $bot->inlineQuery()->query,
+                    'user_id' => $bot->inlineQuery()->from->id,
+                ])),
             )
         );
     }
 
     public function result(Nutgram $bot, string $sticker): void
     {
+        info('result', ['sticker' => $sticker]);
+
         $bot->answerInlineQuery(
             results: [
                 InlineQueryResultCachedSticker::make(
-                    id: $sticker,
+                    id: (string)time(),
                     sticker_file_id: $sticker,
                 ),
             ],
             cache_time: 0,
-            button: InlineQueryResultsButton::make(
-                text: "Click here to create your sticker!",
-                web_app: new WebAppInfo(route('webapp.index', ['text' => $bot->inlineQuery()->query])),
-            )
         );
     }
 }

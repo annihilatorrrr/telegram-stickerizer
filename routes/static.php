@@ -24,6 +24,7 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
     Route::get('/', function (Request $request) {
         return view('webapp.main', [
             'text' => $request->input('text'),
+            'user_id' => $request->input('user_id'),
         ]);
     })->name('index');
 
@@ -46,7 +47,8 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
             $bot->getStickerSet($packName);
             $bot->addStickerToSet(
                 name: $packName,
-                sticker: InputSticker::make(sticker: $stickerToUpload, emoji_list: ['🕒'])
+                sticker: InputSticker::make(sticker: $stickerToUpload, emoji_list: ['🕒']),
+                user_id: $userID,
             );
         } catch (StickerSetNotFoundException) {
             $bot->createNewStickerSet(
@@ -54,7 +56,7 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
                 title: 'Stickerizer History',
                 stickers: [InputSticker::make(sticker: $stickerToUpload, emoji_list: ['🕒'])],
                 sticker_format: 'static',
-                user_id: $bot->userId(),
+                user_id: $userID,
                 sticker_type: 'regular',
             );
         }
