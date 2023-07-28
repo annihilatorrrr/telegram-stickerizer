@@ -1,7 +1,7 @@
 <script setup>
-import Input from "@/webapp/Input.vue";
+import Input from "@/webapp/InputPanel.vue";
 import {onMounted, ref} from "vue";
-import StickerPreview from "@/webapp/StickerPreview.vue";
+import StickerPreview from "@/webapp/PreviewPanel.vue";
 
 const text = ref(window.initText ?? '');
 const isPanelOpen = ref(false);
