@@ -3,7 +3,7 @@ import {withDefaults} from "vue";
 
 interface IProps {
     user?: string;
-    position: 'start' | 'end';
+    position?: 'start' | 'end';
 }
 
 withDefaults(defineProps<IProps>(), {
