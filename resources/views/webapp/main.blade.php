@@ -8,7 +8,7 @@
     @vite(['resources/js/app.js'])
     <script>
         window.initText = "{{ $text }}";
-        window.initUser = {{ $user_id ?? null }};
+        window.initUser = {{ $user_id ?? 'null' }};
     </script>
 
 @endpush
