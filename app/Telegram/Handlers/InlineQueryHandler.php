@@ -2,11 +2,11 @@
 
 namespace App\Telegram\Handlers;
 
+use Illuminate\Support\Str;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultCachedSticker;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultsButton;
 use SergiX44\Nutgram\Telegram\Types\WebApp\WebAppInfo;
-use Throwable;
 
 class InlineQueryHandler
 {
@@ -45,10 +45,8 @@ class InlineQueryHandler
         //build pack name
         $packName = sprintf("StickerizerTmpPack_for_%s_by_Stickerizer2Bot", $bot->userId());
 
-        //delete existing pack
-        try {
-            $bot->deleteStickerSet($packName);
-        } catch (Throwable) {
-        }
+        //delete existing sticker/pack
+        rescue(fn() => $bot->deleteStickerFromSet(Str::after($bot->chosenInlineResult()->query, 'Ꜣ')));
+        rescue(fn() => $bot->deleteStickerSet($packName));
     }
 }

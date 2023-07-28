@@ -54,7 +54,7 @@ $bot->registerCommand(StatsCommand::class);
 |--------------------------------------------------------------------------
 */
 
-$bot->onApiError('.*STICKERSET_INVALID.*', function (Nutgram $bot, $e) {
+$bot->onApiError('.*(STICKERSET_INVALID|STICKERPACK_NOT_FOUND).*', function (Nutgram $bot, $e) {
     throw new StickerSetNotFoundException($e->getMessage());
 });
 

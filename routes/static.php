@@ -17,7 +17,7 @@ Route::get('sticker/{sticker}.webp', function (Request $request, Sticker $sticke
     $sticker = $sticker->getGenerator()->generate($text);
 
     return $sticker->response('webp', 100);
-});
+})->name('sticker.preview');
 
 Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
 
