@@ -1,19 +1,29 @@
-<script setup>
+<script setup lang="ts">
+interface Props {
+    text: string
+    isPanelOpen: boolean
+}
 
-defineProps(['modelValue']);
-defineEmits(['update:modelValue']);
-
+defineProps<Props>();
+defineEmits(['update:text', 'update:isPanelOpen', 'send']);
 </script>
 
 <template>
     <div class="flex items-center bg-tg-bg h-full px-3">
+        <div class="flex-none flex items-center">
+            <button id="panelButton" class="w-8 h-8 mr-3" @click="$emit('update:isPanelOpen', !isPanelOpen)">
+                <span v-if="isPanelOpen" id="panelButtonKeyboard"></span>
+                <span v-else id="panelButtonSticker"></span>
+            </button>
+        </div>
         <div class="flex-1">
-            <input :value="modelValue"
-                   @input="$emit('update:modelValue', $event.target.value)"
-                   type="text" placeholder="Message" class="w-full h-full bg-tg-bg text-tg-text outline-none"/>
+            <input :value="text"
+                   @input="$emit('update:text', $event.target.value)"
+                   type="text" placeholder="Message"
+                   class="w-full h-full bg-tg-bg text-tg-text outline-none placeholder-tg-hint"/>
         </div>
         <div class="flex-none flex items-center">
-            <button id="send" class="w-5 h-5" :disabled="!modelValue" @click="$emit('send')">
+            <button id="send" class="w-5 h-5" :disabled="!text" @click="$emit('send')">
                 <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <g id="Icon">
@@ -35,5 +45,21 @@ defineEmits(['update:modelValue']);
     &:disabled svg {
         @apply opacity-30;
     }
+}
+
+#panelButtonSticker{
+    @apply bg-tg-hint;
+    @apply w-8 h-8 inline-block;
+    mask-image: url('../../img/sticker.svg');
+    mask-repeat: no-repeat;
+    mask-size: 100%;
+}
+
+#panelButtonKeyboard{
+    @apply bg-tg-hint;
+    @apply w-8 h-8 inline-block;
+    mask-image: url('../../img/keyboard.svg');
+    mask-repeat: no-repeat;
+    mask-size: 100%;
 }
 </style>

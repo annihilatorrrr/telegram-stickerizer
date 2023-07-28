@@ -3,14 +3,15 @@ import Input from "@/webapp/Input.vue";
 import {onMounted, ref} from "vue";
 import StickerPreview from "@/webapp/StickerPreview.vue";
 
-const text = ref(window.initText);
+const text = ref(window.initText ?? '');
+const isPanelOpen = ref(false);
 const webapp = window.Telegram.WebApp;
 
 const setScheme = function(){
-    if(window.Telegram.WebApp.platform === 'unknown'){
+    if(webapp.platform === 'unknown'){
         document.body.setAttribute('data-scheme', 'dark');
     } else {
-        document.body.setAttribute('data-scheme', window.Telegram.WebApp.colorScheme);
+        document.body.setAttribute('data-scheme', webapp.colorScheme);
     }
 }
 
@@ -38,10 +39,10 @@ const sendStickerCode = async () => {
         <div id="preview">
             <StickerPreview/>
         </div>
-        <div id="panel">Panel (Packs + Stickers)</div>
         <div id="input">
-            <Input v-model="text" @send="sendStickerCode"/>
+            <Input v-model:text="text" v-model:isPanelOpen="isPanelOpen" @send="sendStickerCode"/>
         </div>
+        <div id="panel">Panel (Packs + Stickers)</div>
     </div>
 </template>
 
@@ -49,23 +50,23 @@ const sendStickerCode = async () => {
 .layout {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 50px;
+    grid-template-rows: 1fr 50px 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     height: 100%;
 
     #preview {
         grid-area: 1 / 1 / 2 / 2;
-        padding-bottom: 8px;
-    }
-
-    #panel {
-        grid-area: 2 / 1 / 3 / 2;
-        background: blue;
+        padding-top: 1px;
     }
 
     #input {
+        grid-area: 2 / 1 / 3 / 2;
+    }
+
+    #panel {
         grid-area: 3 / 1 / 4 / 2;
+        background: blue;
     }
 }
 </style>
