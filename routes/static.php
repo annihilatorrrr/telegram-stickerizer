@@ -40,39 +40,27 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
         $stickerToUpload = InputFile::make($stickerResource, 'sticker.webp');
 
         //build pack name
-        $packName = sprintf("StickerizerHistory_for_%s_by_Stickerizer2Bot", $userID);
+        $packName = sprintf("StickerizerTmpPack_for_%s_by_Stickerizer2Bot", $userID);
 
-        //create pack and add sticker OR add sticker to existing pack
+        //delete existing pack
         try {
             $bot->getStickerSet($packName);
-            $bot->addStickerToSet(
-                name: $packName,
-                sticker: InputSticker::make(sticker: $stickerToUpload, emoji_list: ['🕒']),
-                user_id: $userID,
-            );
+            $bot->deleteStickerSet($packName);
         } catch (StickerSetNotFoundException) {
-            $bot->createNewStickerSet(
-                name: $packName,
-                title: 'Stickerizer History',
-                stickers: [InputSticker::make(sticker: $stickerToUpload, emoji_list: ['🕒'])],
-                sticker_format: 'static',
-                user_id: $userID,
-                sticker_type: 'regular',
-            );
         }
 
-        //reorder generated sticker to first position
-        $stickerId = end($bot->getStickerSet($packName)->stickers)->file_id;
-        $bot->setStickerPositionInSet($stickerId, 0);
+        //create pack and add sticker
+        $bot->createNewStickerSet(
+            name: $packName,
+            title: 'Stickerizer History',
+            stickers: [InputSticker::make(sticker: $stickerToUpload, emoji_list: ['🕒'])],
+            sticker_format: 'static',
+            user_id: $userID,
+            sticker_type: 'regular',
+        );
 
         //get generated sticker id
-        $stickerSet = $bot->getStickerSet($packName);
-        $stickerId = $stickerSet->stickers[0]->file_id;
-
-        //delete old sticker
-        if (count($stickerSet->stickers) > 10) {
-            $bot->deleteStickerFromSet(end($stickerSet->stickers)->file_id);
-        }
+        $stickerId = $bot->getStickerSet($packName)->stickers[0]->file_id;
 
         //return sticker id
         return ['telegram_sticker_id' => $stickerId];

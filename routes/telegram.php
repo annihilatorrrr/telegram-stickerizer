@@ -33,6 +33,7 @@ $bot->middleware(CheckMaintenance::class);
 $bot->onMyChatMember(UpdateUserStatus::class);
 $bot->onInlineQuery([InlineQueryHandler::class, 'input']);
 $bot->onInlineQueryText('^Ꜣ(.*)', [InlineQueryHandler::class, 'result']);
+$bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
 
 /*
 |--------------------------------------------------------------------------

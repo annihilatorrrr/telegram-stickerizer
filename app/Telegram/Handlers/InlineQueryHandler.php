@@ -6,6 +6,7 @@ use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultCachedSticker;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultsButton;
 use SergiX44\Nutgram\Telegram\Types\WebApp\WebAppInfo;
+use Throwable;
 
 class InlineQueryHandler
 {
@@ -15,7 +16,7 @@ class InlineQueryHandler
             results: [],
             cache_time: 0,
             button: InlineQueryResultsButton::make(
-                text: "Click here to create your sticker!",
+                text: "➡️ Click here to create your sticker! ⬅️",
                 web_app: new WebAppInfo(route('webapp.index', [
                     'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->inlineQuery()->from->id,
@@ -37,5 +38,17 @@ class InlineQueryHandler
             ],
             cache_time: 0,
         );
+    }
+
+    public function chosen(Nutgram $bot): void
+    {
+        //build pack name
+        $packName = sprintf("StickerizerTmpPack_for_%s_by_Stickerizer2Bot", $bot->userId());
+
+        //delete existing pack
+        try {
+            $bot->deleteStickerSet($packName);
+        } catch (Throwable) {
+        }
     }
 }
