@@ -1,10 +1,22 @@
 <script setup>
 import Input from "@/webapp/Input.vue";
 import {onMounted, ref} from "vue";
+import StickerPreview from "@/webapp/StickerPreview.vue";
 
 const text = ref(window.initText);
 const webapp = window.Telegram.WebApp;
+
+const setScheme = function(){
+    if(window.Telegram.WebApp.platform === 'unknown'){
+        document.body.setAttribute('data-scheme', 'dark');
+    } else {
+        document.body.setAttribute('data-scheme', window.Telegram.WebApp.colorScheme);
+    }
+}
+
 onMounted(() => {
+    setScheme();
+    webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
     webapp.ready();
 });
@@ -23,7 +35,9 @@ const sendStickerCode = async () => {
 
 <template>
     <div class="layout">
-        <div id="preview">Preview</div>
+        <div id="preview">
+            <StickerPreview/>
+        </div>
         <div id="panel">Panel (Packs + Stickers)</div>
         <div id="input">
             <Input v-model="text" @send="sendStickerCode"/>
@@ -42,7 +56,7 @@ const sendStickerCode = async () => {
 
     #preview {
         grid-area: 1 / 1 / 2 / 2;
-        background: red;
+        padding-bottom: 8px;
     }
 
     #panel {
