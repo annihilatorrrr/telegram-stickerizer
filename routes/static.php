@@ -9,24 +9,10 @@ use SergiX44\Nutgram\Telegram\Types\Input\InputSticker;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
 
 Route::post('/hook', fn(Nutgram $bot) => $bot->run());
-
-Route::get('sticker/{sticker}.webp', function (Request $request, Sticker $sticker) {
-
-    $text = $request->input('text', 'Hello World!');
-
-    $sticker = $sticker->getGenerator()->generate($text);
-
-    return $sticker->response('webp', 100);
-})->name('sticker.preview');
-
 Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
 
-    Route::get('/', function (Request $request) {
-        return view('webapp.main', [
-            'text' => $request->input('text'),
-            'user_id' => $request->input('user_id'),
-        ]);
-    })->name('index');
+    Route::get('/', [WebAppController::class, 'index'])->name('index');
+    Route::get('sticker/{sticker}.webp', [WebAppController::class, 'preview'])->name('sticker.preview');
 
     Route::post('sticker/send', function (Request $request, Nutgram $bot) {
         //get input
