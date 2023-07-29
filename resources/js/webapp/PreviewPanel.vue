@@ -1,5 +1,4 @@
 <script setup>
-
 import ChatBubble from "@/webapp/ChatBubble.vue";
 </script>
 
@@ -12,8 +11,8 @@ import ChatBubble from "@/webapp/ChatBubble.vue";
             <div id="preview-content-bg">s</div>
             <div class="p-3 bg-red h-full relative">
                 <ChatBubble>Send me a sticker!</ChatBubble>
-                <ChatBubble position="end">Nope.</ChatBubble>
-                <ChatBubble>Awesome ❤️</ChatBubble>
+                <slot/>
+                <ChatBubble position="end">Here you go 😉</ChatBubble>
             </div>
         </div>
     </div>
