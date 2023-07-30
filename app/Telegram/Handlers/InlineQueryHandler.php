@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Handlers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultCachedSticker;
@@ -25,15 +26,28 @@ class InlineQueryHandler
         );
     }
 
-    public function result(Nutgram $bot, string $sticker): void
+    public function result(Nutgram $bot, ?string $code): void
     {
-        info('result', ['sticker' => $sticker]);
+        if ($code === null || Cache::missing($code)) {
+            $bot->answerInlineQuery(
+                results: [],
+                cache_time: 0,
+                button: InlineQueryResultsButton::make(
+                    text: "❌ Sticker not found! ❌",
+                    web_app: new WebAppInfo(route('webapp.index', [
+                        'text' => '',
+                        'user_id' => $bot->inlineQuery()->from->id,
+                    ])),
+                )
+            );
+            return;
+        }
 
         $bot->answerInlineQuery(
             results: [
                 InlineQueryResultCachedSticker::make(
                     id: (string)time(),
-                    sticker_file_id: $sticker,
+                    sticker_file_id: Cache::get($code),
                 ),
             ],
             cache_time: 0,
@@ -42,11 +56,13 @@ class InlineQueryHandler
 
     public function chosen(Nutgram $bot): void
     {
-        //build pack name
-        $packName = sprintf("StickerizerTmpPack_for_%s_by_Stickerizer2Bot", $bot->userId());
+        //get code
+        $messageID = Str::after($bot->chosenInlineResult()->query, 'Ꜣ');
 
-        //delete existing sticker/pack
-        rescue(fn() => $bot->deleteStickerFromSet(Str::after($bot->chosenInlineResult()->query, 'Ꜣ')));
-        rescue(fn() => $bot->deleteStickerSet($packName));
+        //delete from cache
+        Cache::delete($messageID);
+
+        //delete sticker from private chat
+        rescue(fn() => $bot->deleteMessage($bot->userId(), $messageID), report: false);
     }
 }
