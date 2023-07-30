@@ -21,8 +21,8 @@ import ChatBubble from "@/webapp/ChatBubble.vue";
 <style scoped lang="scss">
 #preview-content-bg{
     @apply bg-gradient-to-br;
-    //@apply from-tg-link to-tg-button-bg;
-    @apply from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%;
+    @apply from-tg-link via-gray-500 via-50% to-tg-button-bg;
+    //@apply from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%;
     mask-image: url('../../img/bg-pattern.svg');
     mask-size: 50%;
     width: 100%;

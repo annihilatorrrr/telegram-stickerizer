@@ -1,11 +1,20 @@
 <script setup lang="ts">
+import {watch} from "vue";
+
 interface Props {
     text: string
     isPanelOpen: boolean
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 defineEmits(['update:text', 'update:isPanelOpen', 'send']);
+
+watch(() => props.isPanelOpen, (x) => {
+    if (!x) {
+        document.getElementById('input-text')?.focus();
+    }
+});
+
 </script>
 
 <template>
@@ -17,7 +26,7 @@ defineEmits(['update:text', 'update:isPanelOpen', 'send']);
             </button>
         </div>
         <div class="flex-1">
-            <input :value="text" autofocus
+            <input :value="text" autofocus id="input-text"
                    @input="$emit('update:text', $event.target.value)"
                    @focus="$emit('update:isPanelOpen', false)"
                    type="text" placeholder="Message"

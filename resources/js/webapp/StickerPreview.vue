@@ -22,7 +22,7 @@ const img = computed(function () {
 
 <template>
     <div id="stickerPreviewContainer">
-        <div id="stickerPreviewContent" :class="{empty:!img}" :style="{backgroundImage:`url(${img})`}">
+        <div id="stickerPreviewContent" :class="{empty:!img}" :style="{backgroundImage:img?`url(${img})`:'none'}">
             <span v-if="!sticker">
                 Select a sticker from the bottom panel to preview it here.
             </span>
