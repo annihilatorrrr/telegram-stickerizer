@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PackResource;
+use App\Models\Pack;
 use App\Models\Sticker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -52,5 +54,10 @@ class WebAppController extends Controller
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];
+    }
+
+    public function packs()
+    {
+        return PackResource::collection(Pack::all());
     }
 }

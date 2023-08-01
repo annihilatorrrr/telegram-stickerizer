@@ -3,6 +3,7 @@ import Input from "@/webapp/InputPanel.vue";
 import {onMounted, ref, watch} from "vue";
 import PreviewPanel from "@/webapp/PreviewPanel.vue";
 import StickerPreview from "@/webapp/StickerPreview.vue";
+import PacksPanel from "@/webapp/PacksPanel.vue";
 
 const text = ref(window.initText ?? '');
 const isPanelOpen = ref(false);
@@ -24,7 +25,7 @@ const checkPanelOpen = function () {
 const sendStickerCode = async () => {
     const response = await axios.post(route('webapp.sticker.send'), {
         user_id: window.initUser,
-        sticker_id: 1,
+        sticker_id: stickerID.value,
         text: text.value,
     });
 
@@ -59,7 +60,9 @@ watch(isPanelOpen, () => checkPanelOpen());
         <div id="input">
             <Input v-model:text="text" v-model:isPanelOpen="isPanelOpen" @send="sendStickerCode"/>
         </div>
-        <div id="panel">Panel (Packs + Stickers)</div>
+        <div id="panel">
+            <PacksPanel v-model:stickerID="stickerID"/>
+        </div>
     </div>
 </template>
 
@@ -82,8 +85,10 @@ watch(isPanelOpen, () => checkPanelOpen());
 
     #panel {
         grid-area: 3 / 1 / 4 / 2;
-        background: blue;
         height: 40vh;
+        overflow-y: scroll;
+        margin-top: 1px;
+        @apply bg-tg-bg;
     }
 }
 </style>

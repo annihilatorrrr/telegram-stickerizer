@@ -10,4 +10,5 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
     Route::get('/', [WebAppController::class, 'index'])->name('index');
     Route::get('sticker/preview/{sticker}.webp', [WebAppController::class, 'preview'])->name('sticker.preview');
     Route::post('sticker/send', [WebAppController::class, 'sendSticker'])->name('sticker.send');
+    Route::get('packs', [WebAppController::class, 'packs'])->name('packs');
 });
