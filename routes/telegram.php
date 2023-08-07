@@ -24,6 +24,7 @@ use SergiX44\Nutgram\Nutgram;
 |--------------------------------------------------------------------------
 */
 
+$bot->middleware(DevOnly::class);
 $bot->middleware(CollectUser::class);
 $bot->middleware(CheckMaintenance::class);
 
