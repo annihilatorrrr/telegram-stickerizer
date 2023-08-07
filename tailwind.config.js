@@ -29,6 +29,7 @@ export default {
                 'tg-link': 'var(--tg-theme-link-color)',
                 'tg-hint': 'var(--tg-theme-hint-color)',
                 'tg-bg-secondary': 'var(--tg-theme-secondary-bg-color)',
+                'tg-scheme': 'var(--tg-scheme)',
             }
         },
         future: {

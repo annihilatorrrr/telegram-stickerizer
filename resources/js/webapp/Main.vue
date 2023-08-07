@@ -62,25 +62,18 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 50px;
-    grid-column-gap: 0px;
-    grid-row-gap: 2px;
-    height: 100%;
+    @apply bg-tg-bg;
 
     #panel {
-        grid-area: 1 / 1 / 2 / 2;
-        overflow-y: scroll;
-        margin-top: 1px;
-        @apply bg-tg-bg;
-        height: calc(100vh - 50px);
-        overscroll-behavior: none;
-        pointer-events: auto;
+        padding-bottom: 50px;
     }
 
     #input {
-        grid-area: 2 / 1 / 3 / 2;
+        border-top: 2px solid var(--tg-scheme);
+        height: 50px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
     }
 }
 </style>

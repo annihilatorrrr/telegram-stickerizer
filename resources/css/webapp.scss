@@ -9,11 +9,11 @@
     --tg-theme-text-color: #f5f5f5;
     --tg-viewport-height: 331px;
     --tg-viewport-stable-height: 331px;
-    --bg-scheme: black;
+    --tg-scheme: black;
 }
 
 body[data-scheme="light"]{
-    --bg-scheme: white;
+    --tg-scheme: white;
 }
 
 html, body {
@@ -21,7 +21,7 @@ html, body {
 }
 
 body {
-    background: var(--bg-scheme) !important;
+    background: var(--tg-scheme) !important;
     color: var(--tg-theme-text-color) !important;
     height: 100vh;
 }
