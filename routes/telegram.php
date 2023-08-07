@@ -4,6 +4,7 @@
 use App\Telegram\Commands\AboutCommand;
 use App\Telegram\Commands\CancelCommand;
 use App\Telegram\Commands\FeedbackCommand;
+use App\Telegram\Commands\HelpCommand;
 use App\Telegram\Commands\PrivacyCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
@@ -42,11 +43,12 @@ $bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
 */
 
 $bot->registerCommand(StartCommand::class);
-$bot->registerCommand(FeedbackCommand::class);
-$bot->registerCommand(PrivacyCommand::class);
-$bot->registerCommand(AboutCommand::class);
-$bot->registerCommand(CancelCommand::class);
+$bot->registerCommand(HelpCommand::class);
 $bot->registerCommand(StatsCommand::class);
+$bot->registerCommand(AboutCommand::class);
+$bot->registerCommand(PrivacyCommand::class);
+$bot->registerCommand(FeedbackCommand::class);
+$bot->registerCommand(CancelCommand::class);
 
 /*
 |--------------------------------------------------------------------------
