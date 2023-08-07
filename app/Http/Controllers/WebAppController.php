@@ -33,7 +33,7 @@ class WebAppController extends Controller
     {
         //get input
         $userID = $request->input('user_id');
-        $stickerID = $request->input('sticker_id');
+        $stickerID = (int)$request->input('sticker_id');
         $text = $request->input('text') ?: 'TEXT';
 
         //generate sticker
@@ -51,7 +51,7 @@ class WebAppController extends Controller
         );
 
         //save sticker ID to cache
-        Cache::put($message->message_id, $message->sticker->file_id);
+        Cache::put($message->message_id, [$message->sticker->file_id, $stickerID]);
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];

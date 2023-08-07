@@ -8,6 +8,7 @@ use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultCachedSticker;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultsButton;
 use SergiX44\Nutgram\Telegram\Types\WebApp\WebAppInfo;
+use function App\Helpers\stats;
 
 class InlineQueryHandler
 {
@@ -43,11 +44,13 @@ class InlineQueryHandler
             return;
         }
 
+        [$stickerFileID] = Cache::get($code);
+
         $bot->answerInlineQuery(
             results: [
                 InlineQueryResultCachedSticker::make(
                     id: (string)time(),
-                    sticker_file_id: Cache::get($code),
+                    sticker_file_id: $stickerFileID,
                 ),
             ],
             cache_time: 0,
@@ -59,10 +62,16 @@ class InlineQueryHandler
         //get code
         $messageID = Str::after($bot->chosenInlineResult()->query, 'Ꜣ');
 
+        //get sticker id
+        [, $stickerID] = Cache::get($messageID);
+
         //delete from cache
         Cache::delete($messageID);
 
         //delete sticker from private chat
         rescue(fn() => $bot->deleteMessage($bot->userId(), $messageID), report: false);
+
+        //save stats
+        stats('sticker.sent', ['sticker_id' => $stickerID]);
     }
 }

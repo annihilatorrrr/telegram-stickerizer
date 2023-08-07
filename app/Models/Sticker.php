@@ -6,6 +6,7 @@ use App\Casts\StickerLayers;
 use App\Stickerizer\StickerGenerator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sticker extends Model
 {
@@ -24,5 +25,10 @@ class Sticker extends Model
         $generator = StickerGenerator::make($this->width, $this->height);
         $generator->addLayers($this->layers);
         return $generator;
+    }
+
+    public function stats(): HasMany
+    {
+        return $this->hasMany(Statistic::class, 'payload->sticker_id', 'id');
     }
 }
