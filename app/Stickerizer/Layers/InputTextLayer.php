@@ -5,6 +5,7 @@ namespace App\Stickerizer\Layers;
 use App\Stickerizer\Styles\Color;
 use App\Stickerizer\Styles\HorizontalAlignment;
 use App\Stickerizer\Styles\VerticalAlignment;
+use Arispati\EmojiRemover\EmojiRemover;
 use GDText\Box;
 use GDText\TextWrapping;
 use Intervention\Image\Facades\Image as ImageFacade;
@@ -107,9 +108,18 @@ class InputTextLayer extends StickerLayer
 
     public function setText(?string $text): self
     {
-        $this->text = $text;
+        $this->text = $this->cleanText($text);
 
         return $this;
+    }
+
+    protected function cleanText(?string $text): ?string
+    {
+        if ($text === null) {
+            return null;
+        }
+
+        return trim(EmojiRemover::filter($text));
     }
 
     public function handle(Image $canvas): void
