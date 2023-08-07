@@ -24,8 +24,9 @@ class WebAppController extends Controller
     {
         return $sticker
             ->getGenerator()
-            ->generate($request->input('text', 'TEXT'))
-            ->response('webp', 100);
+            ->generate($request->input('text') ?: 'TEXT')
+            ->resize(100, 100)
+            ->response('webp', 50);
     }
 
     public function sendSticker(Request $request, Nutgram $bot)

@@ -1,3 +1,17 @@
+const plugin = require('tailwindcss/plugin');
+
+const hoverPlugin = plugin(function ({addVariant, e, postcss}) {
+    addVariant('hover', ({container, separator}) => {
+        const hoverRule = postcss.atRule({name: 'media', params: '(hover: hover)'});
+        hoverRule.append(container.nodes);
+        container.append(hoverRule);
+        hoverRule.walkRules(rule => {
+            rule.selector = `.${e(`hover${separator}${rule.selector.slice(1)}`)}:hover`
+        });
+    });
+});
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -17,6 +31,11 @@ export default {
                 'tg-bg-secondary': 'var(--tg-theme-secondary-bg-color)',
             }
         },
+        future: {
+            hoverOnlyWhenSupported: true,
+        },
     },
-    plugins: [],
+    plugins: [
+        hoverPlugin,
+    ],
 }

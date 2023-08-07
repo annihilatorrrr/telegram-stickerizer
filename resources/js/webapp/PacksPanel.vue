@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
+import {ProgressiveImage} from "vue-progressive-image";
+import route from "ziggy-js";
 
 interface Props {
-    stickerID?: number
+    text: string
 }
 
 const props = defineProps<Props>();
-defineEmits(['update:stickerID']);
+defineEmits(['send']);
 
 const packs = ref([]);
 
@@ -21,13 +23,11 @@ onMounted(async () => {
     <div class="p-3">
         <div v-for="pack in packs" :key="`p${pack.id}`" class="pb-2 mb-2">
             <p class="text-tg-hint font-semibold text-sm mb-2">{{ pack.name }}</p>
-            <div class="grid grid-cols-5 gap-2">
-                <img v-for="sticker in pack.stickers" :key="`s${sticker.id}`"
-                     :src="sticker.thumbnail"
+            <div class="grid grid-cols-4 gap-2">
+                <ProgressiveImage v-for="sticker in pack.stickers" :key="`s${sticker.id}`"
+                                  :src="route('webapp.sticker.preview', {sticker: sticker.id, text: text})"
                      class="sticker"
-                     loading="lazy"
-                     :class="{selectedSticker: sticker.id === stickerID}"
-                     @click="$emit('update:stickerID', sticker.id)"
+                                  @click="$emit('send', sticker.id);"
                 />
             </div>
         </div>
@@ -35,6 +35,10 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+.v-progressive-image {
+    background: none;
+}
+
 .selectedSticker {
     box-shadow: 0 0 0 2px var(--tg-theme-link-color);
     border: 2px solid var(--tg-theme-bg-color);
