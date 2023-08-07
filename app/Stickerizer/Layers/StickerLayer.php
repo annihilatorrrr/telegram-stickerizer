@@ -78,7 +78,7 @@ abstract class StickerLayer implements JsonSerializable
             $this->layerPosition->x + 10,
             $this->layerPosition->y + 10,
             function ($font) {
-                $font->file(resource_path('fonts/OpenSansEmoji.ttf'));
+                $font->file(resource_path('fonts/arial-unicode.ttf'));
                 $font->size(12);
                 $font->color('#ff0000');
                 $font->align('left');
@@ -90,7 +90,7 @@ abstract class StickerLayer implements JsonSerializable
             $this->layerPosition->x + $this->layerSize->width - 10,
             $this->layerPosition->y + 10,
             function ($font) {
-                $font->file(resource_path('fonts/OpenSansEmoji.ttf'));
+                $font->file(resource_path('fonts/arial-unicode.ttf'));
                 $font->size(12);
                 $font->color('#ff0000');
                 $font->align('right');
@@ -102,7 +102,7 @@ abstract class StickerLayer implements JsonSerializable
             $this->layerPosition->x + 10,
             $this->layerPosition->y + $this->layerSize->height - 10,
             function ($font) {
-                $font->file(resource_path('fonts/OpenSansEmoji.ttf'));
+                $font->file(resource_path('fonts/arial-unicode.ttf'));
                 $font->size(12);
                 $font->color('#ff0000');
                 $font->align('left');
@@ -114,7 +114,7 @@ abstract class StickerLayer implements JsonSerializable
             $this->layerPosition->x + $this->layerSize->width - 10,
             $this->layerPosition->y + $this->layerSize->height - 10,
             function ($font) {
-                $font->file(resource_path('fonts/OpenSansEmoji.ttf'));
+                $font->file(resource_path('fonts/arial-unicode.ttf'));
                 $font->size(22);
                 $font->color('#ff0000');
                 $font->align('right');
