@@ -34,7 +34,7 @@ class WebAppController extends Controller
         //get input
         $userID = $request->input('user_id');
         $stickerID = $request->input('sticker_id');
-        $text = $request->input('text');
+        $text = $request->input('text') ?: 'TEXT';
 
         //generate sticker
         $stickerResource = Sticker::find($stickerID)

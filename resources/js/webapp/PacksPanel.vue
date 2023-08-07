@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import {ProgressiveImage} from "vue-progressive-image";
 import route from "ziggy-js";
+import BetterImage from "@/webapp/BetterImage.vue";
 
 interface Props {
     text: string
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 defineEmits(['send']);
 
 const packs = ref([]);
@@ -20,14 +20,14 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="p-3">
+    <div class="p-3 bg-tg-bg">
         <div v-for="pack in packs" :key="`p${pack.id}`" class="pb-2 mb-2">
             <p class="text-tg-hint font-semibold text-sm mb-2">{{ pack.name }}</p>
             <div class="grid grid-cols-4 gap-2">
-                <ProgressiveImage v-for="sticker in pack.stickers" :key="`s${sticker.id}`"
-                                  :src="route('webapp.sticker.preview', {sticker: sticker.id, text: text})"
-                     class="sticker"
-                                  @click="$emit('send', sticker.id);"
+                <BetterImage v-for="sticker in pack.stickers"
+                             :key="`s${sticker.id}`"
+                             :url="route('webapp.sticker.preview', {sticker: sticker.id, text: text})"
+                             @click="$emit('send', sticker.id);"
                 />
             </div>
         </div>

@@ -4,7 +4,6 @@ import {onMounted, ref} from "vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
 
 const text = ref(window.initText ?? '');
-const stickerID = ref(1);
 const webapp = window.Telegram.WebApp;
 
 const setScheme = function () {
@@ -16,6 +15,17 @@ const setScheme = function () {
 }
 
 const sendStickerCode = async (stickerID) => {
+    console.log(stickerID);
+    if (webapp.platform === 'unknown') {
+        alert('Platform not supported. Please use a supported Telegram client.');
+        return;
+    }
+
+    if (text.value.length === 0) {
+        webapp.showAlert('You need to enter a text to send the sticker.');
+        return;
+    }
+
     const response = await axios.post(route('webapp.sticker.send'), {
         user_id: window.initUser,
         sticker_id: stickerID,
@@ -37,14 +47,6 @@ const showInfo = () => {
 onMounted(() => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
-    webapp.onEvent('viewportChanged', function ({isStateStable}) {
-        /*console.log('viewport', {
-            isStateStable,
-            viewportHeight: webapp.viewportHeight,
-            viewportStableHeight: webapp.viewportStableHeight,
-        });*/
-    });
-    webapp.expand();
     webapp.ready();
 });
 </script>
@@ -72,7 +74,7 @@ onMounted(() => {
         border-top: 2px solid var(--tg-scheme);
         height: 50px;
         position: fixed;
-        bottom: 0;
+        top: calc(var(--tg-viewport-height) - 50px);
         width: 100%;
     }
 }

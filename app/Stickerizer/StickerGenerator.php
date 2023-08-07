@@ -107,7 +107,7 @@ class StickerGenerator
         }
     }
 
-    public function generate(string $text): Image
+    public function generate(string $text = 'TEXT'): Image
     {
         $this->validate();
 
