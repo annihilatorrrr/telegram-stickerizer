@@ -53,7 +53,7 @@ class InputTextLayer extends StickerLayer
 
         $this->fontColor = $fontColor;
         $this->fontSize = $fontSize;
-        $this->fontFamily = $fontFamily ?? resource_path('fonts/OpenSansEmoji.ttf');
+        $this->fontFamily = $fontFamily ?? resource_path('fonts/arial-unicode.ttf');
 
         $this->strokeSize = $strokeSize;
         $this->strokeColor = $strokeColor;
