@@ -32,7 +32,6 @@ class CollectUser
                 'last_name' => $bot->user()->last_name,
                 'username' => $bot->user()->username,
                 'language_code' => $bot->user()->language_code,
-                'blocked_at' => null,
             ]);
 
             if ($user->started_at === null && $bot->chat()?->type === ChatType::PRIVATE) {
