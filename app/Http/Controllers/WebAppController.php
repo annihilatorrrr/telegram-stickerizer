@@ -17,6 +17,7 @@ class WebAppController extends Controller
         return view('webapp.main', [
             'text' => $request->input('text'),
             'user_id' => $request->input('user_id'),
+            'fingerprint' => $request->input('fingerprint'),
         ]);
     }
 
@@ -31,6 +32,11 @@ class WebAppController extends Controller
 
     public function sendSticker(Request $request, Nutgram $bot)
     {
+        //check fingerprint
+        if ($request->input('fingerprint') !== hash_hmac('sha256', $request->input('user_id'), config('app.key'))) {
+            abort(403);
+        }
+
         //get input
         $userID = $request->input('user_id');
         $stickerID = (int)$request->input('sticker_id');

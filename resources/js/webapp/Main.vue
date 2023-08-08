@@ -30,6 +30,7 @@ const sendStickerCode = async (stickerID) => {
         user_id: window.initUser,
         sticker_id: stickerID,
         text: text.value,
+        fingerprint: window.initFingerprint,
     });
 
     webapp.switchInlineQuery('Ꜣ' + response.data.telegram_sticker_id);

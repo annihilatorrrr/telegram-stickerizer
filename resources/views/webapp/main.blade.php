@@ -9,6 +9,7 @@
     <script>
         window.initText = "{{ $text }}";
         window.initUser = {{ $user_id ?? 'null' }};
+        window.initFingerprint = "{{ $fingerprint }}";
     </script>
 
 @endpush

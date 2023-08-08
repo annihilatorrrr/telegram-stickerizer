@@ -22,6 +22,7 @@ class InlineQueryHandler
                 web_app: new WebAppInfo(route('webapp.index', [
                     'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->userId(),
+                    'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
                 ])),
             )
         );
