@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\BasePacks\BackgroundColorCircleSeeder;
 use Database\Seeders\BasePacks\BackgroundColorSeeder;
 use Database\Seeders\BasePacks\BackgroundImageSeeder;
 use Database\Seeders\BasePacks\BackgroundSpecialSeeder;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(TextColorSeeder::class);
         $this->call(BackgroundColorSeeder::class);
+        $this->call(BackgroundColorCircleSeeder::class);
         $this->call(BackgroundImageSeeder::class);
         $this->call(BackgroundSpecialSeeder::class);
     }

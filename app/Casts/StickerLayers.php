@@ -2,6 +2,7 @@
 
 namespace App\Casts;
 
+use App\Stickerizer\Layers\BackgroundColorCircleLayer;
 use App\Stickerizer\Layers\BackgroundColorLayer;
 use App\Stickerizer\Layers\BackgroundImageLayer;
 use App\Stickerizer\Layers\InputTextLayer;
@@ -29,6 +30,7 @@ class StickerLayers implements CastsAttributes
         return collect($layers)
             ->map(fn(array $layer) => match ($layer['type']) {
                 BackgroundColorLayer::class => BackgroundColorLayer::fromArray($layer),
+                BackgroundColorCircleLayer::class => BackgroundColorCircleLayer::fromArray($layer),
                 BackgroundImageLayer::class => BackgroundImageLayer::fromArray($layer),
                 InputTextLayer::class => InputTextLayer::fromArray($layer),
                 StaticTextLayer::class => StaticTextLayer::fromArray($layer),
