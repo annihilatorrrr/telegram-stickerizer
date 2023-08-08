@@ -8,7 +8,6 @@ use App\Telegram\Commands\HelpCommand;
 use App\Telegram\Commands\PrivacyCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
-use App\Telegram\Exceptions\StickerSetNotFoundException;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
 use App\Telegram\Handlers\UpdateUserStatus;
@@ -61,10 +60,6 @@ $bot->registerCommand(CancelCommand::class);
 | Exception handlers
 |--------------------------------------------------------------------------
 */
-
-$bot->onApiError('.*(STICKERSET_INVALID|STICKERPACK_NOT_FOUND).*', function (Nutgram $bot, $e) {
-    throw new StickerSetNotFoundException($e->getMessage());
-});
 
 $bot->onApiError([ExceptionsHandler::class, 'api']);
 $bot->onException([ExceptionsHandler::class, 'global']);
