@@ -21,8 +21,8 @@ jobs:
             git fetch origin
             git pull "https://Lukasss93:${{ secrets.GIT_TOKEN }}@github.com/Lukasss93/telegram-stickerizer.git" master
             php8.2 ~/.composer/composer install --no-dev --optimize-autoloader --no-ansi --no-interaction --no-progress
-            npm ci
-            npm run build
+            ~/.nvm/versions/node/v18.17.0/bin/npm ci
+            ~/.nvm/versions/node/v18.17.0/bin/npm run build
             php8.2 artisan storage:link
             php8.2 artisan migrate --force --step
             php8.2 artisan optimize:clear
