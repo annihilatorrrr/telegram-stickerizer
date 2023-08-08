@@ -22,6 +22,7 @@ const sendStickerCode = async (stickerID) => {
     }
 
     if (text.value.length === 0) {
+        webapp.HapticFeedback.notificationOccurred('error');
         webapp.showAlert('You need to enter a text to send the sticker.');
         return;
     }
@@ -44,12 +45,14 @@ const showInfo = () => {
         return;
     }
 
+    webapp.HapticFeedback.notificationOccurred('warning');
     webapp.showAlert('Click on a sticker to send it to the chat.');
 };
 
 onMounted(() => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
+    webapp.expand();
     webapp.ready();
 });
 </script>

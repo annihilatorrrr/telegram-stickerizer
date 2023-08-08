@@ -18,8 +18,6 @@ jobs:
           script: |
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            node -v
-            npm -v
             cd ${{ secrets.PROJECT_PATH}}
             php8.2 artisan down
             git reset --hard
