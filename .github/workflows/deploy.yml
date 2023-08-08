@@ -14,7 +14,9 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASS }}
+          script_stop: true
           script: |
+            source ~/.profile
             cd ${{ secrets.PROJECT_PATH}}
             php8.2 artisan down
             git reset --hard
