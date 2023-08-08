@@ -14,8 +14,12 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASS }}
+          debug: true
           script: |
-            source ~/.bashrc
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            node -v
+            npm -v
             cd ${{ secrets.PROJECT_PATH}}
             php8.2 artisan down
             git reset --hard
