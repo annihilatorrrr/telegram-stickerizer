@@ -20,7 +20,7 @@ jobs:
             git reset --hard
             git fetch origin
             git pull "https://Lukasss93:${{ secrets.GIT_TOKEN }}@github.com/Lukasss93/telegram-stickerizer.git" ${{  github.ref_name }}
-            ~/.composer/composer install --no-dev --optimize-autoloader --no-ansi --no-interaction --no-progress
+            php8.2 ~/.composer/composer install --no-dev --optimize-autoloader --no-ansi --no-interaction --no-progress
             npm ci
             npm run build
             php8.2 artisan storage:link
