@@ -21,7 +21,7 @@ class InlineQueryHandler
                 text: "➡️ Click here to create your sticker! ⬅️",
                 web_app: new WebAppInfo(route('webapp.index', [
                     'text' => $bot->inlineQuery()->query,
-                    'user_id' => $bot->inlineQuery()->from->id,
+                    'user_id' => $bot->userId(),
                 ])),
             )
         );
@@ -29,21 +29,6 @@ class InlineQueryHandler
 
     public function result(Nutgram $bot, ?string $code): void
     {
-        if ($code === null || Cache::missing($code)) {
-            $bot->answerInlineQuery(
-                results: [],
-                cache_time: 0,
-                button: InlineQueryResultsButton::make(
-                    text: '❌ Sticker not found! ❌',
-                    web_app: new WebAppInfo(route('webapp.index', [
-                        'text' => '',
-                        'user_id' => $bot->inlineQuery()->from->id,
-                    ])),
-                )
-            );
-            return;
-        }
-
         [$stickerFileID] = Cache::get($code);
 
         $bot->answerInlineQuery(

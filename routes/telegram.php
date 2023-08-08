@@ -16,6 +16,7 @@ use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CollectUser;
 use App\Telegram\Middleware\DevOnly;
 use App\Telegram\Middleware\InlineAllowed;
+use App\Telegram\Middleware\ValidInlineCode;
 use SergiX44\Nutgram\Nutgram;
 
 /*
@@ -35,11 +36,12 @@ $bot->middleware(CheckMaintenance::class);
 */
 
 $bot->onMyChatMember(UpdateUserStatus::class);
-$bot->onInlineQuery([InlineQueryHandler::class, 'input'])
-    ->middleware(InlineAllowed::class);
-$bot->onInlineQueryText('^Ꜣ(.*)', [InlineQueryHandler::class, 'result'])
-    ->middleware(InlineAllowed::class);
 $bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
+$bot->group(function (Nutgram $bot) {
+    $bot->onInlineQuery([InlineQueryHandler::class, 'input']);
+    $bot->onInlineQueryText('^Ꜣ(.*)', [InlineQueryHandler::class, 'result'])
+        ->middleware(ValidInlineCode::class);
+})->middleware(InlineAllowed::class);
 
 /*
 |--------------------------------------------------------------------------
