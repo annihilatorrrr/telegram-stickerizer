@@ -1,0 +1,33 @@
+name: Deploy
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASS }}
+          script: |
+            cd ${{ secrets.PROJECT_PATH}}
+            php8.2 artisan down
+            git reset --hard
+            git fetch origin
+            git pull "https://Lukasss93:${{ secrets.GIT_TOKEN }}@github.com/Lukasss93/telegram-stickerizer.git" ${{  github.ref_name }}
+            ~/.composer/composer install --no-dev --optimize-autoloader --no-ansi --no-interaction --no-progress
+            npm ci
+            npm run build
+            php8.2 artisan storage:link
+            php8.2 artisan migrate --force --step
+            php8.2 artisan optimize:clear
+            php8.2 artisan optimize
+            php8.2 artisan view:cache
+            php8.2 artisan nutgram:register-commands
+            php8.2 artisan up
+            echo 'DONE!'
