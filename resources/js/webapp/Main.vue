@@ -33,6 +33,8 @@ const sendStickerCode = async (stickerID) => {
         fingerprint: window.initFingerprint,
     });
 
+    webapp.HapticFeedback.notificationOccurred('success');
+
     webapp.switchInlineQuery('Ꜣ' + response.data.telegram_sticker_id);
 };
 
