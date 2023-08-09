@@ -15,9 +15,11 @@ class WebAppController extends Controller
     public function index(Request $request)
     {
         return view('webapp.main', [
-            'text' => $request->input('text'),
-            'user_id' => $request->input('user_id'),
-            'fingerprint' => $request->input('fingerprint'),
+            'initData' => [
+                'text' => $request->input('text'),
+                'user_id' => $request->input('user_id'),
+                'fingerprint' => $request->input('fingerprint'),
+            ]
         ]);
     }
 

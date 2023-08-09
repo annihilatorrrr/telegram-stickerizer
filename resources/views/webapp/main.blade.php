@@ -5,11 +5,8 @@
 @endsection
 
 @push('scripts')
-    @vite(['resources/js/app.js'])
-    <script>
-        window.initText = "{{ $text }}";
-        window.initUser = {{ $user_id ?? 'null' }};
-        window.initFingerprint = "{{ $fingerprint }}";
+    <script type="text/javascript">
+        window.initData = @json($initData);
     </script>
-
+    @vite(['resources/js/app.js'])
 @endpush

@@ -3,7 +3,7 @@ import InputPanel from "@/webapp/InputPanel.vue";
 import {onMounted, ref} from "vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
 
-const text = ref(window.initText ?? '');
+const text = ref(window.initData.text ?? '');
 const webapp = window.Telegram.WebApp;
 
 const setScheme = function () {
@@ -28,10 +28,10 @@ const sendStickerCode = async (stickerID) => {
     }
 
     const response = await axios.post(route('webapp.sticker.send'), {
-        user_id: window.initUser,
+        user_id: window.initData.user_id,
         sticker_id: stickerID,
         text: text.value,
-        fingerprint: window.initFingerprint,
+        fingerprint: window.initData.fingerprint,
     });
 
     webapp.HapticFeedback.notificationOccurred('success');
