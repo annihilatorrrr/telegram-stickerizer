@@ -2,7 +2,9 @@
 import InputPanel from "@/webapp/InputPanel.vue";
 import {onMounted, ref} from "vue";
 import StickersPanel from "@/webapp/StickersPanel.vue";
+import PacksPanel from "@/webapp/PacksPanel.vue";
 
+const packs = ref([]);
 const text = ref(window.initData.text ?? '');
 const webapp = window.Telegram.WebApp;
 
@@ -51,18 +53,30 @@ const showInfo = () => {
     webapp.showAlert(message);
 };
 
-onMounted(() => {
+const loadPacks = async () => {
+    const response = await axios.get(route('webapp.packs'));
+    packs.value = response.data;
+};
+
+onMounted(async () => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
+    await loadPacks();
     webapp.ready();
 });
 </script>
 
 <template>
     <div class="layout">
-        <div id="panel">
-            <StickersPanel v-model:text="text" @send="sendStickerCode"/>
+        <div id="stickers-panel">
+            <StickersPanel
+                v-model:packs="packs"
+                v-model:text="text"
+                @send="sendStickerCode"/>
+        </div>
+        <div id="packs-panel">
+            <PacksPanel v-model:packs="packs"/>
         </div>
         <div id="input">
             <InputPanel v-model:text="text" @info="showInfo"/>
@@ -74,15 +88,26 @@ onMounted(() => {
 .layout {
     @apply bg-tg-bg;
 
-    #panel {
-        padding-bottom: 50px;
+    --packs-panel-height: 40px;
+    --input-panel-height: 50px;
+
+    #stickers-panel {
+        padding-bottom: 80px;
+    }
+
+    #packs-panel {
+        border-top: 1px solid var(--tg-scheme);
+        height: var(--packs-panel-height);
+        position: fixed;
+        top: calc(var(--tg-viewport-height) - (var(--packs-panel-height) + var(--input-panel-height)));
+        width: 100%;
     }
 
     #input {
-        border-top: 2px solid var(--tg-scheme);
-        height: 50px;
+        border-top: 1px solid var(--tg-scheme);
+        height: var(--input-panel-height);
         position: fixed;
-        top: calc(var(--tg-viewport-height) - 50px);
+        top: calc(var(--tg-viewport-height) - var(--input-panel-height));
         width: 100%;
     }
 }

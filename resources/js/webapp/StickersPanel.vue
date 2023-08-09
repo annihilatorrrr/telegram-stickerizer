@@ -1,28 +1,22 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
 import route from "ziggy-js";
 import BetterImage from "@/webapp/BetterImage.vue";
 
 interface Props {
-    text: string
+    text: string;
+    packs: any[];
 }
 
 defineProps<Props>();
 defineEmits(['send']);
-
-const packs = ref([]);
-
-onMounted(async () => {
-    const response = await axios.get(route('webapp.packs'));
-    packs.value = response.data;
-});
-
 </script>
 
 <template>
     <div class="p-3 bg-tg-bg">
         <div v-for="pack in packs" :key="`p${pack.id}`" class="pb-2 mb-2">
-            <p class="text-tg-hint font-semibold text-sm mb-2">{{ pack.name }}</p>
+            <a :id="`P${pack.id}`" class="text-tg-hint font-semibold text-sm mb-2 block cursor-default">
+                {{ pack.name }}
+            </a>
             <div class="grid grid-cols-4 gap-2">
                 <BetterImage v-for="sticker in pack.stickers"
                              :key="`s${sticker.id}`"

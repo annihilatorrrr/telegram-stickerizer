@@ -67,6 +67,10 @@ class WebAppController extends Controller
 
     public function packs()
     {
-        return PackResource::collection(Pack::all());
+        $packs = Pack::query()
+            ->with('stickers')
+            ->get();
+
+        return PackResource::collection($packs);
     }
 }

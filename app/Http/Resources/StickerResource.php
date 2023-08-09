@@ -14,7 +14,6 @@ class StickerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'thumbnail' => url('storage/thumbnails/' . $this->pack_id . '/' . $this->id . '.png'),
         ];
     }
 }

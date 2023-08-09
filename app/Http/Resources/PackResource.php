@@ -15,6 +15,10 @@ class PackResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'icon' => route('webapp.sticker.preview', [
+                'sticker' => $this->stickers->first()->id,
+                'text' => 'T',
+            ]),
             'stickers' => StickerResource::collection($this->stickers),
         ];
     }
