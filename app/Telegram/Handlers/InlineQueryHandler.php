@@ -18,7 +18,7 @@ class InlineQueryHandler
             results: [],
             cache_time: 0,
             button: InlineQueryResultsButton::make(
-                text: "➡️ Click here to create your sticker! ⬅️",
+                text: "Click here to create your sticker!",
                 web_app: new WebAppInfo(route('webapp.index', [
                     'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->userId(),
