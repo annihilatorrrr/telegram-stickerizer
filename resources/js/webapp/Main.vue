@@ -1,7 +1,7 @@
 <script setup>
 import InputPanel from "@/webapp/InputPanel.vue";
 import {onMounted, ref} from "vue";
-import PacksPanel from "@/webapp/PacksPanel.vue";
+import StickersPanel from "@/webapp/StickersPanel.vue";
 
 const text = ref(window.initData.text ?? '');
 const webapp = window.Telegram.WebApp;
@@ -60,7 +60,7 @@ onMounted(() => {
 <template>
     <div class="layout">
         <div id="panel">
-            <PacksPanel v-model:text="text" @send="sendStickerCode"/>
+            <StickersPanel v-model:text="text" @send="sendStickerCode"/>
         </div>
         <div id="input">
             <InputPanel v-model:text="text" @info="showInfo"/>
