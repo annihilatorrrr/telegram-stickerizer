@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
     <div class="flex items-center bg-tg-bg h-full">
         <div class="flex-1">
-            <input :value="text" autofocus tabindex="1" id="input-text"
+            <input :value="text" autofocus tabindex="1" id="input-text" maxlength="150"
                    @input="onInput"
                    type="text" placeholder="Message"
                    class="w-full text-tg-text outline-none placeholder-tg-hint pl-3 bg-transparent"/>

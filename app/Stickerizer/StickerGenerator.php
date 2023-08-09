@@ -9,6 +9,7 @@ use App\Stickerizer\Exceptions\TooManyLayersFound;
 use App\Stickerizer\Layers\InputTextLayer;
 use App\Stickerizer\Layers\StickerLayer;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as ImageFacade;
 use Intervention\Image\Image;
 
@@ -21,6 +22,12 @@ class StickerGenerator
      * @var int
      */
     protected const LAYERS_LIMIT = 10;
+
+    /**
+     * Maximum number of characters allowed in the input text
+     * @var int
+     */
+    protected const MAX_INPUT_TEXT_LENGTH = 150;
 
     /**
      * Canvas width
@@ -110,6 +117,8 @@ class StickerGenerator
     public function generate(string $text = 'TEXT'): Image
     {
         $this->validate();
+
+        $text = Str::limit($text, self::MAX_INPUT_TEXT_LENGTH, '');
 
         $canvas = ImageFacade::canvas($this->width, $this->height);
 

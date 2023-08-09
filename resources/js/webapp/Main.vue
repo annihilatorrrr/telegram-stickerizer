@@ -40,13 +40,15 @@ const sendStickerCode = async (stickerID) => {
 };
 
 const showInfo = () => {
+    const message = 'Click on a sticker to send it to the chat.\nThe maximum length of a text message is 150 characters.';
+
     if (webapp.platform === 'unknown') {
-        alert('Click on a sticker to send it to the chat.');
+        alert(message);
         return;
     }
 
     webapp.HapticFeedback.notificationOccurred('warning');
-    webapp.showAlert('Click on a sticker to send it to the chat.');
+    webapp.showAlert(message);
 };
 
 onMounted(() => {
