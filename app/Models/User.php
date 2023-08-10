@@ -40,4 +40,18 @@ class User extends Model
     {
         return $this->hasMany(StickersHistory::class);
     }
+
+    public function getGdprData(): array
+    {
+        return [
+            ...$this->toArray(),
+            'feedback' => $this->feedback->toArray(),
+            'stickers_history' => $this->stickersHistory->toArray(),
+            'statistics' => $this->statistics()
+                ->selectRaw('action, count(action) as total')
+                ->groupBy('action')
+                ->pluck('total', 'action')
+                ->toArray(),
+        ];
+    }
 }
