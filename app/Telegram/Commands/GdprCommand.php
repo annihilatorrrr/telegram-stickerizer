@@ -32,15 +32,18 @@ class GdprCommand extends Command
     public function downloadData(Nutgram $bot): void
     {
         $data = $bot->get(User::class)->getGdprData();
-        $json = json_encode($data,
-            JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $resource = Str::toResource($json);
+        $json = json_encode(
+            value: $data,
+            flags: JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        );
 
         $bot->sendDocument(
-            document: InputFile::make($resource, 'user_data.json'),
+            document: InputFile::make(Str::toResource($json), 'user_data.json'),
             caption: 'This file contains all your saved data.',
         );
 
         stats('command.gdpr.download');
+
+        $bot->answerCallbackQuery();
     }
 }
