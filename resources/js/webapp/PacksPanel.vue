@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
 interface Props {
+    hasHistory: boolean;
     packs: any[];
 }
 
@@ -8,11 +11,17 @@ defineProps<Props>();
 
 <template>
     <div id="packs-panel-container">
+        <a v-if="hasHistory" href="#history"
+           class="pack-icon flex items-center justify-center"
+           style="background-color: transparent !important;">
+            <font-awesome-icon icon="fa-regular fa-clock" size="xl" class="text-tg-hint"/>
+        </a>
+
         <a v-for="pack in packs"
            :key="`pp${pack.id}`"
            :href="`#P${pack.id}`"
            :style="{backgroundImage: `url(${pack.icon})`}"
-           class="pack-icon">
+           class="pack-icon inline-block">
         </a>
     </div>
 </template>
@@ -25,12 +34,12 @@ defineProps<Props>();
     box-sizing: border-box;
 
     .pack-icon {
-        @apply inline-block h-full aspect-square;
+        @apply h-full aspect-square;
         @apply rounded;
         @apply text-white text-center;
         background-size: contain;
         background-repeat: no-repeat;
-        box-shadow: 0 0 1px var(--tg-scheme);
+        background-color: rgba(0, 0, 0, 0.1);
     }
 }
 </style>

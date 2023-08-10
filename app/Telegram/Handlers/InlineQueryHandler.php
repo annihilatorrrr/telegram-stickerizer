@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Handlers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use SergiX44\Nutgram\Nutgram;
@@ -48,14 +49,20 @@ class InlineQueryHandler
         //get code
         $messageID = Str::after($bot->chosenInlineResult()->query, 'Ꜣ');
 
-        //get sticker id
-        [, $stickerID] = Cache::get($messageID);
+        //get sticker data
+        [, $stickerID, $text] = Cache::get($messageID);
 
         //delete from cache
         Cache::delete($messageID);
 
         //delete sticker from private chat
         rescue(fn() => $bot->deleteMessage($bot->userId(), $messageID), report: false);
+
+        //save sticker to user's history
+        $bot->get(User::class)->stickersHistory()->create([
+            'sticker_id' => $stickerID,
+            'text' => $text,
+        ]);
 
         //save stats
         stats('sticker.sent', ['sticker_id' => $stickerID]);

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PackResource;
+use App\Http\Resources\StickersHistoryResource;
 use App\Models\Pack;
 use App\Models\Sticker;
+use App\Models\StickersHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use SergiX44\Nutgram\Nutgram;
@@ -34,11 +36,6 @@ class WebAppController extends Controller
 
     public function sendSticker(Request $request, Nutgram $bot)
     {
-        //check fingerprint
-        if ($request->input('fingerprint') !== hash_hmac('sha256', $request->input('user_id'), config('app.key'))) {
-            abort(403);
-        }
-
         //get input
         $userID = $request->input('user_id');
         $stickerID = (int)$request->input('sticker_id');
@@ -58,8 +55,8 @@ class WebAppController extends Controller
             disable_notification: true,
         );
 
-        //save sticker ID to cache
-        Cache::put($message->message_id, [$message->sticker->file_id, $stickerID]);
+        //save sticker data to cache
+        Cache::put($message->message_id, [$message->sticker->file_id, $stickerID, $text]);
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];
@@ -72,5 +69,22 @@ class WebAppController extends Controller
             ->get();
 
         return PackResource::collection($packs);
+    }
+
+    public function history(Request $request)
+    {
+        $history = StickersHistory::query()
+            ->where('user_id', $request->input('user_id'))
+            ->latest()
+            ->get();
+
+        return StickersHistoryResource::collection($history);
+    }
+
+    public function clearHistory(Request $request)
+    {
+        StickersHistory::query()
+            ->where('user_id', $request->input('user_id'))
+            ->delete();
     }
 }

@@ -1,12 +1,15 @@
 <script setup>
 import InputPanel from "@/webapp/InputPanel.vue";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import StickersPanel from "@/webapp/StickersPanel.vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
 
+const history = ref([]);
 const packs = ref([]);
 const text = ref(window.initData.text ?? '');
 const webapp = window.Telegram.WebApp;
+
+const hasHistory = computed(() => history.value.length > 0);
 
 const setScheme = function () {
     if (webapp.platform === 'unknown') {
@@ -16,14 +19,13 @@ const setScheme = function () {
     }
 }
 
-const sendStickerCode = async (stickerID) => {
-    console.log(stickerID);
+const sendStickerCode = async (stickerID, forcedText) => {
     if (webapp.platform === 'unknown') {
         alert('Platform not supported. Please use a supported Telegram client.');
         return;
     }
 
-    if (text.value.length === 0) {
+    if (forcedText === undefined && text.value.length === 0) {
         webapp.HapticFeedback.notificationOccurred('error');
         webapp.showAlert('You need to enter a text to send the sticker.');
         return;
@@ -32,7 +34,7 @@ const sendStickerCode = async (stickerID) => {
     const response = await axios.post(route('webapp.sticker.send'), {
         user_id: window.initData.user_id,
         sticker_id: stickerID,
-        text: text.value,
+        text: forcedText ?? text.value,
         fingerprint: window.initData.fingerprint,
     });
 
@@ -58,11 +60,36 @@ const loadPacks = async () => {
     packs.value = response.data;
 };
 
-onMounted(async () => {
+const loadHistory = async () => {
+    const response = await axios.get(route('webapp.sticker.history.list'), {
+        params: {
+            user_id: window.initData.user_id,
+            fingerprint: window.initData.fingerprint,
+        }
+    });
+    history.value = response.data;
+};
+
+const clearHistory = async () => {
+    webapp.showConfirm('Do you want to clear all your recent stickers?', async function (result) {
+        if (result) {
+            await axios.delete(route('webapp.sticker.history.clear'), {
+                params: {
+                    user_id: window.initData.user_id,
+                    fingerprint: window.initData.fingerprint,
+                }
+            });
+            await loadHistory();
+        }
+    });
+};
+
+onMounted(() => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
-    await loadPacks();
+    loadHistory();
+    loadPacks();
     webapp.ready();
 });
 </script>
@@ -71,12 +98,15 @@ onMounted(async () => {
     <div class="layout">
         <div id="stickers-panel">
             <StickersPanel
+                v-model:history="history"
                 v-model:packs="packs"
                 v-model:text="text"
-                @send="sendStickerCode"/>
+                @send="sendStickerCode"
+                @sendFromHistory="(x) => sendStickerCode(x.sticker, x.text)"
+                @clearHistory="clearHistory"/>
         </div>
         <div id="packs-panel">
-            <PacksPanel v-model:packs="packs"/>
+            <PacksPanel v-model:hasHistory="hasHistory" v-model:packs="packs"/>
         </div>
         <div id="input">
             <InputPanel v-model:text="text" @info="showInfo"/>

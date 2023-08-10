@@ -35,4 +35,9 @@ class User extends Model
     {
         return $this->belongsToMany(Pack::class)->withTimestamps();
     }
+
+    public function stickersHistory(): HasMany
+    {
+        return $this->hasMany(StickersHistory::class);
+    }
 }
