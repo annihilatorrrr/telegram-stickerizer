@@ -9,6 +9,7 @@ use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
+use function App\Helpers\stats;
 
 class GdprCommand extends Command
 {
@@ -24,17 +25,22 @@ class GdprCommand extends Command
                 InlineKeyboardButton::make('Download my data', callback_data: 'gdpr.download'),
             )
         );
+
+        stats('command.gdpr');
     }
 
     public function downloadData(Nutgram $bot): void
     {
         $data = $bot->get(User::class)->getGdprData();
-        $json = json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
+        $json = json_encode($data,
+            JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $resource = Str::toResource($json);
 
         $bot->sendDocument(
             document: InputFile::make($resource, 'user_data.json'),
             caption: 'This file contains all your saved data.',
         );
+
+        stats('command.gdpr.download');
     }
 }
