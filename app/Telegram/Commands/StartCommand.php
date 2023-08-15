@@ -5,6 +5,8 @@ namespace App\Telegram\Commands;
 use SergiX44\Nutgram\Handlers\Type\Command;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
+use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
+use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
 use function App\Helpers\message;
 use function App\Helpers\stats;
 
@@ -19,6 +21,12 @@ class StartCommand extends Command
         $bot->sendMessage(
             text: message('start'),
             parse_mode: ParseMode::HTML,
+            reply_markup: InlineKeyboardMarkup::make()->addRow(
+                InlineKeyboardButton::make(
+                    text: 'Start using the bot inline',
+                    switch_inline_query: 'hello world',
+                )
+            ),
         );
 
         stats('command.start');
