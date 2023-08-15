@@ -15,7 +15,6 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
     Route::middleware(ValidateFingerprint::class)->group(function () {
         Route::post('sticker/send', [WebAppController::class, 'sendSticker'])->name('sticker.send');
         Route::get('sticker/history', [WebAppController::class, 'history'])->name('sticker.history.list');
-        Route::delete('sticker/history/clear',
-            [WebAppController::class, 'clearHistory'])->name('sticker.history.clear');
+        Route::delete('sticker/history/clear', [WebAppController::class, 'clearHistory'])->name('sticker.history.clear');
     });
 });
