@@ -9,7 +9,8 @@ Route::post('/hook', fn(Nutgram $bot) => $bot->run());
 
 Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
     Route::get('/', [WebAppController::class, 'index'])->name('index');
-    Route::get('sticker/preview/{sticker}.webp', [WebAppController::class, 'preview'])->name('sticker.preview');
+    Route::get('sticker/preview/{sticker}.webp', [WebAppController::class, 'preview'])->name('sticker.preview')
+        ->middleware('cache.headers:public;max_age=1800;etag');
     Route::get('packs', [WebAppController::class, 'packs'])->name('packs');
 
     Route::middleware(ValidateFingerprint::class)->group(function () {
