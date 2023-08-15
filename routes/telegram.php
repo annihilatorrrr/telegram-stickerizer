@@ -15,6 +15,7 @@ use App\Telegram\Handlers\UpdateUserStatus;
 use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CollectUser;
 use App\Telegram\Middleware\InlineAllowed;
+use App\Telegram\Middleware\SetLocale;
 use App\Telegram\Middleware\ValidInlineCode;
 use SergiX44\Nutgram\Nutgram;
 
@@ -25,6 +26,7 @@ use SergiX44\Nutgram\Nutgram;
 */
 
 $bot->middleware(CollectUser::class);
+$bot->middleware(SetLocale::class);
 $bot->middleware(CheckMaintenance::class);
 
 /*

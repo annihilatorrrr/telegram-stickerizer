@@ -2,6 +2,7 @@
 import route from "ziggy-js";
 import BetterImage from "@/webapp/BetterImage.vue";
 import {computed} from "vue";
+import {trans} from 'laravel-vue-i18n';
 
 interface Props {
     text: string;
@@ -20,7 +21,7 @@ const hasHistory = computed(() => props.history.length > 0);
         <div class="pb-2 mb-2" v-if="hasHistory">
             <div class="flex mb-2">
                 <a :id="`history`" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default">
-                    History
+                    {{ trans('webapp.history') }}
                 </a>
                 <button @click="$emit('clearHistory')" class="inline-block px-">
                     <font-awesome-icon icon="fa-solid fa-xmark" class="text-tg-hint"/>

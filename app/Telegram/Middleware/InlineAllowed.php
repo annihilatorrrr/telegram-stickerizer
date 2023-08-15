@@ -18,7 +18,7 @@ class InlineAllowed
                 results: [],
                 cache_time: 0,
                 button: InlineQueryResultsButton::make(
-                    text: 'You need to unblock the bot first!',
+                    text: __('inline.blocked'),
                     start_parameter: 'BOT_BLOCKED',
                 )
             );
@@ -30,7 +30,7 @@ class InlineAllowed
                 results: [],
                 cache_time: 0,
                 button: InlineQueryResultsButton::make(
-                    text: 'You need to start the bot first!',
+                    text: __('inline.not_started'),
                     start_parameter: 'BOT_NOT_STARTED',
                 )
             );

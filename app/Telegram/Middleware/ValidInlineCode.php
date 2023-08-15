@@ -18,7 +18,7 @@ class ValidInlineCode
                 results: [],
                 cache_time: 0,
                 button: InlineQueryResultsButton::make(
-                    text: 'Sticker not found!',
+                    text: __('inline.invalid_code'),
                     web_app: new WebAppInfo(route('webapp.index', [
                         'text' => '',
                         'user_id' => $bot->userId(),

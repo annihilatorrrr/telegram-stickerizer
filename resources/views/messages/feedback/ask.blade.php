@@ -1,1 +1,1 @@
-Please enter a feedback about the bot:
+@lang('feedback.ask')

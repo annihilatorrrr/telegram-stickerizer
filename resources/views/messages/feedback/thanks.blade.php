@@ -1,1 +1,1 @@
-Thank you for your feedback!
+@lang('feedback.thanks')

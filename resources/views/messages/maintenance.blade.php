@@ -1,2 +1,2 @@
-<i>Bot currently in maintenance mode.</i><br>
-It will be back soon!
+<i>@lang('maintenance.description')</i><br>
+@lang('maintenance.soon')

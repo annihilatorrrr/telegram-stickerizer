@@ -20,9 +20,9 @@ class GdprCommand extends Command
     public function handle(Nutgram $bot): void
     {
         $bot->sendMessage(
-            text: 'Here you can manage your GDPR data.',
+            text: __('gdpr.description'),
             reply_markup: InlineKeyboardMarkup::make()->addRow(
-                InlineKeyboardButton::make('Download my data', callback_data: 'gdpr.download'),
+                InlineKeyboardButton::make(__('gdpr.download.button'), callback_data: 'gdpr.download'),
             )
         );
 
@@ -39,7 +39,7 @@ class GdprCommand extends Command
 
         $bot->sendDocument(
             document: InputFile::make(Str::toResource($json), 'user_data.json'),
-            caption: 'This file contains all your saved data.',
+            caption: __('gdpr.download.caption'),
         );
 
         stats('command.gdpr.download');

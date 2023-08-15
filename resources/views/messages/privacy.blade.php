@@ -1,2 +1,2 @@
-🕶 Privacy Policy<br>
-Read the privacy policy clicking the button below.
+@lang('privacy.title')<br>
+@lang('privacy.description')

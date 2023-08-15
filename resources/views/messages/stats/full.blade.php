@@ -1,17 +1,17 @@
-<b>📊 Statistics</b><br>
+<b>@lang('stats.title')</b><br>
 <br>
-🖼 Stickers Sent<br>
-Today: {{$stickersSentToday}}<br>
-This week: {{$stickersSentWeek}}<br>
-This month: {{$stickersSentMonth}}<br>
-This year: {{$stickersSentYear}}<br>
-Total: {{$stickersSentTotal}}<br>
+@lang('stats.stickers_sent')<br>
+@lang('stats.range.today', ['value' => $stickersSentToday])<br>
+@lang('stats.range.week', ['value' => $stickersSentWeek])<br>
+@lang('stats.range.month', ['value' => $stickersSentMonth])<br>
+@lang('stats.range.year', ['value' => $stickersSentYear])<br>
+@lang('stats.range.total', ['value' => $stickersSentTotal])<br>
 <br>
-👥 Users<br>
-Today: {{$usersToday}}<br>
-This week: {{$usersWeek}}<br>
-This month: {{$usersMonth}}<br>
-This year: {{$usersYear}}<br>
-Total: {{$usersTotal}}<br>
+@lang('stats.users')<br>
+@lang('stats.range.today', ['value' => $usersToday])<br>
+@lang('stats.range.week', ['value' => $usersWeek])<br>
+@lang('stats.range.month', ['value' => $usersMonth])<br>
+@lang('stats.range.year', ['value' => $usersYear])<br>
+@lang('stats.range.total', ['value' => $usersTotal])<br>
 <br>
-<i>Last update:</i> {{$lastUpdate}}
+<i>@lang('stats.last_update', ['value' => $lastUpdate])</i>

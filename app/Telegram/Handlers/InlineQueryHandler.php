@@ -19,10 +19,11 @@ class InlineQueryHandler
             results: [],
             cache_time: 0,
             button: InlineQueryResultsButton::make(
-                text: "Click here to create your sticker!",
+                text: __('inline.create'),
                 web_app: new WebAppInfo(route('webapp.index', [
                     'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->userId(),
+                    'lang' => $bot->user()->language_code,
                     'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
                 ])),
             )

@@ -1,4 +1,4 @@
-<b>📊 Statistics</b><br>
+<b>@lang('stats.title')</b><br>
 <br>
-No data found.<br>
-<i>Please wait next statistics update.</i>
+@lang('stats.no_data')<br>
+<i>@lang('stats.wait')</i>

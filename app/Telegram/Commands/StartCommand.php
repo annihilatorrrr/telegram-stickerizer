@@ -23,7 +23,7 @@ class StartCommand extends Command
             parse_mode: ParseMode::HTML,
             reply_markup: InlineKeyboardMarkup::make()->addRow(
                 InlineKeyboardButton::make(
-                    text: 'Start using the bot inline',
+                    text: __('inline.start'),
                     switch_inline_query: 'hello world',
                 )
             ),

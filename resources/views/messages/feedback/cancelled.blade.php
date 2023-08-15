@@ -1,1 +1,1 @@
-Feedback cancelled.
+@lang('feedback.cancelled')

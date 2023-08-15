@@ -3,6 +3,7 @@ import InputPanel from "@/webapp/InputPanel.vue";
 import {computed, onMounted, ref} from "vue";
 import StickersPanel from "@/webapp/StickersPanel.vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
+import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
 
 const history = ref([]);
 const packs = ref([]);
@@ -21,13 +22,13 @@ const setScheme = function () {
 
 const sendStickerCode = async (stickerID, forcedText) => {
     if (webapp.platform === 'unknown') {
-        alert('Platform not supported. Please use a supported Telegram client.');
+        alert(trans('webapp.platform_not_supported'));
         return;
     }
 
     if (forcedText === undefined && text.value.length === 0) {
         webapp.HapticFeedback.notificationOccurred('error');
-        webapp.showAlert('You need to enter a text to send the sticker.');
+        webapp.showAlert(trans('webapp.empty'));
         return;
     }
 
@@ -44,7 +45,7 @@ const sendStickerCode = async (stickerID, forcedText) => {
 };
 
 const showInfo = () => {
-    const message = 'Click on a sticker to send it to the chat.\nThe maximum length of a text message is 150 characters.';
+    const message = trans('webapp.info') + '\n' + trans('webapp.limit');
 
     if (webapp.platform === 'unknown') {
         alert(message);
@@ -71,7 +72,7 @@ const loadHistory = async () => {
 };
 
 const clearHistory = async () => {
-    webapp.showConfirm('Do you want to clear all your recent stickers?', async function (result) {
+    webapp.showConfirm(trans('webapp.clear'), async function (result) {
         if (result) {
             await axios.delete(route('webapp.sticker.history.clear'), {
                 params: {
@@ -88,6 +89,7 @@ onMounted(() => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
+    loadLanguageAsync(window.initData.lang);
     loadHistory();
     loadPacks();
     webapp.ready();

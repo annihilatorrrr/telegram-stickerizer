@@ -23,7 +23,7 @@ class PrivacyCommand extends Command
             parse_mode: ParseMode::HTML,
             disable_web_page_preview: true,
             reply_markup: InlineKeyboardMarkup::make()
-                ->addRow(InlineKeyboardButton::make('Privacy Policy', config('bot.privacy'))),
+                ->addRow(InlineKeyboardButton::make(__('privacy.button'), config('bot.privacy'))),
         );
 
         stats('command.privacy');

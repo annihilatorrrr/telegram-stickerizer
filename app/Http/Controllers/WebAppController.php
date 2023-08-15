@@ -21,6 +21,7 @@ class WebAppController extends Controller
             'initData' => [
                 'text' => $request->input('text'),
                 'user_id' => $request->input('user_id'),
+                'lang' => $request->input('lang', config('app.locale')),
                 'fingerprint' => $request->input('fingerprint'),
             ]
         ]);

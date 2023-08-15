@@ -1,2 +1,2 @@
-This bot let's you create stickers on the fly, with inline interface.<br>
-Simply type the text you want to draw and you'll get it stickered.
+@lang('start.description1')<br>
+@lang('start.description2')
