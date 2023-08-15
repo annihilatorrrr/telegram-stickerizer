@@ -9,6 +9,7 @@ use App\Models\Sticker;
 use App\Models\StickersHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
 
@@ -27,11 +28,18 @@ class WebAppController extends Controller
 
     public function preview(Request $request, Sticker $sticker)
     {
-        return $sticker
-            ->getGenerator()
-            ->generate($request->input('text') ?: 'TEXT')
-            ->resize(100, 100)
-            ->response('webp', 50);
+        $text = $request->input('text') ?: 'TEXT';
+        $key = md5(sprintf("key_%s-text_%s", $sticker->id, $text));
+
+        $dataUrl = Cache::rememberForever($key, function () use ($text, $sticker) {
+            return (string)$sticker
+                ->getGenerator()
+                ->generate($text)
+                ->resize(200, 200)
+                ->encode('data-url');
+        });
+
+        return ImageFacade::make($dataUrl)->response('webp', 100);
     }
 
     public function sendSticker(Request $request, Nutgram $bot)
