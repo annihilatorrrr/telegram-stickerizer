@@ -41,11 +41,17 @@ class User extends Model
         return $this->hasMany(StickersHistory::class);
     }
 
+    public function stickersFavorites(): HasMany
+    {
+        return $this->hasMany(StickersFavorite::class);
+    }
+
     public function getGdprData(): array
     {
         return [
             ...$this->toArray(),
             'feedback' => $this->feedback->toArray(),
+            'stickers_favorites' => $this->stickersFavorites->toArray(),
             'stickers_history' => $this->stickersHistory->toArray(),
             'statistics' => $this->statistics()
                 ->selectRaw('action, count(action) as total')
