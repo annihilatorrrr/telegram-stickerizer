@@ -2,6 +2,7 @@
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 interface Props {
+    hasFavorites: boolean;
     hasHistory: boolean;
     packs: any[];
 }
@@ -11,6 +12,12 @@ defineProps<Props>();
 
 <template>
     <div id="packs-panel-container">
+        <a v-if="hasFavorites" href="#favorites"
+           class="pack-icon flex items-center justify-center"
+           style="background-color: transparent !important;">
+            <font-awesome-icon icon="fa-regular fa-star" size="xl" class="text-tg-hint"/>
+        </a>
+
         <a v-if="hasHistory" href="#history"
            class="pack-icon flex items-center justify-center"
            style="background-color: transparent !important;">

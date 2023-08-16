@@ -4,13 +4,17 @@ import {computed, onMounted, ref} from "vue";
 import StickersPanel from "@/webapp/StickersPanel.vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
+import Menu from "@/webapp/Menu.vue";
 
+const favorites = ref([]);
 const history = ref([]);
 const packs = ref([]);
 const text = ref(window.initData.text ?? '');
+const menuData = ref(null);
 const webapp = window.Telegram.WebApp;
 
 const hasHistory = computed(() => history.value.length > 0);
+const hasFavorites = computed(() => favorites.value.length > 0);
 
 const setScheme = function () {
     if (webapp.platform === 'unknown') {
@@ -71,6 +75,16 @@ const loadHistory = async () => {
     history.value = response.data;
 };
 
+const loadFavorites = async () => {
+    const response = await axios.get(route('webapp.sticker.favorite.list'), {
+        params: {
+            user_id: window.initData.user_id,
+            fingerprint: window.initData.fingerprint,
+        }
+    });
+    favorites.value = response.data;
+};
+
 const clearHistory = async () => {
     webapp.showConfirm(trans('webapp.clear'), async function (result) {
         if (result) {
@@ -85,11 +99,36 @@ const clearHistory = async () => {
     });
 };
 
+const openMenu = (data) => {
+    menuData.value = data;
+};
+
+const saveFavorite = async (sticker, text) => {
+    await axios.post(route('webapp.sticker.favorite.save'), {
+        user_id: window.initData.user_id,
+        fingerprint: window.initData.fingerprint,
+        sticker_id: sticker,
+        text: text,
+    });
+    await loadFavorites();
+}
+
+const removeFavorite = async (favorite_id) => {
+    await axios.delete(route('webapp.sticker.favorite.delete', {favorite: favorite_id}), {
+        params: {
+            user_id: window.initData.user_id,
+            fingerprint: window.initData.fingerprint,
+        }
+    });
+    await loadFavorites();
+}
+
 onMounted(() => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
-    loadLanguageAsync(window.initData.lang);
+    loadLanguageAsync(window.initData.lang ?? 'en');
+    loadFavorites();
     loadHistory();
     loadPacks();
     webapp.ready();
@@ -97,18 +136,32 @@ onMounted(() => {
 </script>
 
 <template>
+    <Menu :isOpen="menuData!==null"
+          v-model:data="menuData"
+          @send="(x) => sendStickerCode(x.sticker, x.text)"
+          @saveTemplate="(x) => saveFavorite(x.sticker, null)"
+          @saveSticker="(x) => saveFavorite(x.sticker, x.text)"
+          @removeFavorite="removeFavorite"
+    />
+
     <div class="layout">
         <div id="stickers-panel">
             <StickersPanel
+                v-model:favorites="favorites"
                 v-model:history="history"
                 v-model:packs="packs"
                 v-model:text="text"
                 @send="sendStickerCode"
                 @sendFromHistory="(x) => sendStickerCode(x.sticker, x.text)"
-                @clearHistory="clearHistory"/>
+                @clearHistory="clearHistory"
+                @menu="openMenu"
+            />
         </div>
         <div id="packs-panel">
-            <PacksPanel v-model:hasHistory="hasHistory" v-model:packs="packs"/>
+            <PacksPanel v-model:hasHistory="hasHistory"
+                        v-model:hasFavorites="hasFavorites"
+                        v-model:packs="packs"
+            />
         </div>
         <div id="input">
             <InputPanel v-model:text="text" @info="showInfo"/>

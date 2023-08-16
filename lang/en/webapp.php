@@ -7,5 +7,12 @@ return [
     'empty' => 'You need to enter a text to send the sticker.',
     'clear' => 'Do you want to clear all your recent stickers?',
     'history' => 'Recently Used',
-    'favorite' => 'Favorites',
+    'send' => 'Send sticker',
+    'favorite' => [
+        'title' => 'Favorites',
+        'template' => 'Add template to favorites',
+        'sticker' => 'Add sticker to favorites',
+        'remove' => 'Remove from favorites',
+    ],
+    'message' => 'Message',
 ];

@@ -2,6 +2,7 @@
 import {onMounted} from "vue";
 import debounce from "lodash.debounce";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {trans} from 'laravel-vue-i18n';
 
 interface Props {
     text: string
@@ -23,7 +24,7 @@ onMounted(() => {
         <div class="flex-1">
             <input :value="text" autofocus tabindex="1" id="input-text" maxlength="150"
                    @input="onInput"
-                   type="text" placeholder="Message"
+                   type="text" :placeholder="trans('webapp.message')"
                    class="w-full text-tg-text outline-none placeholder-tg-hint pl-3 bg-transparent"/>
         </div>
         <div class="flex-none h-full">

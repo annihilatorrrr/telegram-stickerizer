@@ -37,7 +37,7 @@ watch(() => isVisible.value && props.url, (state) => {
 
 <style scoped lang="scss">
 .better-image {
-    @apply aspect-square rounded;
+    @apply aspect-square rounded h-full;
     @apply flex items-center justify-center;
     @apply bg-contain bg-no-repeat bg-center;
     background-color: rgba(0, 0, 0, 0.1);

@@ -7,5 +7,12 @@ return [
     'empty' => 'Inserisci un testo per inviare lo sticker.',
     'clear' => 'Sei sicuro di voler cancellare tutti gli sticker recenti?',
     'history' => 'Usati di recente',
-    'favorite' => 'Preferiti',
+    'send' => 'Invia sticker',
+    'favorite' => [
+        'title' => 'Preferiti',
+        'template' => 'Aggiungi template ai preferiti',
+        'sticker' => 'Aggiungi sticker ai preferiti',
+        'remove' => 'Elimina dai preferiti'
+    ],
+    'message' => 'Messaggio',
 ];
