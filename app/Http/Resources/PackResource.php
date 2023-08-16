@@ -8,8 +8,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin \App\Models\Pack */
 class PackResource extends JsonResource
 {
-    public static $wrap = null;
-
     public function toArray(Request $request): array
     {
         return [

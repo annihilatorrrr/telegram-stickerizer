@@ -6,5 +6,6 @@ return [
     'platform_not_supported' => 'Piattaforma non supportata. Per favore usa un client Telegram supportato.',
     'empty' => 'Inserisci un testo per inviare lo sticker.',
     'clear' => 'Sei sicuro di voler cancellare tutti gli sticker recenti?',
-    'history' => 'Sticker recenti',
+    'history' => 'Usati di recente',
+    'favorite' => 'Preferiti',
 ];

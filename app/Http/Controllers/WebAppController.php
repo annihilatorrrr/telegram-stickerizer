@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PackResource;
+use App\Http\Resources\StickersFavoriteResource;
 use App\Http\Resources\StickersHistoryResource;
 use App\Models\Pack;
 use App\Models\Sticker;
+use App\Models\StickersFavorite;
 use App\Models\StickersHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -95,5 +97,29 @@ class WebAppController extends Controller
         StickersHistory::query()
             ->where('user_id', $request->input('user_id'))
             ->delete();
+    }
+
+    public function getFavoriteStickers(Request $request)
+    {
+        $favorites = StickersFavorite::query()
+            ->where('user_id', $request->input('user_id'))
+            ->latest()
+            ->get();
+
+        return StickersFavoriteResource::collection($favorites);
+    }
+
+    public function saveFavoriteSticker(Request $request)
+    {
+        StickersFavorite::create([
+            'user_id' => $request->input('user_id'),
+            'sticker_id' => (int)$request->input('sticker_id'),
+            'text' => $request->input('text'),
+        ]);
+    }
+
+    public function removeFavoriteSticker(Request $request, StickersFavorite $favorite)
+    {
+        $favorite->delete();
     }
 }

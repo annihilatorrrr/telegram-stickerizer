@@ -6,7 +6,7 @@ use App\Traits\HasStickersLimit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class StickersHistory extends Model
+class StickersFavorite extends Model
 {
     use HasStickersLimit;
 
