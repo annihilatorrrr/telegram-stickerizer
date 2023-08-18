@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'title' => '📊 Statistiche',
     'no_data' => 'Nessun dato disponibile.',
     'wait' => 'Per favore aspetta qualche minuto prima di richiedere nuovamente le statistiche.',
@@ -14,4 +15,5 @@ return [
         'total' => 'Totale: :value',
     ],
     'last_update' => 'Ultimo aggiornamento: :value',
+
 ];

@@ -29,7 +29,7 @@ class DonateConversation extends InlineMenu
         }
 
         $this->addButtonRow(InlineKeyboardButton::make(
-            text: trans('donate.cancel'),
+            text: trans('common.cancel'),
             callback_data: 'donate.cancel@end'
         ));
 
@@ -57,7 +57,7 @@ class DonateConversation extends InlineMenu
         $this->addButtonRow(...$buttons);
 
         $this->addButtonRow(InlineKeyboardButton::make(
-            text: trans('donate.back'),
+            text: trans('common.back'),
             callback_data: 'donate.telegram.back@start'
         ));
 

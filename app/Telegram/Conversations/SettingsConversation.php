@@ -33,22 +33,22 @@ class SettingsConversation extends InlineMenu
             ->addButtonRow(InlineKeyboardButton::make(
                 text: trans('settings.news', [
                     'value' => $user->settings()->get('news', false) ?
-                        trans('settings.enabled') :
-                        trans('settings.disabled')
+                        trans('common.enabled') :
+                        trans('common.disabled')
                 ]),
                 callback_data: 'settings.news@toggleNews'
             ))
             ->addButtonRow(InlineKeyboardButton::make(
                 text: trans('settings.history', [
                     'value' => $user->settings()->get('history', false) ?
-                        trans('settings.enabled') :
-                        trans('settings.disabled')
+                        trans('common.enabled') :
+                        trans('common.disabled')
                 ]),
                 callback_data: 'settings.history@toggleHistory'
             ))
             ->addButtonRow(
                 InlineKeyboardButton::make(
-                    text: trans('settings.close'),
+                    text: trans('common.close'),
                     callback_data: 'settings.cancel@end'
                 )
             )

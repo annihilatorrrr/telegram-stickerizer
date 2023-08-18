@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'info' => 'Click on a sticker to send it to the chat.',
     'limit' => 'The maximum length of a text message is 150 characters.',
     'platform_not_supported' => 'Platform not supported. Please use a supported Telegram client.',
@@ -15,4 +16,5 @@ return [
         'remove' => 'Remove from favorites',
     ],
     'message' => 'Message',
+
 ];

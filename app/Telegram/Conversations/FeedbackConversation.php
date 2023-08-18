@@ -29,7 +29,7 @@ class FeedbackConversation extends Conversation
         $message = $bot->sendMessage(
             text: message('feedback.ask'),
             reply_markup: InlineKeyboardMarkup::make()
-                ->addRow(InlineKeyboardButton::make(__('feedback.cancel'), callback_data: 'feedback.cancel')),
+                ->addRow(InlineKeyboardButton::make(__('common.cancel'), callback_data: 'feedback.cancel')),
         );
 
         $this->chat_id = $message->chat->id;

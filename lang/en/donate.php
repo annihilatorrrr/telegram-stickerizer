@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'donation' => 'Donation',
     'consider_donation' => 'If you want to support my work, please consider making a donation.',
     'support_by_donating' => 'Support this bot by donating',
@@ -9,6 +10,5 @@ return [
     'terms' => 'Terms and conditions for donation payments',
     'thanks' => 'Thank you for your donation!',
     'with' => 'Donate with :service',
-    'cancel' => '❌ Cancel',
-    'back' => '🔙 Back',
+
 ];

@@ -1,0 +1,66 @@
+group,key,en,it
+about,bot,🤖 Bot,🤖 Bot
+about,developer,👤 Developer,👤 Developer
+about,name,<b>Name:</b> :value,<b>Nome:</b> :value
+about,username,<b>Username:</b> :value,<b>Username:</b> :value
+about,version,<b>Version:</b>  :value,<b>Versione:</b>  :value
+about,email,<b>Email:</b>  :value,<b>Email:</b>  :value
+donate,donation,Donation,Donazione
+donate,consider_donation,"If you want to support my work, please consider making a donation.","Se vuoi supportare il mio lavoro, per favore considera una donazione."
+donate,support_by_donating,Support this bot by donating,Supporta questo bot donando
+donate,select_amount,Select the amount you wish to donate:,Seleziona la quantità che desideri donare:
+donate,appreciated,That'll be very much appreciated 😊,Verrà molto apprezzato 😊
+donate,terms,Terms and conditions for donation payments,Termini e condizioni per le donazioni
+donate,thanks,Thank you for your donation!,Grazie per la tua donazione!
+donate,with,Donate with :service,Dona con :service
+feedback,ask,Please enter a feedback about the bot:,Per favore inserisci un feedback sul bot:
+feedback,cancelled,Feedback cancelled.,Feedback annullato.
+feedback,thanks,Thank you for your feedback!,Grazie per il tuo feedback!
+feedback,invalid,Invalid content. Please send only text.,Contenuto invalido. Per favore inserisci solo testo.
+gdpr,description,Here you can manage your GDPR data.,Qui puoi gestire i tuoi dati GDPR.
+gdpr,download.button,Download my data,Scarica i miei dati
+gdpr,download.caption,This file contains all your saved data.,Questo file contiene i tuoi dati personali salvati nel bot.
+inline,start,Start using the bot inline,Inizia ad usare il bot inline
+inline,create,Click here to create your sticker!,Click qui per creare il tuo sticker!
+inline,blocked,You need to unblock the bot first!,Devi sbloccare il bot per utilizzarlo!
+inline,not_started,You need to start the bot first!,Devi avviare il bot per utilizzarlo!
+inline,invalid_code,Sticker not found!,Sticker non trovato!
+maintenance,description,Bot currently in maintenance mode.,Bot in manutenzione.
+maintenance,soon,It will be back soon!,Tornerà online presto!
+privacy,button,Privacy Policy,Privacy Policy
+privacy,title,🕶 Privacy Policy,🕶 Privacy Policy
+privacy,description,Read the privacy policy clicking the button below.,Leggi la privacy policy cliccando il bottone qui sotto.
+settings,title,⚙️ Settings,⚙️ Impostazioni
+settings,description,Here you can change the bot settings.,Qui puoi cambiare le impostazioni del bot.
+settings,news,📰 News: :value,📰 News: :value
+settings,history,📜 Stickers history: :value,📜 Cronologia stickers: :value
+start,description1,"This bot let's you create stickers on the fly, with inline interface.","Questo bot ti permette di creare sticker al volo, con un'interfaccia inline."
+start,description2,Simply type the text you want to draw and you'll get it stickered.,Basta scrivere il testo che vuoi disegnare e lo otterrai in sticker.
+stats,title,📊 Statistics,📊 Statistiche
+stats,no_data,No data found.,Nessun dato disponibile.
+stats,wait,Please wait next statistics update.,Per favore aspetta qualche minuto prima di richiedere nuovamente le statistiche.
+stats,stickers_sent,🖼 Stickers Sent,🖼 Sticker inviati
+stats,users,👥 Users,👥 Utenti
+stats,range.today,Today: :value,Oggi: :value
+stats,range.week,This week: :value,Questa settimana: :value
+stats,range.month,This month: :value,Questo mese: :value
+stats,range.year,This year: :value,Quest'anno: :value
+stats,range.total,Total: :value,Totale: :value
+stats,last_update,Last update: :value,Ultimo aggiornamento: :value
+webapp,info,Click on a sticker to send it to the chat.,Clicca su uno sticker per inviarlo nella chat.
+webapp,limit,The maximum length of a text message is 150 characters.,La lunghezza massima del messaggio è di 150 caratteri.
+webapp,platform_not_supported,Platform not supported. Please use a supported Telegram client.,Piattaforma non supportata. Per favore usa un client Telegram supportato.
+webapp,empty,You need to enter a text to send the sticker.,Inserisci un testo per inviare lo sticker.
+webapp,clear,Do you want to clear all your recent stickers?,Sei sicuro di voler cancellare tutti gli sticker recenti?
+webapp,history,Recently Used,Usati di recente
+webapp,send,Send sticker,Invia sticker
+webapp,favorite.title,Favorites,Preferiti
+webapp,favorite.template,Add template to favorites,Aggiungi template ai preferiti
+webapp,favorite.sticker,Add sticker to favorites,Aggiungi sticker ai preferiti
+webapp,favorite.remove,Remove from favorites,Elimina dai preferiti
+webapp,message,Message,Messaggio
+common,cancel,❌ Cancel,❌ Annulla
+common,back,🔙 Back,🔙 Indietro
+common,disabled,❌ Disabled,❌ Disabilitato
+common,enabled,✅ Enabled,✅ Abilitato
+common,close,❌ Close,❌ Chiudi
