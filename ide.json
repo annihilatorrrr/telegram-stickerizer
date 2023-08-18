@@ -10,6 +10,17 @@
                     1
                 ]
             }
+        ],
+        "translation": [
+            {
+                "functions": [
+                    "trans_bool"
+                ],
+                "parameters": [
+                    2,
+                    3
+                ]
+            }
         ]
     },
     "view": {

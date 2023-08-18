@@ -5,16 +5,37 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Lukasss93\ModelSettings\Traits\HasSettingsTable;
 use SergiX44\Nutgram\Telegram\Types\User\User as TelegramUser;
 
 class User extends Model
 {
+    use HasSettingsTable;
+
     public $incrementing = false;
     protected static $unguarded = true;
     protected $casts = [
         'started_at' => 'datetime',
         'blocked_at' => 'datetime',
     ];
+
+    public bool $initSettings = true;
+
+    public function defaultSettings(): array
+    {
+        return [
+            'news' => true,
+            'history' => true,
+        ];
+    }
+
+    public function settingsRules(): array
+    {
+        return [
+            'news' => 'boolean',
+            'history' => 'boolean',
+        ];
+    }
 
     public function feedback(): HasMany
     {

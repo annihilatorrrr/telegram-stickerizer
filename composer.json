@@ -12,6 +12,7 @@
         "intervention/image": "^2.7.2",
         "laravel/framework": "^10.10",
         "laravel/tinker": "^2.8",
+        "lukasss93/laravel-model-settings": "^6.1",
         "nutgram/laravel": "^1.0",
         "pe46dro/gd-text": "^v1.2.0",
         "tightenco/ziggy": "^1.6"

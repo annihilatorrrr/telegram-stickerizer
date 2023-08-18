@@ -18,3 +18,8 @@ function stats(string $action, array $payload = null, int $user_id = null): void
 {
     Stats::store($action, $payload, $user_id);
 }
+
+function trans_bool(bool $condition, string $trueKey, string $falseKey)
+{
+    return trans($condition ? $trueKey : $falseKey);
+}

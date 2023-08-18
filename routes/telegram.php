@@ -8,6 +8,7 @@ use App\Telegram\Commands\FeedbackCommand;
 use App\Telegram\Commands\GdprCommand;
 use App\Telegram\Commands\HelpCommand;
 use App\Telegram\Commands\PrivacyCommand;
+use App\Telegram\Commands\SettingsCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
 use App\Telegram\Handlers\ExceptionsHandler;
@@ -57,6 +58,7 @@ $bot->group(function (Nutgram $bot) {
 $bot->onCommand('start (.*)', StartCommand::class);
 $bot->registerCommand(StartCommand::class);
 $bot->registerCommand(HelpCommand::class);
+$bot->registerCommand(SettingsCommand::class);
 $bot->registerCommand(StatsCommand::class);
 $bot->registerCommand(AboutCommand::class);
 $bot->registerCommand(DonateCommand::class);
