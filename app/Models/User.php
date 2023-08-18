@@ -81,4 +81,9 @@ class User extends Model
                 ->toArray(),
         ];
     }
+
+    public function hasStickerHistoryEnabled():bool
+    {
+        return $this->settings()->get('history', true);
+    }
 }

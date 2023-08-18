@@ -47,6 +47,9 @@ class InlineQueryHandler
 
     public function chosen(Nutgram $bot): void
     {
+        //get user
+        $user = $bot->get(User::class);
+
         //get code
         $messageID = Str::after($bot->chosenInlineResult()->query, 'Ꜣ');
 
@@ -59,11 +62,13 @@ class InlineQueryHandler
         //delete sticker from private chat
         rescue(fn() => $bot->deleteMessage($bot->userId(), $messageID), report: false);
 
-        //save sticker to user's history
-        $bot->get(User::class)->stickersHistory()->create([
-            'sticker_id' => $stickerID,
-            'text' => $text,
-        ]);
+        //save sticker to user's history if enabled
+        if ($user->hasStickerHistoryEnabled()) {
+            $user->stickersHistory()->create([
+                'sticker_id' => $stickerID,
+                'text' => $text,
+            ]);
+        }
 
         //save stats
         stats('sticker.sent', ['sticker_id' => $stickerID]);
