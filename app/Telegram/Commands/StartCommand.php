@@ -24,7 +24,7 @@ class StartCommand extends Command
             reply_markup: InlineKeyboardMarkup::make()->addRow(
                 InlineKeyboardButton::make(
                     text: __('inline.start'),
-                    switch_inline_query: 'hello world',
+                    switch_inline_query: '',
                 )
             ),
         );
