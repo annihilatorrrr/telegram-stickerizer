@@ -5,7 +5,10 @@ import StickersPanel from "@/webapp/StickersPanel.vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
 import Menu from "@/webapp/Menu.vue";
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 
+const loading = ref(false);
 const favorites = ref([]);
 const history = ref([]);
 const packs = ref([]);
@@ -36,12 +39,14 @@ const sendStickerCode = async (stickerID, forcedText) => {
         return;
     }
 
+    loading.value = true;
     const response = await axios.post(route('webapp.sticker.send'), {
         user_id: window.initData.user_id,
         sticker_id: stickerID,
         text: forcedText ?? text.value,
         fingerprint: window.initData.fingerprint,
     });
+    loading.value = false;
 
     webapp.HapticFeedback.notificationOccurred('success');
 
@@ -88,6 +93,7 @@ const loadFavorites = async () => {
 const clearHistory = async () => {
     webapp.showConfirm(trans('webapp.clear'), async function (result) {
         if (result) {
+            loading.value = true;
             await axios.delete(route('webapp.sticker.history.clear'), {
                 params: {
                     user_id: window.initData.user_id,
@@ -95,6 +101,7 @@ const clearHistory = async () => {
                 }
             });
             await loadHistory();
+            loading.value = false;
         }
     });
 };
@@ -136,6 +143,14 @@ onMounted(() => {
 </script>
 
 <template>
+    <Loading v-model:active="loading"
+             :can-cancel="false"
+             :is-full-page="true"
+             :lock-scroll="true"
+             color="var(--tg-theme-button-color)"
+             background-color="var(--tg-scheme)"
+    />
+
     <Menu :isOpen="menuData!==null"
           v-model:data="menuData"
           @send="(x) => sendStickerCode(x.sticker, x.text)"

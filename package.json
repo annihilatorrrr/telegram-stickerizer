@@ -24,6 +24,7 @@
         "tailwindcss": "^3.3.3",
         "vite": "^4.0.0",
         "vite-svg-loader": "^4.0.0",
+        "vue-loading-overlay": "6.0",
         "vue-progressive-image": "^4.0.0",
         "ziggy-js": "^1.6.0"
     }
