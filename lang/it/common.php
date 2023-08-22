@@ -7,5 +7,6 @@ return [
     'disabled' => '❌ Disabilitato',
     'enabled' => '✅ Abilitato',
     'close' => '❌ Chiudi',
+    'open' => 'Apri',
 
 ];

@@ -4,9 +4,11 @@ return [
 
     'username' => env('BOT_USERNAME'),
     'privacy' => env('BOT_PRIVACY'),
-    'channel' => env('BOT_CHANNEL'),
+    'changelog' => env('BOT_CHANGELOG'),
     'channel' => [
         'id' => env('BOT_CHANNEL_ID'),
+        'username' => env('BOT_CHANNEL_USERNAME'),
     ],
+    'support' => env('BOT_SUPPORT'),
 
 ];

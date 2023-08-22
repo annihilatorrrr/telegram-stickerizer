@@ -7,5 +7,6 @@ return [
     'disabled' => '❌ Disabled',
     'enabled' => '✅ Enabled',
     'close' => '❌ Close',
+    'open' => 'Open',
 
 ];

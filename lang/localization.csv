@@ -64,3 +64,8 @@ common,back,🔙 Back,🔙 Indietro
 common,disabled,❌ Disabled,❌ Disabilitato
 common,enabled,✅ Enabled,✅ Abilitato
 common,close,❌ Close,❌ Chiudi
+about,links,🔗 Links,🔗 Links
+about,news,<b>News:</b> :value,<b>News:</b> :value
+about,support,<b>Support:</b> :value,<b>Supporto:</b> :value
+about,changelog,<b>Changelog:</b> :value,<b>Changelog:</b> :value
+common,open,Open,Apri
