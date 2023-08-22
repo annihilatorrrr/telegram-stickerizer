@@ -8,8 +8,15 @@ class DevOnly
 {
     public function __invoke(Nutgram $bot, $next): void
     {
+        $message = 'You are not allowed to use this bot.';
+
         if ($bot->userId() !== config('developer.id')) {
-            $bot->sendMessage('You are not allowed to use this bot.');
+            if ($bot->isCallbackQuery()) {
+                $bot->answerCallbackQuery(text: $message);
+            }
+
+            $bot->sendMessage(text: $message);
+
             return;
         }
 

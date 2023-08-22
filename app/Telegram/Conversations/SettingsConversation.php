@@ -32,7 +32,7 @@ class SettingsConversation extends InlineMenu
         ])
             ->addButtonRow(InlineKeyboardButton::make(
                 text: trans('settings.news', [
-                    'value' => $user->settings()->get('news', false) ?
+                    'value' => $user->settings()->get('news.enabled', false) ?
                         trans('common.enabled') :
                         trans('common.disabled')
                 ]),
@@ -57,9 +57,9 @@ class SettingsConversation extends InlineMenu
 
     protected function toggleNews(Nutgram $bot): void
     {
-        $this->getUser()->settings()->set('news', !$this->getUser()->settings()->get('news', false));
+        $this->getUser()->settings()->set('news.enabled', !$this->getUser()->settings()->get('news.enabled', false));
 
-        stats('settings.news', ['status' => $this->getUser()->settings()->get('news')]);
+        stats('settings.news', ['status' => $this->getUser()->settings()->get('news.enabled')]);
 
         $this->start($bot);
     }

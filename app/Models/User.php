@@ -24,7 +24,10 @@ class User extends Model
     public function defaultSettings(): array
     {
         return [
-            'news' => true,
+            'news' => [
+                'enabled' => true,
+                'notified_at' => null,
+            ],
             'history' => true,
         ];
     }
@@ -32,7 +35,7 @@ class User extends Model
     public function settingsRules(): array
     {
         return [
-            'news' => 'boolean',
+            'news.enabled' => 'boolean',
             'history' => 'boolean',
         ];
     }
@@ -82,8 +85,23 @@ class User extends Model
         ];
     }
 
-    public function hasStickerHistoryEnabled():bool
+    public function hasNewsEnabled(): bool
+    {
+        return $this->settings()->get('news.enabled', true);
+    }
+
+    public function hasStickerHistoryEnabled(): bool
     {
         return $this->settings()->get('history', true);
+    }
+
+    public function markNewsAsNotified(): void
+    {
+        $this->settings()->set('news.notified_at', now()->toIso8601String());
+    }
+
+    public function isNewsAlreadyNotified(): bool
+    {
+        return $this->settings()->get('news.notified_at') !== null;
     }
 }
