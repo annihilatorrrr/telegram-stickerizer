@@ -10,5 +10,6 @@ return [
         'username' => env('BOT_CHANNEL_USERNAME'),
     ],
     'support' => env('BOT_SUPPORT'),
+    'localization' => env('BOT_LOCALIZATION'),
 
 ];

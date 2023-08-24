@@ -27,7 +27,7 @@ class SettingsConversation extends InlineMenu
         $user->initSettings();
 
         $this->clearButtons();
-        $this->menuText(message('settings'), [
+        $this->menuText(message('settings.main'), [
             'parse_mode' => ParseMode::HTML,
         ])
             ->addButtonRow(InlineKeyboardButton::make(
@@ -45,6 +45,15 @@ class SettingsConversation extends InlineMenu
                         trans('common.disabled')
                 ]),
                 callback_data: 'settings.history@toggleHistory'
+            ))
+            ->addButtonRow(InlineKeyboardButton::make(
+                text: trans('settings.language.value', [
+                    'value' => match ($user->settings()->get('lang')) {
+                        null => trans('common.auto'),
+                        default => config('languages')[$user->settings()->get('lang')] ?? 'unknown',
+                    }
+                ]),
+                callback_data: 'settings.language@openLanguagePage'
             ))
             ->addButtonRow(
                 InlineKeyboardButton::make(
@@ -69,6 +78,42 @@ class SettingsConversation extends InlineMenu
         $this->getUser()->settings()->set('history', !$this->getUser()->settings()->get('history', false));
 
         stats('settings.history', ['status' => $this->getUser()->settings()->get('history')]);
+
+        $this->start($bot);
+    }
+
+    protected function openLanguagePage(Nutgram $bot): void
+    {
+        $this
+            ->clearButtons()
+            ->menuText(message('settings.language', [
+                'localization' => config('bot.localization'),
+            ]), [
+                'parse_mode' => ParseMode::HTML,
+                'disable_web_page_preview' => true,
+            ]);
+
+        $this->addButtonRow(InlineKeyboardButton::make(trans('common.auto'),
+            callback_data: 'languages:auto@setLanguage'));
+
+        collect(config('languages'))
+            ->map(fn($item, $key) => InlineKeyboardButton::make($item, callback_data: "languages:$key@setLanguage"))
+            ->chunk(2)
+            ->each(fn($row) => $this->addButtonRow(...$row->values()));
+
+        $this->addButtonRow(InlineKeyboardButton::make(trans('common.back'), callback_data: 'languages:back@start'));
+
+        $this->showMenu();
+    }
+
+    protected function setLanguage(Nutgram $bot): void
+    {
+        [, $lang] = explode(':', $bot->callbackQuery()->data);
+        $newLang = $lang === 'auto' ? null : $lang;
+
+        $user = $this->getUser();
+        $user->settings()->set('lang', $newLang);
+        $user->setLocale();
 
         $this->start($bot);
     }

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\App;
+use Illuminate\Validation\Rule;
 use Lukasss93\ModelSettings\Traits\HasSettingsTable;
 use SergiX44\Nutgram\Telegram\Types\User\User as TelegramUser;
 
@@ -29,6 +31,7 @@ class User extends Model
                 'notified_at' => null,
             ],
             'history' => true,
+            'lang' => null,
         ];
     }
 
@@ -37,6 +40,11 @@ class User extends Model
         return [
             'news.enabled' => 'boolean',
             'history' => 'boolean',
+            'lang' => [
+                'nullable',
+                'string',
+                Rule::in(array_keys(config('languages')))
+            ],
         ];
     }
 
@@ -103,5 +111,20 @@ class User extends Model
     public function isNewsAlreadyNotified(): bool
     {
         return $this->settings()->get('news.notified_at') !== null;
+    }
+
+    public function setLocale(): void
+    {
+        //get lang from user settings
+        $lang = $this->settings()->get('lang');
+
+        //get lang from user
+        $lang ??= $this->language_code;
+
+        //get lang from app locale
+        $lang ??= config('app.locale');
+
+        //set app locale
+        App::setLocale($lang);
     }
 }

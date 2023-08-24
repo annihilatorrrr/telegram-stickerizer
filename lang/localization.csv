@@ -69,3 +69,9 @@ about,news,<b>News:</b> :value,<b>News:</b> :value
 about,support,<b>Support:</b> :value,<b>Supporto:</b> :value
 about,changelog,<b>Changelog:</b> :value,<b>Changelog:</b> :value
 common,open,Open,Apri
+common,auto,Automatic,Automatico
+settings,language.title,💬 Language,💬 Lingua
+settings,language.value,💬 Language: :value,💬 Lingua: :value
+settings,language.description,Here you can change the bot language.,Qui puoi cambiare la lingua del bot.
+settings,language.want,Do you want more languages?,Vuoi altre lingue?
+common,click_here,Click here.,Clicca qui.

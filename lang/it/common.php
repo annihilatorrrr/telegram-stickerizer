@@ -8,5 +8,7 @@ return [
     'enabled' => '✅ Abilitato',
     'close' => '❌ Chiudi',
     'open' => 'Apri',
+    'auto' => 'Automatico',
+    'click_here' => 'Clicca qui.',
 
 ];
