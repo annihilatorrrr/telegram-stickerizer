@@ -18,6 +18,7 @@ use App\Telegram\Handlers\UpdateUserStatus;
 use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CollectUser;
 use App\Telegram\Middleware\DevOnly;
+use App\Telegram\Middleware\DonationsEnabled;
 use App\Telegram\Middleware\InlineAllowed;
 use App\Telegram\Middleware\SendNews;
 use App\Telegram\Middleware\SetLocale;
@@ -44,8 +45,11 @@ $bot->middleware(SendNews::class);
 $bot->onMyChatMember(UpdateUserStatus::class);
 $bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
 $bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
-$bot->onPreCheckoutQuery([DonateCommand::class, 'precheckout']);
-$bot->onSuccessfulPayment([DonateCommand::class, 'successful']);
+
+$bot->group(function (Nutgram $bot) {
+    $bot->onPreCheckoutQuery([DonateCommand::class, 'precheckout']);
+    $bot->onSuccessfulPayment([DonateCommand::class, 'successful']);
+})->middleware(DonationsEnabled::class);
 
 $bot->group(function (Nutgram $bot) {
     $bot->onInlineQuery([InlineQueryHandler::class, 'input']);
@@ -65,7 +69,7 @@ $bot->registerCommand(HelpCommand::class);
 $bot->registerCommand(SettingsCommand::class);
 $bot->registerCommand(StatsCommand::class);
 $bot->registerCommand(AboutCommand::class);
-$bot->registerCommand(DonateCommand::class);
+$bot->registerCommand(DonateCommand::class)->middleware(DonationsEnabled::class);
 $bot->registerCommand(FeedbackCommand::class);
 $bot->registerCommand(PrivacyCommand::class);
 $bot->registerCommand(GdprCommand::class);

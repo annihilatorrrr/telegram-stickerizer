@@ -31,4 +31,9 @@ class DonateCommand extends Command
 
         stats('payment.successful');
     }
+
+    public function isHidden(): bool
+    {
+        return !config('donation.enabled');
+    }
 }

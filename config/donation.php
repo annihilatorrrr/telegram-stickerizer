@@ -1,10 +1,13 @@
 <?php
 
 return [
+    // enable/disable donations
+    'enabled' => env('DONATION_ENABLED', false),
+
     // url to donation terms page
     'terms' => env('DONATION_TERMS'),
 
-    //providers
+    // providers
     'providers' => [
         // provider token for donation (supported by telegram)
         'telegram' => [
