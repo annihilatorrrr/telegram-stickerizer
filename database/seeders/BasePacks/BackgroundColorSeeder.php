@@ -12,9 +12,16 @@ class BackgroundColorSeeder extends Seeder
 {
     public function run(): void
     {
+        $packCode = 'BackgroundColor';
+
+        if (Pack::where('code', $packCode)->exists()) {
+            $this->command->line('Skipping ' . $packCode . ' pack creation, already exists');
+            return;
+        }
+
         $pack = Pack::create([
             'name' => 'Background Color',
-            'code' => 'BackgroundColor',
+            'code' => $packCode,
         ]);
 
         //BLACK

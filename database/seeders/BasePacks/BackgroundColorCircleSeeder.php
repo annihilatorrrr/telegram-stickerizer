@@ -12,9 +12,16 @@ class BackgroundColorCircleSeeder extends Seeder
 {
     public function run(): void
     {
+        $packCode = 'BackgroundColorCircle';
+
+        if (Pack::where('code', $packCode)->exists()) {
+            $this->command->line('Skipping ' . $packCode . ' pack creation, already exists');
+            return;
+        }
+
         $pack = Pack::create([
             'name' => 'Background Color (Circle)',
-            'code' => 'BackgroundColorCircle',
+            'code' => $packCode,
         ]);
 
         //BLACK

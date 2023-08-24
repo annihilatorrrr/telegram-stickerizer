@@ -17,9 +17,16 @@ class BackgroundSpecialSeeder extends Seeder
 {
     public function run(): void
     {
+        $packCode = 'SpecialImage';
+
+        if (Pack::where('code', $packCode)->exists()) {
+            $this->command->line('Skipping ' . $packCode . ' pack creation, already exists');
+            return;
+        }
+
         $pack = Pack::create([
             'name' => 'Special Image',
-            'code' => 'SpecialImage',
+            'code' => $packCode,
         ]);
 
         $packsDisk = Storage::disk('packs');
