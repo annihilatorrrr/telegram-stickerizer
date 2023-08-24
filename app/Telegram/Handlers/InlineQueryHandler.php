@@ -3,6 +3,7 @@
 namespace App\Telegram\Handlers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use SergiX44\Nutgram\Nutgram;
@@ -23,7 +24,7 @@ class InlineQueryHandler
                 web_app: new WebAppInfo(route('webapp.index', [
                     'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->userId(),
-                    'lang' => $bot->user()->language_code,
+                    'lang' => App::getLocale(),
                     'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
                 ])),
             )
