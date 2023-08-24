@@ -5,7 +5,6 @@ import StickersPanel from "@/webapp/StickersPanel.vue";
 import PacksPanel from "@/webapp/PacksPanel.vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
 import Menu from "@/webapp/Menu.vue";
-import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
 const loading = ref(false);
@@ -66,7 +65,12 @@ const showInfo = () => {
 };
 
 const loadPacks = async () => {
-    const response = await axios.get(route('webapp.packs'));
+    const response = await axios.get(route('webapp.packs'), {
+        params: {
+            user_id: window.initData.user_id,
+            fingerprint: window.initData.fingerprint,
+        }
+    });
     packs.value = response.data;
 };
 
@@ -187,12 +191,14 @@ onMounted(() => {
 <style scoped lang="scss">
 .layout {
     @apply bg-tg-bg;
+    height: 100vh;
 
     --packs-panel-height: 40px;
     --input-panel-height: 50px;
 
     #stickers-panel {
         padding-bottom: 80px;
+        height: 100vh;
     }
 
     #packs-panel {

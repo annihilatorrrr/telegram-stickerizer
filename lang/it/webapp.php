@@ -16,5 +16,6 @@ return [
         'remove' => 'Elimina dai preferiti',
     ],
     'message' => 'Messaggio',
+    'no_packs' => 'Nessun Stickerizer Pack installato.',
 
 ];

@@ -16,10 +16,11 @@ defineEmits(['send', 'sendFromHistory', 'clearHistory', 'menu']);
 
 const hasHistory = computed(() => props.history.length > 0);
 const hasFavorites = computed(() => props.favorites.length > 0);
+const hasPacks = computed(() => props.packs.length > 0);
 </script>
 
 <template>
-    <div class="p-3 bg-tg-bg">
+    <div class="p-3 bg-tg-bg" :class="{'h-full': !hasFavorites && !hasHistory && !hasPacks}">
         <div class="pb-2 mb-2" v-if="hasFavorites">
             <div class="flex mb-2">
                 <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default">
@@ -50,6 +51,13 @@ const hasFavorites = computed(() => props.favorites.length > 0);
                              @click="$emit('sendFromHistory', {sticker: item.sticker_id, text: item.text});"
                              @contextmenu.prevent="$emit('menu', {mode: 'default', sticker: item.sticker_id, text: item.text});"
                 />
+            </div>
+        </div>
+
+        <div class="flex items-center justify-center h-full" v-if="!hasPacks">
+            <div class="text-center text-tg-hint">
+                <font-awesome-icon icon="fa-regular fa-face-sad-tear" class="text-6xl"/>
+                <p class="text-xl my-5">{{ trans('webapp.no_packs') }}</p>
             </div>
         </div>
 

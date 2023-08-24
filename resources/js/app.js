@@ -4,7 +4,14 @@ import Main from "@/webapp/Main.vue";
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {faCircleNotch, faXmark} from '@fortawesome/free-solid-svg-icons';
-import {faCircleQuestion, faClock, faPaperPlane, faStar, faTrashCan} from '@fortawesome/free-regular-svg-icons';
+import {
+    faCircleQuestion,
+    faClock,
+    faFaceSadTear,
+    faPaperPlane,
+    faStar,
+    faTrashCan
+} from '@fortawesome/free-regular-svg-icons';
 import "vue-progressive-image/dist/style.css";
 import {i18nVue} from 'laravel-vue-i18n';
 
@@ -15,6 +22,7 @@ library.add(faXmark);
 library.add(faStar);
 library.add(faPaperPlane);
 library.add(faTrashCan);
+library.add(faFaceSadTear);
 
 createApp(Main)
     .component('font-awesome-icon', FontAwesomeIcon)
