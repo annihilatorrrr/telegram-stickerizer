@@ -191,14 +191,18 @@ onMounted(() => {
 <style scoped lang="scss">
 .layout {
     @apply bg-tg-bg;
-    height: 100vh;
+    height: 100%;
 
     --packs-panel-height: 40px;
     --input-panel-height: 50px;
 
     #stickers-panel {
-        padding-bottom: 80px;
-        height: 100vh;
+        height: 100%;
+
+        & > div:first-child {
+            @apply px-3;
+            padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height));
+        }
     }
 
     #packs-panel {

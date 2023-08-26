@@ -20,7 +20,7 @@ const hasPacks = computed(() => props.packs.length > 0);
 </script>
 
 <template>
-    <div class="p-3 bg-tg-bg" :class="{'h-full': !hasFavorites && !hasHistory && !hasPacks}">
+    <div class="bg-tg-bg" :class="{'h-full': !hasFavorites && !hasHistory && !hasPacks}">
         <div class="pb-2 mb-2" v-if="hasFavorites">
             <div class="flex mb-2">
                 <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default">
