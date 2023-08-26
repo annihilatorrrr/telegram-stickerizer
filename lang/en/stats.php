@@ -14,6 +14,6 @@ return [
         'year' => 'This year: :value',
         'total' => 'Total: :value',
     ],
-    'last_update' => 'Last update: :value',
+    'last_update' => '🕒 Last update',
 
 ];

@@ -14,6 +14,6 @@ return [
         'year' => 'Quest\'anno: :value',
         'total' => 'Totale: :value',
     ],
-    'last_update' => 'Ultimo aggiornamento: :value',
+    'last_update' => '🕒 Ultimo aggiornamento',
 
 ];

@@ -14,4 +14,5 @@
 @lang('stats.range.year', ['value' => $usersYear])<br>
 @lang('stats.range.total', ['value' => $usersTotal])<br>
 <br>
-<i>@lang('stats.last_update', ['value' => $lastUpdate])</i>
+@lang('stats.last_update')<br>
+{{ $lastUpdate }}

@@ -46,7 +46,7 @@ stats,range.week,This week: :value,Questa settimana: :value,Esta semana: :value,
 stats,range.month,This month: :value,Questo mese: :value,Este mes: :value,В этом месяце: :value
 stats,range.year,This year: :value,Quest'anno: :value,Este año: :value,В этом году: :value
 stats,range.total,Total: :value,Totale: :value,Total: :value,Все: :value
-stats,last_update,Last update: :value,Ultimo aggiornamento: :value,,
+stats,last_update,🕒 Last update,🕒 Ultimo aggiornamento,,
 webapp,info,Click on a sticker to send it to the chat.,Clicca su uno sticker per inviarlo nella chat.,,
 webapp,limit,The maximum length of a text message is 150 characters.,La lunghezza massima del messaggio è di 150 caratteri.,,
 webapp,platform_not_supported,Platform not supported. Please use a supported Telegram client.,Piattaforma non supportata. Per favore usa un client Telegram supportato.,,

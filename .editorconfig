@@ -11,6 +11,12 @@ trim_trailing_whitespace = true
 [routes/*.php]
 max_line_length = off
 
+[resources/views/messages/**/*.blade.php]
+indent_size = 0
+ij_html_do_not_indent_children_of_tags = none
+ij_blade_indent_size = 0
+ij_html_indent_size = 0
+
 [*.md]
 trim_trailing_whitespace = false
 
