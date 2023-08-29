@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2942c50b40cc14685738a3962d050e9a",
+    "content-hash": "6c7e5ddea50f08c5cb867dcae39fa949",
     "packages": [
         {
             "name": "arispati/emoji-remover",
@@ -2716,6 +2716,43 @@
                 }
             ],
             "time": "2023-08-25T13:47:14+00:00"
+        },
+        {
+            "name": "oxmohsen/validating-data",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OxMohsen/validating-data.git",
+                "reference": "eff819746851e8abe08cbf122b24ccb0db89822b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OxMohsen/validating-data/zipball/eff819746851e8abe08cbf122b24ccb0db89822b",
+                "reference": "eff819746851e8abe08cbf122b24ccb0db89822b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OxMohsen\\TgBot\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohsen Falakedin",
+                    "email": "oxmohsen@oxmohsen.ir"
+                }
+            ],
+            "description": "example of how to validate incoming data from web app telegram bot to ensure that the data is come from telegram.",
+            "support": {
+                "issues": "https://github.com/OxMohsen/validating-data/issues",
+                "source": "https://github.com/OxMohsen/validating-data/tree/v1.0.0"
+            },
+            "time": "2022-08-22T18:45:29+00:00"
         },
         {
             "name": "pe46dro/gd-text",
