@@ -1,10 +1,11 @@
 <script setup>
-import InputPanel from "@/webapp/InputPanel.vue";
+import InputPanel from "@/Components/InputPanel.vue";
+import StickersPanel from "@/Components/StickersPanel.vue";
+import Menu from "@/Components/Menu.vue";
+import PacksPanel from "@/Components/PacksPanel.vue";
 import {computed, onMounted, ref} from "vue";
-import StickersPanel from "@/webapp/StickersPanel.vue";
-import PacksPanel from "@/webapp/PacksPanel.vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
-import Menu from "@/webapp/Menu.vue";
+import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
 const loading = ref(false);

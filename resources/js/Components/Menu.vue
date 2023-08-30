@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, watch} from "vue";
-import BetterImage from "@/webapp/BetterImage.vue";
+import BetterImage from "@/Components/BetterImage.vue";
 import route from "ziggy-js";
 import {trans} from 'laravel-vue-i18n';
 

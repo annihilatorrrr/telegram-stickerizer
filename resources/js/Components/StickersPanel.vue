@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import route from "ziggy-js";
-import BetterImage from "@/webapp/BetterImage.vue";
+import BetterImage from "@/Components/BetterImage.vue";
 import {computed} from "vue";
 import {trans} from 'laravel-vue-i18n';
 

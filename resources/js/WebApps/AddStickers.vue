@@ -7,7 +7,7 @@ import colors from 'tailwindcss/colors';
 import User from "@/Types/User";
 import Pack from "@/Types/Pack";
 import {loadLanguageAsync, trans, trans_choice} from "laravel-vue-i18n";
-import BetterImage from "@/webapp/BetterImage.vue";
+import BetterImage from "@/Components/BetterImage.vue";
 
 const {showAlert, showPopup} = useWebAppPopup();
 const {openTelegramLink} = useWebAppNavigation();

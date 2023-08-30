@@ -1,6 +1,7 @@
 import './bootstrap';
 import {createApp} from 'vue';
-import Main from "@/webapp/Main.vue";
+import Stickerizer from "@/WebApps/Stickerizer.vue";
+import AddStickers from "@/WebApps/AddStickers.vue";
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {faCircleNotch, faXmark} from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +15,6 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import "vue-progressive-image/dist/style.css";
 import {i18nVue} from 'laravel-vue-i18n';
-import AddStickersPage from "@/webapp/Pages/AddStickersPage.vue";
 
 library.add(faCircleNotch);
 library.add(faCircleQuestion);
@@ -26,7 +26,7 @@ library.add(faTrashCan);
 library.add(faFaceSadTear);
 
 if (document.getElementById('app')){
-    createApp(Main)
+    createApp(Stickerizer)
         .component('font-awesome-icon', FontAwesomeIcon)
         .use(i18nVue, {
             resolve: async lang => {
@@ -38,7 +38,7 @@ if (document.getElementById('app')){
 }
 
 if (document.getElementById('app-addstickers')) {
-    createApp(AddStickersPage)
+    createApp(AddStickers)
         .component('font-awesome-icon', FontAwesomeIcon)
         .use(i18nVue, {
             resolve: async lang => {
