@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PackResource;
 use App\Http\Resources\StickersFavoriteResource;
 use App\Http\Resources\StickersHistoryResource;
+use App\Http\Resources\UserResource;
 use App\Models\Pack;
 use App\Models\Sticker;
 use App\Models\StickersFavorite;
 use App\Models\StickersHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image as ImageFacade;
@@ -27,6 +29,37 @@ class WebAppController extends Controller
                 'fingerprint' => $request->input('fingerprint'),
             ]
         ]);
+    }
+
+    public function addStickers(Request $request)
+    {
+        return view('webapp.addstickers', [
+            'initData' => [
+                'bot_username' => config('bot.username'),
+            ],
+        ]);
+    }
+
+    public function pack(Pack $pack)
+    {
+        return new PackResource($pack);
+    }
+
+    public function addPack(Request $request, Pack $pack)
+    {
+        $user = User::findOrFail($request->input('user_id'));
+        $user->packs()->syncWithoutDetaching($pack->id);
+    }
+
+    public function removePack(Request $request, Pack $pack)
+    {
+        $user = User::findOrFail($request->input('user_id'));
+        $user->packs()->detach($pack->id);
+    }
+
+    public function user(User $user)
+    {
+        return new UserResource($user);
     }
 
     public function preview(Request $request, Sticker $sticker)

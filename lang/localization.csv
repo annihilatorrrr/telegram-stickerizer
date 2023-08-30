@@ -64,6 +64,7 @@ common,back,🔙 Back,🔙 Indietro,🔙 Espalda,🔙 Hазад
 common,disabled,❌ Disabled,❌ Disabilitato,❌ Inhabilitado,❌ Отключено
 common,enabled,✅ Enabled,✅ Abilitato,✅ Habilitado,✅ Включено
 common,close,❌ Close,❌ Chiudi,,
+common,exit,Exit,Esci,,
 about,links,🔗 Links,🔗 Links,,
 about,news,<b>News:</b> :value,<b>News:</b> :value,<b>Noticias:</b> :value,<b>Новости:</b> :value
 about,support,<b>Support:</b> :value,<b>Supporto:</b> :value,,
@@ -76,3 +77,6 @@ settings,language.description,Here you can change the bot language.,Qui puoi cam
 settings,language.want,Do you want more languages?,Vuoi altre lingue?,¿Quieres mas idiomas?,Хочешь добавить переводы?
 common,click_here,Click here.,Clicca qui.,Click aquí.,Нажми здесь.
 webapp,no_packs,No Stickerizer Pack installed.,Nessun Stickerizer Pack installato.,,
+webapp,no_pack,Stickerizer Pack not found.,Stickerizer Pack non trovato.,,
+webapp,add_stickers,Add 1 sticker|Add :count stickers,Aggiungi 1 sticker|Aggiungi :count stickers,,
+webapp,remove_stickers,Remove 1 sticker|Remove :count stickers,Rimuovi 1 sticker|Rimuovi :count stickers,,

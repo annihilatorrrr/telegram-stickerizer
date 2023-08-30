@@ -14,6 +14,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import "vue-progressive-image/dist/style.css";
 import {i18nVue} from 'laravel-vue-i18n';
+import AddStickersPage from "@/webapp/Pages/AddStickersPage.vue";
 
 library.add(faCircleNotch);
 library.add(faCircleQuestion);
@@ -24,12 +25,26 @@ library.add(faPaperPlane);
 library.add(faTrashCan);
 library.add(faFaceSadTear);
 
-createApp(Main)
-    .component('font-awesome-icon', FontAwesomeIcon)
-    .use(i18nVue, {
-        resolve: async lang => {
-            const langs = import.meta.glob('../../lang/*.json');
-            return await langs[`../../lang/${lang}.json`]();
-        }
-    })
-    .mount('#app');
+if (document.getElementById('app')){
+    createApp(Main)
+        .component('font-awesome-icon', FontAwesomeIcon)
+        .use(i18nVue, {
+            resolve: async lang => {
+                const langs = import.meta.glob('../../lang/*.json');
+                return await langs[`../../lang/${lang}.json`]();
+            }
+        })
+        .mount('#app');
+}
+
+if (document.getElementById('app-addstickers')) {
+    createApp(AddStickersPage)
+        .component('font-awesome-icon', FontAwesomeIcon)
+        .use(i18nVue, {
+            resolve: async lang => {
+                const langs = import.meta.glob('../../lang/*.json');
+                return await langs[`../../lang/${lang}.json`]();
+            }
+        })
+        .mount('#app-addstickers');
+}
