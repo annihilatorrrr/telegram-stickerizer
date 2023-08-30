@@ -115,6 +115,11 @@ class User extends Model
 
     public function setLocale(): void
     {
+        App::setLocale($this->getLocale());
+    }
+
+    public function getLocale(): string
+    {
         //get lang from user settings
         $lang = $this->settings()->get('lang');
 
@@ -124,7 +129,6 @@ class User extends Model
         //get lang from app locale
         $lang ??= config('app.locale');
 
-        //set app locale
-        App::setLocale($lang);
+        return $lang;
     }
 }

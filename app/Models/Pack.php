@@ -25,4 +25,9 @@ class Pack extends Model
     {
         return $this->hasMany(Sticker::class);
     }
+
+    public function getShareUrl(): string
+    {
+        return sprintf('https://t.me/%s/addstickers?startapp=%s', config('bot.username'), $this->code);
+    }
 }
