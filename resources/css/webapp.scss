@@ -16,12 +16,17 @@ body[data-scheme="light"]{
     --tg-scheme: white;
 }
 
+html{
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable both-edges;
+}
+
 html, body {
     margin: 0;
 }
 
 body {
-    background: var(--tg-scheme) !important;
+    background-color: var(--tg-scheme);
     color: var(--tg-theme-text-color) !important;
     height: 100vh;
 }
