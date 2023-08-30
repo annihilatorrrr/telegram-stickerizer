@@ -1,4 +1,4 @@
-const plugin = require('tailwindcss/plugin');
+import plugin from 'tailwindcss/plugin';
 
 const hoverPlugin = plugin(function ({addVariant, e, postcss}) {
     addVariant('hover', ({container, separator}) => {

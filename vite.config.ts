@@ -3,6 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader'
 import i18n from 'laravel-vue-i18n/vite';
+import { fileURLToPath, URL } from "url";
 
 export default defineConfig({
     plugins: [
@@ -43,5 +44,11 @@ export default defineConfig({
         hmr: {
             host: 'localhost',
         },
-    }
+    },
+    resolve: {
+        alias: [
+            // @ts-ignore
+            { find: '@', replacement: fileURLToPath(new URL('./resources/js', import.meta.url)) },
+        ],
+    },
 });
