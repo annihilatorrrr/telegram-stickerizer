@@ -22,6 +22,15 @@ class BackgroundColorCircleSeeder extends Seeder
         $pack = Pack::create([
             'name' => 'Background Color (Circle)',
             'code' => $packCode,
+            'tags' => [
+                'text-monochrome',
+                'monochrome-text',
+                'solid-background',
+                'round',
+                'circle',
+                'round-background',
+                'circle-background',
+            ],
         ]);
 
         //BLACK
@@ -33,7 +42,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['black'],
         ]);
 
         //BLUE
@@ -45,7 +55,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['blue'],
         ]);
 
         //DARK GREEN
@@ -57,7 +68,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['dark-green'],
         ]);
 
         //CYAN
@@ -69,7 +81,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['cyan'],
         ]);
 
         //DARK RED
@@ -81,7 +94,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['dark-red'],
         ]);
 
         //DARK MAGENTA
@@ -93,7 +107,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['dark-magenta'],
         ]);
 
         //ORANGE
@@ -105,7 +120,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['orange'],
         ]);
 
         //GRAY
@@ -117,7 +133,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['gray'],
         ]);
 
         //DARK GRAY
@@ -129,7 +146,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['dark-gray'],
         ]);
 
         //INDIGO
@@ -141,7 +159,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['indigo'],
         ]);
 
         //LIGHT GREEN
@@ -153,7 +172,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['light-green'],
         ]);
 
         //LIGHT CYAN
@@ -165,7 +185,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['light-cyan'],
         ]);
 
         //LIGHT RED
@@ -177,7 +198,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['light-red'],
         ]);
 
         //PINK
@@ -189,7 +211,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['pink'],
         ]);
 
         //YELLOW
@@ -201,7 +224,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(0, 0, 0))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['yellow'],
         ]);
 
         //WHITE
@@ -213,7 +237,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(0, 0, 0))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['white'],
         ]);
 
         //VIOLET
@@ -225,7 +250,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['violet'],
         ]);
 
         //LIGHT BLUE
@@ -237,7 +263,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['light-blue'],
         ]);
 
         //GREEN
@@ -249,7 +276,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['green'],
         ]);
 
         //AQUA
@@ -261,7 +289,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['acqua'],
         ]);
 
         //RED
@@ -273,7 +302,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['red'],
         ]);
 
         //MAGENTA
@@ -285,7 +315,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['magenta'],
         ]);
 
         //DARK YELLOW
@@ -297,7 +328,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['dark-yellow'],
         ]);
 
         //BROWN
@@ -309,7 +341,8 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ]
+            ],
+            'tags' => ['brown'],
         ]);
     }
 }

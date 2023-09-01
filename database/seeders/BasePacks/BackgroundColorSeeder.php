@@ -22,6 +22,13 @@ class BackgroundColorSeeder extends Seeder
         $pack = Pack::create([
             'name' => 'Background Color',
             'code' => $packCode,
+            'tags' => [
+                'text-monochrome',
+                'monochrome-text',
+                'solid-background',
+                'square',
+                'square-background',
+            ],
         ]);
 
         //BLACK
@@ -31,7 +38,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(0, 0, 0)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['black'],
         ]);
 
         //BLUE
@@ -41,7 +49,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(1, 0, 171)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['blue'],
         ]);
 
         //DARK GREEN
@@ -51,7 +60,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(0, 170, 1)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['dark-green'],
         ]);
 
         //CYAN
@@ -61,7 +71,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(6, 164, 167)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['cyan'],
         ]);
 
         //DARK RED
@@ -71,7 +82,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(172, 0, 0)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['dark-red'],
         ]);
 
         //DARK MAGENTA
@@ -81,7 +93,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(170, 0, 169)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['dark-magenta'],
         ]);
 
         //ORANGE
@@ -91,7 +104,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(255, 170, 1)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['orange'],
         ]);
 
         //GRAY
@@ -101,7 +115,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(170, 170, 170)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['gray'],
         ]);
 
         //DARK GRAY
@@ -111,7 +126,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(85, 85, 85)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['dark-gray'],
         ]);
 
         //INDIGO
@@ -121,7 +137,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(86, 84, 255)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['indigo'],
         ]);
 
         //LIGHT GREEN
@@ -131,7 +148,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(85, 255, 86)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['light-green'],
         ]);
 
         //LIGHT CYAN
@@ -141,7 +159,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(85, 255, 255)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['light-cyan'],
         ]);
 
         //LIGHT RED
@@ -151,7 +170,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(255, 85, 85)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['light-red'],
         ]);
 
         //PINK
@@ -161,7 +181,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(255, 85, 254)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['pink'],
         ]);
 
         //YELLOW
@@ -171,7 +192,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(255, 255, 85)),
                 InputTextLayer::make(Color::fromRgba(0, 0, 0)),
-            ]
+            ],
+            'tags' => ['yellow'],
         ]);
 
         //WHITE
@@ -181,7 +203,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(255, 255, 255)),
                 InputTextLayer::make(Color::fromRgba(0, 0, 0)),
-            ]
+            ],
+            'tags' => ['white'],
         ]);
 
         //VIOLET
@@ -191,7 +214,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(42, 0, 211)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['violet'],
         ]);
 
         //LIGHT BLUE
@@ -201,7 +225,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(0, 120, 255)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['light-blue'],
         ]);
 
         //GREEN
@@ -211,7 +236,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(36, 198, 0)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['green'],
         ]);
 
         //AQUA
@@ -221,7 +247,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(0, 211, 137)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['aqua'],
         ]);
 
         //RED
@@ -231,7 +258,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(211, 0, 0)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['red'],
         ]);
 
         //MAGENTA
@@ -241,7 +269,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(255, 0, 255)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['magenta'],
         ]);
 
         //DARK YELLOW
@@ -251,7 +280,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(204, 211, 0)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['dark-yellow'],
         ]);
 
         //BROWN
@@ -261,7 +291,8 @@ class BackgroundColorSeeder extends Seeder
             'layers' => [
                 BackgroundColorLayer::make(Color::fromRgba(211, 119, 0)),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255)),
-            ]
+            ],
+            'tags' => ['brown'],
         ]);
     }
 }

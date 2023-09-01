@@ -21,6 +21,12 @@ class TextColorSeeder extends Seeder
         $pack = Pack::create([
             'name' => 'Text Color',
             'code' => $packCode,
+            'tags' => [
+                'text-only',
+                'text-color',
+                'colored-text',
+                'transparent-background',
+            ],
         ]);
 
         //BLACK
@@ -33,7 +39,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['black'],
         ]);
 
         //BLUE
@@ -46,7 +53,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['blue'],
         ]);
 
         //DARK GREEN
@@ -59,7 +67,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['dark-green'],
         ]);
 
         //CYAN
@@ -72,7 +81,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['cyan'],
         ]);
 
         //DARK RED
@@ -85,7 +95,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['dark-red'],
         ]);
 
         //DARK MAGENTA
@@ -98,7 +109,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['dark-magenta'],
         ]);
 
         //ORANGE
@@ -111,7 +123,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['orange'],
         ]);
 
         //GRAY
@@ -124,7 +137,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['gray'],
         ]);
 
         //DARK GRAY
@@ -137,7 +151,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['dark-gray'],
         ]);
 
         //INDIGO
@@ -150,7 +165,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['indigo'],
         ]);
 
         //LIGHT GREEN
@@ -163,7 +179,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['light-green'],
         ]);
 
         //LIGHT CYAN
@@ -176,7 +193,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['light-cyan'],
         ]);
 
         //LIGHT RED
@@ -189,7 +207,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['light-red'],
         ]);
 
         //PINK
@@ -202,7 +221,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['pink'],
         ]);
 
         //YELLOW
@@ -215,7 +235,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(0, 0, 0),
                 ),
-            ]
+            ],
+            'tags' => ['yellow'],
         ]);
 
         //WHITE
@@ -228,7 +249,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(0, 0, 0),
                 ),
-            ]
+            ],
+            'tags' => ['white'],
         ]);
 
         //VIOLET
@@ -241,7 +263,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['violet'],
         ]);
 
         //LIGHT BLUE
@@ -254,7 +277,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['light-blue'],
         ]);
 
         //GREEN
@@ -267,7 +291,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['green'],
         ]);
 
         //AQUA
@@ -280,7 +305,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['aqua'],
         ]);
 
         //RED
@@ -293,7 +319,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['red'],
         ]);
 
         //MAGENTA
@@ -306,7 +333,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['magenta'],
         ]);
 
         //DARK YELLOW
@@ -319,7 +347,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['dark-yellow'],
         ]);
 
         //BROWN
@@ -332,7 +361,8 @@ class TextColorSeeder extends Seeder
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(255, 255, 255),
                 ),
-            ]
+            ],
+            'tags' => ['brown'],
         ]);
     }
 }

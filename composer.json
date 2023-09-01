@@ -17,6 +17,7 @@
         "oxmohsen/validating-data": "^1.0",
         "pe46dro/gd-text": "^v1.2.0",
         "spatie/laravel-settings": "^3.2",
+        "spatie/laravel-tags": "^4.5",
         "tightenco/ziggy": "^1.6"
     },
     "require-dev": {
