@@ -78,5 +78,7 @@ settings,language.want,Do you want more languages?,Vuoi altre lingue?,¿Quieres 
 common,click_here,Click here.,Clicca qui.,Click aquí.,Нажми здесь.
 webapp,no_packs,No Stickerizer Pack installed.,Nessun Stickerizer Pack installato.,,
 webapp,no_pack,Stickerizer Pack not found.,Stickerizer Pack non trovato.,,
+webapp,no_sticker,No sticker found.,Nessuno sticker trovato.,,
 webapp,add_stickers,Add 1 sticker|Add :count stickers,Aggiungi 1 sticker|Aggiungi :count stickers,,
 webapp,remove_stickers,Remove 1 sticker|Remove :count stickers,Rimuovi 1 sticker|Rimuovi :count stickers,,
+common,search,Search,Cerca,,

@@ -11,5 +11,6 @@ return [
     'open' => 'Apri',
     'auto' => 'Automatico',
     'click_here' => 'Clicca qui.',
+    'search' => 'Cerca',
 
 ];

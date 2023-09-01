@@ -4,7 +4,12 @@ import Stickerizer from "@/WebApps/Stickerizer.vue";
 import AddStickers from "@/WebApps/AddStickers.vue";
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
-import {faCircleNotch, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleNotch,
+    faXmark,
+    faMagnifyingGlass,
+    faBoxesStacked
+} from '@fortawesome/free-solid-svg-icons';
 import {
     faCircleQuestion,
     faClock,
@@ -24,6 +29,8 @@ library.add(faStar);
 library.add(faPaperPlane);
 library.add(faTrashCan);
 library.add(faFaceSadTear);
+library.add(faMagnifyingGlass);
+library.add(faBoxesStacked);
 
 if (document.getElementById('app')){
     createApp(Stickerizer)

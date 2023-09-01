@@ -8,23 +8,25 @@ interface Props {
 }
 
 defineProps<Props>();
+defineEmits(['iconClick']);
 </script>
 
 <template>
     <div id="packs-panel-container">
-        <a v-if="hasFavorites" href="#favorites"
+        <a v-if="hasFavorites" href="#favorites" @click="$emit('iconClick')"
            class="pack-icon flex items-center justify-center"
            style="background-color: transparent !important;">
             <font-awesome-icon icon="fa-regular fa-star" size="xl" class="text-tg-hint"/>
         </a>
 
-        <a v-if="hasHistory" href="#history"
+        <a v-if="hasHistory" href="#history" @click="$emit('iconClick')"
            class="pack-icon flex items-center justify-center"
            style="background-color: transparent !important;">
             <font-awesome-icon icon="fa-regular fa-clock" size="xl" class="text-tg-hint"/>
         </a>
 
         <a v-for="pack in packs"
+           @click="$emit('iconClick')"
            :key="`pp${pack.id}`"
            :href="`#P${pack.id}`"
            :style="{backgroundImage: `url(${pack.icon})`}"

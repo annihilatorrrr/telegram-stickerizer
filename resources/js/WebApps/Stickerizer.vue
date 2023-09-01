@@ -9,6 +9,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
 const loading = ref(false);
+const search = ref('');
 const favorites = ref([]);
 const history = ref([]);
 const packs = ref([]);
@@ -165,8 +166,25 @@ onMounted(() => {
     />
 
     <div class="layout">
+        <div id="search-panel">
+            <div id="search-box">
+                <font-awesome-icon icon="fa-solid fa-magnifying-glass" size="sm"/>
+                <input type="text"
+                       id="search-input"
+                       :placeholder="trans('common.search')"
+                       maxlength="50"
+                       :value="search"
+                       @input="(event) => search = event.target.value"
+                />
+                <button v-if="search" @click="() => search=''">
+                    <font-awesome-icon icon="fa-solid fa-xmark"/>
+                </button>
+            </div>
+        </div>
+
         <div id="stickers-panel">
             <StickersPanel
+                v-model:search="search"
                 v-model:favorites="favorites"
                 v-model:history="history"
                 v-model:packs="packs"
@@ -181,6 +199,7 @@ onMounted(() => {
             <PacksPanel v-model:hasHistory="hasHistory"
                         v-model:hasFavorites="hasFavorites"
                         v-model:packs="packs"
+                        @iconClick="() => search = ''"
             />
         </div>
         <div id="input">
@@ -194,15 +213,42 @@ onMounted(() => {
     @apply bg-tg-bg;
     height: 100%;
 
+    --padding-top: 10px;
+    --search-panel-height: 50px;
     --packs-panel-height: 40px;
     --input-panel-height: 50px;
+
+    padding-top: calc(var(--search-panel-height) + var(--padding-top));
+
+    #search-panel {
+        @apply bg-tg-bg;
+        @apply px-3;
+        @apply flex items-center justify-center h-full;
+        height: var(--search-panel-height);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+
+        #search-box{
+            @apply flex items-center;
+            @apply rounded-3xl w-full px-3 py-1;
+            @apply text-tg-hint bg-tg-bg-secondary;
+
+            #search-input{
+              @apply inline-block flex-auto;
+              @apply text-white bg-transparent caret-tg-button-bg;
+              @apply outline-0 px-1;
+            }
+        }
+    }
 
     #stickers-panel {
         height: 100%;
 
         & > div:first-child {
             @apply px-3;
-            padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height));
+            padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height) + var(--padding-top));
         }
     }
 

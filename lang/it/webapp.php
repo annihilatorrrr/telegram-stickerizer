@@ -18,6 +18,7 @@ return [
     'message' => 'Messaggio',
     'no_packs' => 'Nessun Stickerizer Pack installato.',
     'no_pack' => 'Stickerizer Pack non trovato.',
+    'no_sticker' => 'Nessuno sticker trovato.',
     'add_stickers' => 'Aggiungi 1 sticker|Aggiungi :count stickers',
     'remove_stickers' => 'Rimuovi 1 sticker|Rimuovi :count stickers',
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PackResource;
+use App\Http\Resources\StickerResource;
 use App\Http\Resources\StickersFavoriteResource;
 use App\Http\Resources\StickersHistoryResource;
 use App\Http\Resources\UserResource;
@@ -13,6 +14,7 @@ use App\Models\StickersHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
@@ -113,6 +115,21 @@ class WebAppController extends Controller
             ->get();
 
         return PackResource::collection($packs);
+    }
+
+    public function search(Request $request)
+    {
+        $tags = Str::of($request->input('search'))
+            ->explode(' ')
+            ->filter()
+            ->values()
+            ->toArray();
+
+        $stickers = Sticker::query()
+            ->withAnyTagsOfAnyType($tags)
+            ->get();
+
+        return StickerResource::collection($stickers);
     }
 
     public function history(Request $request)
