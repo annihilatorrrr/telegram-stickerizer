@@ -8,15 +8,22 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const image = new Image();
+image.onload = () => isLoading.value = false;
+
 const isVisible = ref(false);
 const isLoading = ref(true);
 
 const onElementVisibility = (state) => isVisible.value = state;
 
 const loadImage = () => {
-    const image = new Image();
-    image.onload = () => isLoading.value = false;
+    isLoading.value = true;
     image.src = props.url;
+}
+
+const stopLoading = () => {
+    isLoading.value = false;
+    image.src = '';
 }
 
 watch(() => isVisible.value && props.url, (state) => {
@@ -24,6 +31,12 @@ watch(() => isVisible.value && props.url, (state) => {
         loadImage();
     }
 }, {immediate: true});
+
+watch(() => isVisible.value, (state) => {
+    if (!state) {
+        stopLoading();
+    }
+});
 
 </script>
 
