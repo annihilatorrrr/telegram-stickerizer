@@ -42,7 +42,7 @@ const hasPacks = computed(() => props.packs.length > 0);
     <div class="bg-tg-bg" :class="{'h-full': !hasFavorites && !hasHistory && ((!search && !hasPacks) || (search && searchResult.length===0))}">
         <div class="pb-2 mb-2" v-if="hasFavorites">
             <div class="flex mb-2">
-                <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default">
+                <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
                     {{ trans('webapp.favorite.title') }}
                 </a>
             </div>
@@ -57,7 +57,7 @@ const hasPacks = computed(() => props.packs.length > 0);
 
         <div class="pb-2 mb-2" v-if="hasHistory">
             <div class="flex mb-2">
-                <a id="history" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default">
+                <a id="history" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
                     {{ trans('webapp.history') }}
                 </a>
                 <button @click="$emit('clearHistory')" class="inline-block px-">
