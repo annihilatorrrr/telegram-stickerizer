@@ -97,16 +97,32 @@ const loadFavorites = async () => {
 };
 
 const clearHistory = async () => {
-    webapp.showConfirm(trans('webapp.clear'), async function (result) {
+    webapp.showConfirm(trans('webapp.clear.history'), async function (result) {
         if (result) {
             loading.value = true;
-            await axios.delete(route('webapp.sticker.history.clear'), {
+            await axios.delete(route('webapp.sticker.clear.history'), {
                 params: {
                     user_id: window.initData.user_id,
                     fingerprint: window.initData.fingerprint,
                 }
             });
             await loadHistory();
+            loading.value = false;
+        }
+    });
+};
+
+const clearFavorites = async () => {
+    webapp.showConfirm(trans('webapp.clear.favorites'), async function (result) {
+        if (result) {
+            loading.value = true;
+            await axios.delete(route('webapp.sticker.clear.favorite'), {
+                params: {
+                    user_id: window.initData.user_id,
+                    fingerprint: window.initData.fingerprint,
+                }
+            });
+            await loadFavorites();
             loading.value = false;
         }
     });
@@ -192,6 +208,7 @@ onMounted(() => {
                 @send="sendStickerCode"
                 @sendFromHistory="(x) => sendStickerCode(x.sticker, x.text)"
                 @clearHistory="clearHistory"
+                @clearFavorites="clearFavorites"
                 @menu="openMenu"
             />
         </div>

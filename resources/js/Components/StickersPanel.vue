@@ -16,7 +16,7 @@ interface Props {
 const searchResult = ref([]);
 
 const props = defineProps<Props>();
-defineEmits(['send', 'sendFromHistory', 'clearHistory', 'menu']);
+defineEmits(['send', 'sendFromHistory', 'clearHistory', 'clearFavorites', 'menu']);
 
 const loadSearch = async () => {
   const response = await axios.get(route('webapp.search'), {
@@ -45,6 +45,9 @@ const hasPacks = computed(() => props.packs.length > 0);
                 <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
                     {{ trans('webapp.favorite.title') }}
                 </a>
+                <button @click="$emit('clearFavorites')" class="inline-block">
+                    <font-awesome-icon icon="fa-solid fa-xmark" class="text-tg-hint"/>
+                </button>
             </div>
             <div class="grid grid-cols-4 gap-2">
                 <BetterImage v-for="item in favorites"
@@ -60,7 +63,7 @@ const hasPacks = computed(() => props.packs.length > 0);
                 <a id="history" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
                     {{ trans('webapp.history') }}
                 </a>
-                <button @click="$emit('clearHistory')" class="inline-block px-">
+                <button @click="$emit('clearHistory')" class="inline-block">
                     <font-awesome-icon icon="fa-solid fa-xmark" class="text-tg-hint"/>
                 </button>
             </div>

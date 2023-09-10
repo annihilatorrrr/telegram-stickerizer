@@ -6,7 +6,10 @@ return [
     'limit' => 'The maximum length of a text message is 150 characters.',
     'platform_not_supported' => 'Platform not supported. Please use a supported Telegram client.',
     'empty' => 'You need to enter a text to send the sticker.',
-    'clear' => 'Do you want to clear all your recent stickers?',
+    'clear' => [
+        'history' => 'Do you want to clear all your recent stickers?',
+        'favorites' => 'Do you want to clear all your favorite stickers?',
+    ],
     'history' => 'Recently Used',
     'send' => 'Send sticker',
     'favorite' => [

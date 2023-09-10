@@ -152,6 +152,13 @@ class WebAppController extends Controller
             ->delete();
     }
 
+    public function clearFavorite(Request $request)
+    {
+        StickersFavorite::query()
+            ->where('user_id', $request->input('user_id'))
+            ->delete();
+    }
+
     public function getFavoriteStickers(Request $request)
     {
         $favorites = StickersFavorite::query()
