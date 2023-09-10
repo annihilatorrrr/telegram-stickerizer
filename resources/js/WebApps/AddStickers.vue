@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {MainButton, useWebAppPopup, useWebAppNavigation} from "vue-tg";
-import {onMounted, ref, computed, watch} from "vue";
+import {MainButton, useWebAppNavigation, useWebAppPopup} from "vue-tg";
+import {computed, onMounted, ref, watch} from "vue";
 import axios from "axios";
 import route from "ziggy-js";
 import colors from 'tailwindcss/colors';
@@ -28,7 +28,7 @@ const setScheme = () => {
 
 const loadUser = async () => {
     try {
-        const response = await axios.get(route('webapp.user', {user: webapp.initDataUnsafe.user.id}), {
+        const response = await axios.get(route('webapp.user'), {
             params: {
                 initData: webapp.initData,
             },
@@ -56,14 +56,12 @@ const addPack = async () => {
 
     await axios.post(route('webapp.pack.add', {pack: pack.value.id}), {
         initData: webapp.initData,
-        user_id: webapp.initDataUnsafe.user.id,
     });
 };
 
 const removePack = async () => {
     await axios.post(route('webapp.pack.remove', {pack: pack.value.id}), {
         initData: webapp.initData,
-        user_id: webapp.initDataUnsafe.user.id,
     });
 };
 
@@ -84,7 +82,6 @@ const loadPack = async () => {
         const response = await axios.get(route('webapp.pack', {pack: packCode}), {
             params: {
                 initData: webapp.initData,
-                user_id: webapp.initDataUnsafe.user.id,
             },
         });
         pack.value = response.data;

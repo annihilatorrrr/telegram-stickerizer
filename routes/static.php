@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\WebAppController;
 use App\Http\Middleware\ValidateFingerprint;
-use App\Http\Middleware\ValidateWebAppData;
 use Illuminate\Support\Facades\Route;
+use Nutgram\Laravel\Middleware\ValidateWebAppData;
 use SergiX44\Nutgram\Nutgram;
 
 Route::post('/hook', fn(Nutgram $bot) => $bot->run());
@@ -16,7 +16,7 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
 
     Route::middleware(ValidateWebAppData::class)->group(function () {
         Route::get('pack/{pack:code}', [WebAppController::class, 'pack'])->name('pack');
-        Route::get('user/{user}', [WebAppController::class, 'user'])->name('user');
+        Route::get('user', [WebAppController::class, 'user'])->name('user');
         Route::post('pack/{pack}/add', [WebAppController::class, 'addPack'])->name('pack.add');
         Route::post('pack/{pack}/remove', [WebAppController::class, 'removePack'])->name('pack.remove');
     });

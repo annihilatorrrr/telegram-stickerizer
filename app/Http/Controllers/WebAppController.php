@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
+use function App\Helpers\webAppData;
 
 class WebAppController extends Controller
 {
@@ -49,18 +50,20 @@ class WebAppController extends Controller
 
     public function addPack(Request $request, Pack $pack)
     {
-        $user = User::findOrFail($request->input('user_id'));
+        $user = User::find(webAppData()->user->id);
         $user->packs()->syncWithoutDetaching($pack->id);
     }
 
     public function removePack(Request $request, Pack $pack)
     {
-        $user = User::findOrFail($request->input('user_id'));
+        $user = User::find(webAppData()->user->id);
         $user->packs()->detach($pack->id);
     }
 
-    public function user(User $user)
+    public function user()
     {
+        $user = User::find(webAppData()->user->id);
+
         return new UserResource($user);
     }
 
