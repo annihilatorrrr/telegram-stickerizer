@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import route from "ziggy-js";
 import BetterImage from "@/Components/BetterImage.vue";
-import {computed, watch, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {trans} from 'laravel-vue-i18n';
 import debounce from "lodash.debounce";
 
@@ -40,7 +40,7 @@ const hasPacks = computed(() => props.packs.length > 0);
 
 <template>
     <div class="bg-tg-bg" :class="{'h-full': !hasFavorites && !hasHistory && ((!search && !hasPacks) || (search && searchResult.length===0))}">
-        <div class="pb-2 mb-2" v-if="hasFavorites">
+        <div class="pb-2 mb-2" v-if="hasFavorites && !search">
             <div class="flex mb-2">
                 <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
                     {{ trans('webapp.favorite.title') }}
@@ -55,7 +55,7 @@ const hasPacks = computed(() => props.packs.length > 0);
             </div>
         </div>
 
-        <div class="pb-2 mb-2" v-if="hasHistory">
+        <div class="pb-2 mb-2" v-if="hasHistory && !search">
             <div class="flex mb-2">
                 <a id="history" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
                     {{ trans('webapp.history') }}
