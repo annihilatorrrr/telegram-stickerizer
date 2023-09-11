@@ -7,8 +7,9 @@ use App\Stickerizer\Styles\LayerPosition;
 use App\Stickerizer\Styles\LayerSize;
 use Intervention\Image\Image;
 use JsonSerializable;
+use Stringable;
 
-abstract class StickerLayer implements JsonSerializable
+abstract class StickerLayer implements JsonSerializable, Stringable
 {
     protected LayerPosition $layerPosition;
     protected ?LayerSize $layerSize;
@@ -120,5 +121,10 @@ abstract class StickerLayer implements JsonSerializable
                 $font->align('right');
                 $font->valign('bottom');
             });
+    }
+
+    public function __toString(): string
+    {
+        return json_encode($this->jsonSerialize(), JSON_THROW_ON_ERROR);
     }
 }

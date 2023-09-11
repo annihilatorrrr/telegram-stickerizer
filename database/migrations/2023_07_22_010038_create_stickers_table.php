@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('stickers', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->nullable()->unique();
             $table->foreignId('pack_id')->constrained();
             $table->integer('width');
             $table->integer('height');

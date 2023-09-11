@@ -16,14 +16,10 @@ class BackgroundImageSeeder extends Seeder
     {
         $packCode = 'BackgroundImage';
 
-        if (Pack::where('code', $packCode)->exists()) {
-            $this->command->line('Skipping ' . $packCode . ' pack creation, already exists');
-            return;
-        }
-
-        $pack = Pack::create([
-            'name' => 'Background Image',
+        $pack = Pack::updateOrCreate([
             'code' => $packCode,
+        ], [
+            'name' => 'Background Image',
             'tags' => [
                 'text-monochrome',
                 'monochrome-text',
@@ -39,62 +35,197 @@ class BackgroundImageSeeder extends Seeder
             Storage::disk('packs')->path('BackgroundImage')
         );
 
-        $pack->stickers()->create($this->createSticker('arrows.png', ['arrows', 'blue', 'red', 'gradient']));
-        $pack->stickers()->create($this->createSticker('baloons.png', ['baloons', 'blue', 'cyan', 'party', 'heart']));
-        $pack->stickers()->create($this->createSticker('beach.png', ['beach', 'blue', 'sky', 'clouds', 'cyan']));
-        $pack->stickers()->create($this->createSticker('birthday.png', ['birthday', 'cake', 'party', 'blue', 'event']));
-        $pack->stickers()->create($this->createSticker('cake.png', ['cake', 'icecream', 'pink', 'party', 'event']));
-        $pack->stickers()->create($this->createSticker('cancel.png', ['cancel', 'red', 'gray', 'cross', 'x']));
-        $pack->stickers()->create($this->createSticker('christmas.png', ['christmas', 'tree', 'snow', 'winter', 'event', 'red', 'white']));
-        $pack->stickers()->create($this->createSticker('cold.png', ['cold', 'purple', 'pink', 'cyan', 'blue', 'gradient']));
-        $pack->stickers()->create($this->createSticker('decoration.png', ['decoration', 'purple', 'abstract', 'flowers']));
-        $pack->stickers()->create($this->createSticker('diamond.png', ['diamond', 'red', 'jewelry']));
-        $pack->stickers()->create($this->createSticker('fall.png', ['fall', 'autumn', 'orange', 'yellow', 'brown', 'tree', 'leafs', 'sky']));
-        $pack->stickers()->create($this->createSticker('fast.png', ['fast', 'speed', 'flash', 'orange', 'purple', 'lightning', 'yellow', 'thunder']));
-        $pack->stickers()->create($this->createSticker('flower.png', ['flower', 'yellow', 'green', 'pink', 'lines', 'tulip']));
-        $pack->stickers()->create($this->createSticker('flowers.png', ['flowers', 'pink', 'green', 'orange', 'bee']));
-        $pack->stickers()->create($this->createSticker('fun.png', ['fun', 'event', 'party', 'yellow', 'orange', 'red', 'blue', 'black', 'decoration']));
-        $pack->stickers()->create($this->createSticker('gifts.png', ['gifts', 'event', 'party', 'gray', 'yellow', 'red', 'green', 'cyan']));
-        $pack->stickers()->create($this->createSticker('gloves.png', ['gloves', 'cyan', 'blue', 'winter', 'cold']));
-        $pack->stickers()->create($this->createSticker('happy.png', ['happy', 'event', 'party', 'yellow', 'orange', 'red', 'blue', 'decoration']));
-        $pack->stickers()->create($this->createSticker('holiday.png', ['holiday', 'pink', 'sky', 'star', 'night', 'comet', 'purple', 'yellow', 'orange', 'gradient']));
-        $pack->stickers()->create($this->createSticker('hot.png', ['hot', 'yellow', 'orange', 'pink', 'purple', 'gradient']));
-        $pack->stickers()->create($this->createSticker('hug.png', ['hug', 'hands', 'blue', 'cyan', 'fingers', 'clock']));
-        $pack->stickers()->create($this->createSticker('ice.png', ['ice', 'penguin', 'cold', 'winter', 'blue', 'white', 'fishing']));
-        $pack->stickers()->create($this->createSticker('leaves.png', ['leaves', 'green']));
-        $pack->stickers()->create($this->createSticker('love.png', ['love', 'heart', 'red', 'baloon']));
-        $pack->stickers()->create($this->createSticker('melon.png', ['melon', 'watermelon', 'green', 'red', 'fruit', 'seeds', 'white']));
-        $pack->stickers()->create($this->createSticker('music.png', ['music', 'pink', 'red', 'black', 'cyan', 'gray', 'table', 'gramophone', 'vinil']));
-        $pack->stickers()->create($this->createSticker('news.png', ['news', 'white', 'cyan', 'blue', 'surprise', 'event']));
-        $pack->stickers()->create($this->createSticker('night.png', ['night', 'sky', 'stars', 'moon', 'comet', 'blue', 'yellow', 'white', 'clouds']));
-        $pack->stickers()->create($this->createSticker('peace.png', ['peace', 'green']));
-        $pack->stickers()->create($this->createSticker('pencils.png', ['pencils', 'eraser', 'pink', 'purple', 'indigo', 'white']));
-        $pack->stickers()->create($this->createSticker('sky.png', ['sky', 'clouds', 'blue', 'white', 'cyan', 'birds']));
-        $pack->stickers()->create($this->createSticker('snow.png', ['snow', 'white', 'blue', 'cyan', 'sky', 'winter', 'cold']));
-        $pack->stickers()->create($this->createSticker('soccer.png', ['soccer', 'ball', 'green', 'white', 'sport', 'football']));
-        $pack->stickers()->create($this->createSticker('space.png', ['space', 'abstract', 'satellite', 'stars', 'purple', 'planets', 'geometry']));
-        $pack->stickers()->create($this->createSticker('spring.png', ['spring', 'flowers', 'green', 'yellow', 'red', 'white']));
-        $pack->stickers()->create($this->createSticker('sun.png', ['sun', 'gradient', 'yellow', 'orange']));
-        $pack->stickers()->create($this->createSticker('sunset.png', ['sunset', 'sky', 'sun', 'sea', 'ocean', 'gradient', 'blue', 'white', 'black']));
-        $pack->stickers()->create($this->createSticker('trees.png', ['trees', 'red', 'black', 'winter', 'cold', 'snow']));
-        $pack->stickers()->create($this->createSticker('vinil.png', ['vinil', 'music', 'song', 'black', 'orange', 'gren', 'table']));
-        $pack->stickers()->create($this->createSticker('violet.png', ['violet', 'gradient', 'purple', 'pink', 'violet']));
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'arrows'));
+        $sticker->syncTags(['arrows', 'blue', 'red', 'gradient']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'baloons'));
+        $sticker->syncTags(['baloons', 'blue', 'cyan', 'party', 'heart']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'beach'));
+        $sticker->syncTags(['beach', 'blue', 'sky', 'clouds', 'cyan']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'birthday'));
+        $sticker->syncTags(['birthday', 'cake', 'party', 'blue', 'event']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'cake'));
+        $sticker->syncTags(['cake', 'icecream', 'pink', 'party', 'event']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'cancel'));
+        $sticker->syncTags(['cancel', 'red', 'gray', 'cross', 'x']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'christmas'));
+        $sticker->syncTags(['christmas', 'tree', 'snow', 'winter', 'event', 'red', 'white']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'cold'));
+        $sticker->syncTags(['cold', 'purple', 'pink', 'cyan', 'blue', 'gradient']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'decoration'));
+        $sticker->syncTags(['decoration', 'purple', 'abstract', 'flowers']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'diamond'));
+        $sticker->syncTags(['diamond', 'red', 'jewelry']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'fall'));
+        $sticker->syncTags(['fall', 'autumn', 'orange', 'yellow', 'brown', 'tree', 'leafs', 'sky']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'fast'));
+        $sticker->syncTags(['fast', 'speed', 'flash', 'orange', 'purple', 'lightning', 'yellow', 'thunder']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'flower'));
+        $sticker->syncTags(['flower', 'yellow', 'green', 'pink', 'lines', 'tulip']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'flowers'));
+        $sticker->syncTags(['flowers', 'pink', 'green', 'orange', 'bee']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'fun'));
+        $sticker->syncTags(['fun', 'event', 'party', 'yellow', 'orange', 'red', 'blue', 'black', 'decoration']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'gifts'));
+        $sticker->syncTags(['gifts', 'event', 'party', 'gray', 'yellow', 'red', 'green', 'cyan']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'gloves'));
+        $sticker->syncTags(['gloves', 'cyan', 'blue', 'winter', 'cold']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'happy'));
+        $sticker->syncTags(['happy', 'event', 'party', 'yellow', 'orange', 'red', 'blue', 'decoration']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'holiday'));
+        $sticker->syncTags([
+            'holiday',
+            'pink',
+            'sky',
+            'star',
+            'night',
+            'comet',
+            'purple',
+            'yellow',
+            'orange',
+            'gradient'
+        ]);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'hot'));
+        $sticker->syncTags(['hot', 'yellow', 'orange', 'pink', 'purple', 'gradient']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'hug'));
+        $sticker->syncTags(['hug', 'hands', 'blue', 'cyan', 'fingers', 'clock']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'ice'));
+        $sticker->syncTags(['ice', 'penguin', 'cold', 'winter', 'blue', 'white', 'fishing']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'leaves'));
+        $sticker->syncTags(['leaves', 'green']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'love'));
+        $sticker->syncTags(['love', 'heart', 'red', 'baloon']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'melon'));
+        $sticker->syncTags(['melon', 'watermelon', 'green', 'red', 'fruit', 'seeds', 'white']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'music'));
+        $sticker->syncTags(['music', 'pink', 'red', 'black', 'cyan', 'gray', 'table', 'gramophone', 'vinil']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'news'));
+        $sticker->syncTags(['news', 'white', 'cyan', 'blue', 'surprise', 'event']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'night'));
+        $sticker->syncTags(['night', 'sky', 'stars', 'moon', 'comet', 'blue', 'yellow', 'white', 'clouds']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'peace'));
+        $sticker->syncTags(['peace', 'green']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'pencils'));
+        $sticker->syncTags(['pencils', 'eraser', 'pink', 'purple', 'indigo', 'white']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'sky'));
+        $sticker->syncTags(['sky', 'clouds', 'blue', 'white', 'cyan', 'birds']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'snow'));
+        $sticker->syncTags(['snow', 'white', 'blue', 'cyan', 'sky', 'winter', 'cold']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'soccer'));
+        $sticker->syncTags(['soccer', 'ball', 'green', 'white', 'sport', 'football']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'space'));
+        $sticker->syncTags(['space', 'abstract', 'satellite', 'stars', 'purple', 'planets', 'geometry']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'spring'));
+        $sticker->syncTags(['spring', 'flowers', 'green', 'yellow', 'red', 'white']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'sun'));
+        $sticker->syncTags(['sun', 'gradient', 'yellow', 'orange']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'sunset'));
+        $sticker->syncTags(['sunset', 'sky', 'sun', 'sea', 'ocean', 'gradient', 'blue', 'white', 'black']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'trees'));
+        $sticker->syncTags(['trees', 'red', 'black', 'winter', 'cold', 'snow']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'vinil'));
+        $sticker->syncTags(['vinil', 'music', 'song', 'black', 'orange', 'gren', 'table']);
+        unset($sticker);
+
+        $sticker = $pack->stickers()->updateOrCreate(...$this->createSticker($packCode, 'violet'));
+        $sticker->syncTags(['violet', 'gradient', 'purple', 'pink', 'violet']);
+        unset($sticker);
     }
 
-    protected function createSticker(string $imagePath, array $tags = []): array
+    protected function createSticker(string $packCode, string $imagePath): array
     {
-        return [
+        $attributes = [
+            'code' => sprintf('%s.%s', $packCode, $imagePath),
+        ];
+
+        $values = [
             'width' => 512,
             'height' => 512,
             'layers' => [
-                BackgroundImageLayer::make(Storage::disk('packs')->path('BackgroundImage/'.$imagePath)),
+                BackgroundImageLayer::make(Storage::disk('packs')->path(sprintf("BackgroundImage/%s", $imagePath))),
                 InputTextLayer::make(
                     fontColor: Color::fromRgba(255, 255, 255),
                     strokeSize: 2,
                     strokeColor: Color::fromRgba(0, 0, 0),
                 ),
             ],
-            'tags' => $tags,
         ];
+
+        return [$attributes, $values];
     }
 }

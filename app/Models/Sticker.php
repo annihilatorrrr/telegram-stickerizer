@@ -18,6 +18,16 @@ class Sticker extends Model
         'layers' => StickerLayers::class,
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function (Sticker $model) {
+            if ($model->code === null) {
+                $model->code = sprintf('%s.%s', $model->pack_id, $model->id);
+                $model->save();
+            }
+        });
+    }
+
     public function pack(): BelongsTo
     {
         return $this->belongsTo(Pack::class);

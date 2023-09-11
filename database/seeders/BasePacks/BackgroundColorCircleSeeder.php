@@ -14,14 +14,10 @@ class BackgroundColorCircleSeeder extends Seeder
     {
         $packCode = 'BackgroundColorCircle';
 
-        if (Pack::where('code', $packCode)->exists()) {
-            $this->command->line('Skipping ' . $packCode . ' pack creation, already exists');
-            return;
-        }
-
-        $pack = Pack::create([
-            'name' => 'Background Color (Circle)',
+        $pack = Pack::updateOrCreate([
             'code' => $packCode,
+        ], [
+            'name' => 'Background Color (Circle)',
             'tags' => [
                 'text-monochrome',
                 'monochrome-text',
@@ -34,7 +30,9 @@ class BackgroundColorCircleSeeder extends Seeder
         ]);
 
         //BLACK
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'black'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -42,12 +40,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['black'],
+            ]
         ]);
+        $sticker->syncTags(['black']);
+        unset($sticker);
 
         //BLUE
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'blue'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -55,12 +56,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['blue'],
+            ]
         ]);
+        $sticker->syncTags(['blue']);
+        unset($sticker);
 
         //DARK GREEN
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'dark-green'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -68,12 +72,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['dark-green'],
+            ]
         ]);
+        $sticker->syncTags(['dark-green']);
+        unset($sticker);
 
         //CYAN
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'cyan'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -81,12 +88,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['cyan'],
+            ]
         ]);
+        $sticker->syncTags(['cyan']);
+        unset($sticker);
 
         //DARK RED
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'dark-red'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -94,12 +104,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['dark-red'],
+            ]
         ]);
+        $sticker->syncTags(['dark-red']);
+        unset($sticker);
 
         //DARK MAGENTA
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'dark-magenta'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -107,12 +120,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['dark-magenta'],
+            ]
         ]);
+        $sticker->syncTags(['dark-magenta']);
+        unset($sticker);
 
         //ORANGE
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'orange'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -120,12 +136,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['orange'],
+            ]
         ]);
+        $sticker->syncTags(['orange']);
+        unset($sticker);
 
         //GRAY
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'gray'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -133,12 +152,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['gray'],
+            ]
         ]);
+        $sticker->syncTags(['gray']);
+        unset($sticker);
 
         //DARK GRAY
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'dark-gray'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -146,12 +168,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['dark-gray'],
+            ]
         ]);
+        $sticker->syncTags(['dark-gray']);
+        unset($sticker);
 
         //INDIGO
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'indigo'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -159,12 +184,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['indigo'],
+            ]
         ]);
+        $sticker->syncTags(['indigo']);
+        unset($sticker);
 
         //LIGHT GREEN
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'light-green'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -172,12 +200,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['light-green'],
+            ]
         ]);
+        $sticker->syncTags(['light-green']);
+        unset($sticker);
 
         //LIGHT CYAN
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'light-cyan'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -185,12 +216,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['light-cyan'],
+            ]
         ]);
+        $sticker->syncTags(['light-cyan']);
+        unset($sticker);
 
         //LIGHT RED
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'light-red'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -198,12 +232,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['light-red'],
+            ]
         ]);
+        $sticker->syncTags(['light-red']);
+        unset($sticker);
 
         //PINK
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'pink'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -211,12 +248,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['pink'],
+            ]
         ]);
+        $sticker->syncTags(['pink']);
+        unset($sticker);
 
         //YELLOW
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'yellow'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -224,12 +264,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(0, 0, 0))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['yellow'],
+            ]
         ]);
+        $sticker->syncTags(['yellow']);
+        unset($sticker);
 
         //WHITE
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'white'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -237,12 +280,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(0, 0, 0))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['white'],
+            ]
         ]);
+        $sticker->syncTags(['white']);
+        unset($sticker);
 
         //VIOLET
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'violet'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -250,12 +296,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['violet'],
+            ]
         ]);
+        $sticker->syncTags(['violet']);
+        unset($sticker);
 
         //LIGHT BLUE
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'light-blue'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -263,12 +312,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['light-blue'],
+            ]
         ]);
+        $sticker->syncTags(['light-blue']);
+        unset($sticker);
 
         //GREEN
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'green'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -276,12 +328,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['green'],
+            ]
         ]);
+        $sticker->syncTags(['green']);
+        unset($sticker);
 
         //AQUA
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'acqua'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -289,12 +344,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['acqua'],
+            ]
         ]);
+        $sticker->syncTags(['acqua']);
+        unset($sticker);
 
         //RED
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'red'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -302,12 +360,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['red'],
+            ]
         ]);
+        $sticker->syncTags(['red']);
+        unset($sticker);
 
         //MAGENTA
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'magenta'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -315,12 +376,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['magenta'],
+            ]
         ]);
+        $sticker->syncTags(['magenta']);
+        unset($sticker);
 
         //DARK YELLOW
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'dark-yellow'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -328,12 +392,15 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['dark-yellow'],
+            ]
         ]);
+        $sticker->syncTags(['dark-yellow']);
+        unset($sticker);
 
         //BROWN
-        $pack->stickers()->create([
+        $sticker = $pack->stickers()->updateOrCreate([
+            'code' => sprintf('%s.%s', $packCode, 'brown'),
+        ], [
             'width' => 512,
             'height' => 512,
             'layers' => [
@@ -341,8 +408,9 @@ class BackgroundColorCircleSeeder extends Seeder
                     ->setLayerPosition(512 / 2, 512 / 2),
                 InputTextLayer::make(Color::fromRgba(255, 255, 255))
                     ->setLayerControl(75, 75, 350, 350),
-            ],
-            'tags' => ['brown'],
+            ]
         ]);
+        $sticker->syncTags(['brown']);
+        unset($sticker);
     }
 }
