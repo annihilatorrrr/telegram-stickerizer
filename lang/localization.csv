@@ -83,3 +83,4 @@ webapp,add_stickers,Add 1 sticker|Add :count stickers,Aggiungi 1 sticker|Aggiung
 webapp,remove_stickers,Remove 1 sticker|Remove :count stickers,Rimuovi 1 sticker|Rimuovi :count stickers,,
 common,search,Search,Cerca,,
 webapp,clear.favorites,Do you want to clear all your favorite stickers?,Sei sicuro di voler cancellare tutti gli sticker preferiti?,,
+common,template,Template,Template,,

@@ -51,6 +51,7 @@ const hasPacks = computed(() => props.packs.length > 0);
             </div>
             <div class="grid grid-cols-4 gap-2">
                 <BetterImage v-for="item in favorites"
+                             :is-template="!item.text"
                              :url="route('webapp.sticker.preview', {sticker: item.sticker_id, text: item.text ?? text})"
                              @click="$emit('sendFromHistory', {sticker: item.sticker_id, text: item.text ?? text});"
                              @contextmenu.prevent="$emit('menu', {mode:'removeFavorite', favorite_id: item.id, sticker: item.sticker_id, text: item.text ?? text});"

@@ -12,5 +12,6 @@ return [
     'auto' => 'Automatico',
     'click_here' => 'Clicca qui.',
     'search' => 'Cerca',
+    'template' => 'Template',
 
 ];

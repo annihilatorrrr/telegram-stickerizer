@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import {ref, watch} from 'vue'
 import {vElementVisibility} from '@vueuse/components'
+import {trans} from 'laravel-vue-i18n';
 
 interface Props {
-    url: string
+    url: string;
+    isTemplate?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -42,8 +44,12 @@ watch(() => isVisible.value, (state) => {
 
 <template>
     <div class="better-image"
+         :class="{'isTemplate': props.isTemplate}"
          :style="{backgroundImage: isVisible && !isLoading ? `url(${props.url})`:'none'}"
          v-element-visibility="onElementVisibility">
+        <div v-if="isTemplate" class="isTemplate">
+            {{ trans('common.template').toUpperCase() }}
+        </div>
         <font-awesome-icon icon="fa-solid fa-circle-notch" size="2x" spin v-if="isVisible && isLoading"/>
     </div>
 </template>
@@ -54,5 +60,15 @@ watch(() => isVisible.value, (state) => {
     @apply flex items-center justify-center;
     @apply bg-contain bg-no-repeat bg-center;
     background-color: rgba(0, 0, 0, 0.1);
+    @apply relative;
+
+    .isTemplate{
+        @apply bg-yellow-500 text-black font-bold rounded;
+        @apply px-2;
+        @apply absolute;
+        top: -6px;
+        //right: -10px;
+        font-size: 0.5rem;
+    }
 }
 </style>
