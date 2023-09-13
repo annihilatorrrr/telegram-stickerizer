@@ -217,7 +217,7 @@ class BackgroundImageSeeder extends Seeder
             'width' => 512,
             'height' => 512,
             'layers' => [
-                BackgroundImageLayer::make(Storage::disk('packs')->path(sprintf("BackgroundImage/%s", $imagePath))),
+                BackgroundImageLayer::make(Storage::disk('packs')->path(sprintf("BackgroundImage/%s.png", $imagePath))),
                 InputTextLayer::make(
                     fontColor: Color::fromRgba(255, 255, 255),
                     strokeSize: 2,
