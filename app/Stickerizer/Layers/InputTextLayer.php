@@ -191,7 +191,8 @@ class InputTextLayer extends StickerLayer
         if ($this->fontSize !== null) {
             $box->draw($this->text);
         } else {
-            $box->drawFitFontSize($this->text, 20, 500, 20);
+            [$precision, $maxFontSize, $minFontSize] = $this->calculateFontSize(mb_strlen($this->text));
+            $box->drawFitFontSize($this->text, $precision, $maxFontSize, $minFontSize);
         }
 
         //handle layer
@@ -254,5 +255,16 @@ class InputTextLayer extends StickerLayer
             $layer->setLayerSize($data['layerSize']['width'], $data['layerSize']['height']);
         }
         return $layer;
+    }
+
+    protected function calculateFontSize(int $length): array
+    {
+        return match (true) {
+            $length === 2 => [1, 380, 20],
+            $length === 3 => [1, 300, 20],
+            $length === 4 => [1, 240, 20],
+            $length === 5 => [1, 220, 20],
+            default => [20, 500, 20],
+        };
     }
 }

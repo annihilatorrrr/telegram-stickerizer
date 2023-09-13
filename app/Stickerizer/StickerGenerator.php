@@ -118,7 +118,7 @@ class StickerGenerator
     {
         $this->validate();
 
-        $text = Str::limit($text, self::MAX_INPUT_TEXT_LENGTH, '');
+        $text = trim(Str::limit($text, self::MAX_INPUT_TEXT_LENGTH, ''));
 
         $canvas = ImageFacade::canvas($this->width, $this->height);
 
