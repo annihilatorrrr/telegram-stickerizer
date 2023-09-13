@@ -24,5 +24,8 @@ return [
     'no_sticker' => 'Nessuno sticker trovato.',
     'add_stickers' => 'Aggiungi 1 sticker|Aggiungi :count stickers',
     'remove_stickers' => 'Rimuovi 1 sticker|Rimuovi :count stickers',
+    'sticker_count' => '1 sticker|:count sticker',
+    'open_store' => 'Apri lo store per installare nuovi sticker',
+    'remove_pack' => 'Vuoi veramente eliminare questo pack?',
 
 ];

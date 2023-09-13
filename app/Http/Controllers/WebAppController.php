@@ -43,6 +43,17 @@ class WebAppController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        return view('webapp.store', [
+            'initData' => [
+                'user_id' => $request->input('user_id'),
+                'lang' => $request->input('lang', config('app.locale')),
+                'fingerprint' => $request->input('fingerprint'),
+            ]
+        ]);
+    }
+
     public function pack(Pack $pack)
     {
         return new PackResource($pack);
@@ -50,13 +61,13 @@ class WebAppController extends Controller
 
     public function addPack(Request $request, Pack $pack)
     {
-        $user = User::find(webAppData()->user->id);
+        $user = User::find(webAppData()?->user->id ?? $request->input('user_id'));
         $user->packs()->syncWithoutDetaching($pack->id);
     }
 
     public function removePack(Request $request, Pack $pack)
     {
-        $user = User::find(webAppData()->user->id);
+        $user = User::find(webAppData()?->user->id ?? $request->input('user_id'));
         $user->packs()->detach($pack->id);
     }
 
@@ -111,7 +122,17 @@ class WebAppController extends Controller
         return ['telegram_sticker_id' => $message->message_id];
     }
 
-    public function packs()
+    public function packs(Request $request)
+    {
+        $packs = User::find($request->input('user_id'))
+            ->packs()
+            ->with('stickers')
+            ->get();
+
+        return PackResource::collection($packs);
+    }
+
+    public function trendingPacks()
     {
         $packs = Pack::query()
             ->with('stickers')
@@ -122,13 +143,15 @@ class WebAppController extends Controller
 
     public function search(Request $request)
     {
+        $user = User::find($request->input('user_id'));
         $tags = Str::of($request->input('search'))
             ->explode(' ')
             ->filter()
             ->values()
             ->toArray();
 
-        $stickers = Sticker::query()
+        $stickers = $user
+            ->stickers()
             ->withAnyTagsOfAnyType($tags)
             ->get();
 

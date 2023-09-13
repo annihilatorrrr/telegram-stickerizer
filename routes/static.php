@@ -11,6 +11,8 @@ Route::post('/hook', fn(Nutgram $bot) => $bot->run());
 Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
     Route::get('/', [WebAppController::class, 'index'])->name('index');
     Route::get('/addstickers', [WebAppController::class, 'addStickers'])->name('addstickers');
+    Route::get('store', [WebAppController::class, 'store'])->name('store');
+
     Route::get('sticker/preview/{sticker}.webp', [WebAppController::class, 'preview'])->name('sticker.preview')
         ->middleware('cache.headers:public;max_age=1800;etag');
 
@@ -31,5 +33,9 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
         Route::get('sticker/favorite', [WebAppController::class, 'getFavoriteStickers'])->name('sticker.favorite.list');
         Route::post('sticker/favorite', [WebAppController::class, 'saveFavoriteSticker'])->name('sticker.favorite.save');
         Route::delete('sticker/favorite/{favorite}', [WebAppController::class, 'removeFavoriteSticker'])->name('sticker.favorite.delete');
+
+        Route::get('packs/trending', [WebAppController::class, 'trendingPacks'])->name('packs.trending');
+        Route::post('store/pack/{pack}/add', [WebAppController::class, 'addPack'])->name('store.pack.add');
+        Route::post('store/pack/{pack}/remove', [WebAppController::class, 'removePack'])->name('store.pack.remove');
     });
 });

@@ -2,14 +2,10 @@ import './bootstrap';
 import {createApp} from 'vue';
 import Stickerizer from "@/WebApps/Stickerizer.vue";
 import AddStickers from "@/WebApps/AddStickers.vue";
+import Store from "@/WebApps/Store.vue";
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
-import {
-    faCircleNotch,
-    faXmark,
-    faMagnifyingGlass,
-    faBoxesStacked
-} from '@fortawesome/free-solid-svg-icons';
+import {faBoxesStacked, faCircleNotch, faMagnifyingGlass, faXmark} from '@fortawesome/free-solid-svg-icons';
 import {
     faCircleQuestion,
     faClock,
@@ -54,4 +50,16 @@ if (document.getElementById('app-addstickers')) {
             }
         })
         .mount('#app-addstickers');
+}
+
+if (document.getElementById('app-store')) {
+    createApp(Store)
+        .component('font-awesome-icon', FontAwesomeIcon)
+        .use(i18nVue, {
+            resolve: async lang => {
+                const langs = import.meta.glob('../../lang/*.json');
+                return await langs[`../../lang/${lang}.json`]();
+            }
+        })
+        .mount('#app-store');
 }

@@ -12,7 +12,7 @@ class PackResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $user = User::find(webAppData()?->user?->id);
+        $user = User::find(webAppData()?->user?->id ?? $request->input('user_id'));
 
         $userData = [];
         if ($user !== null) {

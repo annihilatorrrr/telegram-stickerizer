@@ -13,5 +13,7 @@ return [
     'click_here' => 'Clicca qui.',
     'search' => 'Cerca',
     'template' => 'Template',
+    'add' => 'Aggiungi',
+    'remove' => 'Rimuovi',
 
 ];

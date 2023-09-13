@@ -6,9 +6,13 @@ import {trans} from 'laravel-vue-i18n';
 interface Props {
     url: string;
     isTemplate?: boolean;
+    hasBackground?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    isTemplate: false,
+    hasBackground: true,
+});
 
 const image = new Image();
 image.onload = () => isLoading.value = false;
@@ -44,7 +48,7 @@ watch(() => isVisible.value, (state) => {
 
 <template>
     <div class="better-image"
-         :class="{'isTemplate': props.isTemplate}"
+         :class="{'hasBackground': props.hasBackground}"
          :style="{backgroundImage: isVisible && !isLoading ? `url(${props.url})`:'none'}"
          v-element-visibility="onElementVisibility">
         <div v-if="isTemplate" class="isTemplate">
@@ -59,8 +63,11 @@ watch(() => isVisible.value, (state) => {
     @apply aspect-square rounded h-full;
     @apply flex items-center justify-center;
     @apply bg-contain bg-no-repeat bg-center;
-    background-color: rgba(0, 0, 0, 0.1);
     @apply relative;
+
+  &.hasBackground {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
     .isTemplate{
         @apply bg-yellow-500 text-black font-bold rounded;

@@ -4,6 +4,7 @@ import BetterImage from "@/Components/BetterImage.vue";
 import {computed, ref, watch} from "vue";
 import {trans} from 'laravel-vue-i18n';
 import debounce from "lodash.debounce";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 interface Props {
     search: string;
@@ -16,7 +17,7 @@ interface Props {
 const searchResult = ref([]);
 
 const props = defineProps<Props>();
-defineEmits(['send', 'sendFromHistory', 'clearHistory', 'clearFavorites', 'menu']);
+defineEmits(['send', 'sendFromHistory', 'clearHistory', 'clearFavorites', 'menu', 'removePack']);
 
 const loadSearch = async () => {
   const response = await axios.get(route('webapp.search'), {
@@ -80,7 +81,11 @@ const hasPacks = computed(() => props.packs.length > 0);
         <div class="flex items-center justify-center h-full" v-if="(!search && !hasPacks) || (search && searchResult.length===0)">
             <div class="text-center text-tg-hint">
                 <font-awesome-icon icon="fa-regular fa-face-sad-tear" class="text-6xl"/>
-                <p class="text-xl my-5">{{ trans('webapp.no_sticker') }}</p>
+                <p class="text-xl mt-5">{{ trans('webapp.no_sticker') }}</p>
+                <p class="text-xs" v-if="!search && !hasPacks">
+                    <font-awesome-icon icon="fa-solid fa-boxes-stacked" class="text-tg-hint"/>
+                    {{ trans('webapp.open_store') }}
+                </p>
             </div>
         </div>
 
@@ -96,9 +101,15 @@ const hasPacks = computed(() => props.packs.length > 0);
         </div>
 
         <div v-if="!search" v-for="pack in packs" :key="`p${pack.id}`" class="pb-2 mb-2">
-            <a :id="`P${pack.id}`" class="text-tg-hint font-semibold text-sm mb-2 block cursor-default" style="scroll-margin-top: 50px;">
-                {{ pack.name }}
-            </a>
+            <div class="flex mb-2">
+                <a :id="`P${pack.id}`" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default"
+                   style="scroll-margin-top: 50px;">
+                    {{ pack.name }}
+                </a>
+                <button @click="$emit('removePack', pack.id)" class="inline-block">
+                    <font-awesome-icon icon="fa-solid fa-xmark" class="text-tg-hint"/>
+                </button>
+            </div>
             <p class="italic text-sm text-tg-hint" v-if="pack.stickers.length===0">{{trans('webapp.no_sticker')}}</p>
             <div class="grid grid-cols-4 gap-2">
                 <BetterImage v-for="sticker in pack.stickers"

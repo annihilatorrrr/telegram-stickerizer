@@ -8,11 +8,17 @@ interface Props {
 }
 
 defineProps<Props>();
-defineEmits(['iconClick']);
+defineEmits(['iconClick', 'storeClick']);
 </script>
 
 <template>
     <div id="packs-panel-container">
+        <a href="#" @click.prevent="$emit('storeClick')"
+           class="pack-icon flex items-center justify-center"
+           style="background-color: transparent !important;">
+            <font-awesome-icon icon="fa-solid fa-boxes-stacked" size="xl" class="text-tg-hint"/>
+        </a>
+
         <a v-if="hasFavorites" href="#favorites" @click="$emit('iconClick')"
            class="pack-icon flex items-center justify-center"
            style="background-color: transparent !important;">

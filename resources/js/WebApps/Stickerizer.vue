@@ -7,6 +7,7 @@ import {computed, onMounted, ref} from "vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
+import {useWebAppBackButton, useWebAppPopup} from "vue-tg";
 
 const loading = ref(false);
 const search = ref('');
@@ -71,7 +72,12 @@ const loadPacks = async () => {
         params: {
             user_id: window.initData.user_id,
             fingerprint: window.initData.fingerprint,
-        }
+        },
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+        },
     });
     packs.value = response.data;
 };
@@ -152,7 +158,28 @@ const removeFavorite = async (favorite_id) => {
     await loadFavorites();
 }
 
+const removePack = (packID) => {
+    useWebAppPopup().showConfirm(trans('webapp.remove_pack'), async function (result) {
+        if (result) {
+            await axios.post(route('webapp.store.pack.remove', {pack: packID}), {
+                user_id: window.initData.user_id,
+                fingerprint: window.initData.fingerprint,
+            });
+            await loadPacks();
+        }
+    });
+};
+
+const openStorePage = () => {
+    location.href = route('webapp.store', {
+        user_id: window.initData.user_id,
+        lang: window.initData?.lang,
+        fingerprint: window.initData.fingerprint,
+    });
+};
+
 onMounted(() => {
+    useWebAppBackButton().hideBackButton();
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
@@ -200,16 +227,17 @@ onMounted(() => {
 
         <div id="stickers-panel">
             <StickersPanel
-                v-model:search="search"
-                v-model:favorites="favorites"
-                v-model:history="history"
-                v-model:packs="packs"
-                v-model:text="text"
-                @send="sendStickerCode"
-                @sendFromHistory="(x) => sendStickerCode(x.sticker, x.text)"
-                @clearHistory="clearHistory"
-                @clearFavorites="clearFavorites"
-                @menu="openMenu"
+                    v-model:search="search"
+                    v-model:favorites="favorites"
+                    v-model:history="history"
+                    v-model:packs="packs"
+                    v-model:text="text"
+                    @send="sendStickerCode"
+                    @sendFromHistory="(x) => sendStickerCode(x.sticker, x.text)"
+                    @clearHistory="clearHistory"
+                    @clearFavorites="clearFavorites"
+                    @menu="openMenu"
+                    @removePack="removePack"
             />
         </div>
         <div id="packs-panel">
@@ -217,6 +245,7 @@ onMounted(() => {
                         v-model:hasFavorites="hasFavorites"
                         v-model:packs="packs"
                         @iconClick="() => search = ''"
+                        @storeClick="openStorePage"
             />
         </div>
         <div id="input">
@@ -227,62 +256,62 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .layout {
+  @apply bg-tg-bg;
+  height: 100%;
+
+  --padding-top: 10px;
+  --search-panel-height: 50px;
+  --packs-panel-height: 40px;
+  --input-panel-height: 50px;
+
+  padding-top: calc(var(--search-panel-height) + var(--padding-top));
+
+  #search-panel {
     @apply bg-tg-bg;
+    @apply px-3;
+    @apply flex items-center justify-center h-full;
+    height: var(--search-panel-height);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+    #search-box {
+      @apply flex items-center;
+      @apply rounded-3xl w-full px-3 py-1;
+      @apply text-tg-hint bg-tg-bg-secondary;
+
+      #search-input {
+        @apply inline-block flex-auto;
+        @apply text-white bg-transparent caret-tg-button-bg;
+        @apply outline-0 px-1;
+      }
+    }
+  }
+
+  #stickers-panel {
     height: 100%;
 
-    --padding-top: 10px;
-    --search-panel-height: 50px;
-    --packs-panel-height: 40px;
-    --input-panel-height: 50px;
-
-    padding-top: calc(var(--search-panel-height) + var(--padding-top));
-
-    #search-panel {
-        @apply bg-tg-bg;
-        @apply px-3;
-        @apply flex items-center justify-center h-full;
-        height: var(--search-panel-height);
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 10;
-
-        #search-box{
-            @apply flex items-center;
-            @apply rounded-3xl w-full px-3 py-1;
-            @apply text-tg-hint bg-tg-bg-secondary;
-
-            #search-input{
-              @apply inline-block flex-auto;
-              @apply text-white bg-transparent caret-tg-button-bg;
-              @apply outline-0 px-1;
-            }
-        }
+    & > div:first-child {
+      @apply px-3;
+      padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height) + var(--padding-top));
     }
+  }
 
-    #stickers-panel {
-        height: 100%;
+  #packs-panel {
+    border-top: 1px solid var(--tg-scheme);
+    height: var(--packs-panel-height);
+    position: fixed;
+    top: calc(var(--tg-viewport-height) - (var(--packs-panel-height) + var(--input-panel-height)));
+    width: 100%;
+  }
 
-        & > div:first-child {
-            @apply px-3;
-            padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height) + var(--padding-top));
-        }
-    }
-
-    #packs-panel {
-        border-top: 1px solid var(--tg-scheme);
-        height: var(--packs-panel-height);
-        position: fixed;
-        top: calc(var(--tg-viewport-height) - (var(--packs-panel-height) + var(--input-panel-height)));
-        width: 100%;
-    }
-
-    #input {
-        border-top: 1px solid var(--tg-scheme);
-        height: var(--input-panel-height);
-        position: fixed;
-        top: calc(var(--tg-viewport-height) - var(--input-panel-height));
-        width: 100%;
-    }
+  #input {
+    border-top: 1px solid var(--tg-scheme);
+    height: var(--input-panel-height);
+    position: fixed;
+    top: calc(var(--tg-viewport-height) - var(--input-panel-height));
+    width: 100%;
+  }
 }
 </style>

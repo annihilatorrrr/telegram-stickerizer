@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rule;
 use Lukasss93\ModelSettings\Traits\HasSettingsTable;
 use SergiX44\Nutgram\Telegram\Types\User\User as TelegramUser;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Model
 {
     use HasSettingsTable;
+    use HasRelationships;
 
     public $incrementing = false;
     protected static $unguarded = true;
@@ -66,6 +68,11 @@ class User extends Model
     public function packs(): BelongsToMany
     {
         return $this->belongsToMany(Pack::class)->withTimestamps();
+    }
+
+    public function stickers()
+    {
+        return $this->hasManyDeep(Sticker::class, ['pack_user', Pack::class]);
     }
 
     public function stickersHistory(): HasMany
