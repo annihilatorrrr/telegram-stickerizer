@@ -5,6 +5,7 @@ import {computed, ref, watch} from "vue";
 import {trans} from 'laravel-vue-i18n';
 import debounce from "lodash.debounce";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import { vOnLongPress } from '@vueuse/components';
 
 interface Props {
     search: string;
@@ -41,6 +42,8 @@ const hasPacks = computed(() => props.packs.length > 0);
 
 <template>
     <div class="bg-tg-bg" :class="{'h-full': !hasFavorites && !hasHistory && ((!search && !hasPacks) || (search && searchResult.length===0))}">
+
+        <!-- FAVORITE -->
         <div class="pb-2 mb-2" v-if="hasFavorites && !search">
             <div class="flex mb-2">
                 <a id="favorites" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
@@ -55,11 +58,13 @@ const hasPacks = computed(() => props.packs.length > 0);
                              :is-template="!item.text"
                              :url="route('webapp.sticker.preview', {sticker: item.sticker_id, text: item.text ?? text})"
                              @click="$emit('sendFromHistory', {sticker: item.sticker_id, text: item.text ?? text});"
+                             v-on-long-press.prevent="()=>$emit('menu', {mode:'removeFavorite', favorite_id: item.id, sticker: item.sticker_id, text: item.text ?? text})"
                              @contextmenu.prevent="$emit('menu', {mode:'removeFavorite', favorite_id: item.id, sticker: item.sticker_id, text: item.text ?? text});"
                 />
             </div>
         </div>
 
+        <!-- HISTORY -->
         <div class="pb-2 mb-2" v-if="hasHistory && !search">
             <div class="flex mb-2">
                 <a id="history" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default" style="scroll-margin-top: 50px;">
@@ -73,11 +78,13 @@ const hasPacks = computed(() => props.packs.length > 0);
                 <BetterImage v-for="item in history"
                              :url="route('webapp.sticker.preview', {sticker: item.sticker_id, text: item.text})"
                              @click="$emit('sendFromHistory', {sticker: item.sticker_id, text: item.text});"
+                             v-on-long-press.prevent="()=>$emit('menu', {mode: 'default', sticker: item.sticker_id, text: item.text})"
                              @contextmenu.prevent="$emit('menu', {mode: 'default', sticker: item.sticker_id, text: item.text});"
                 />
             </div>
         </div>
 
+        <!-- NO STICKERS FOUND -->
         <div class="flex items-center justify-center h-full" v-if="(!search && !hasPacks) || (search && searchResult.length===0)">
             <div class="text-center text-tg-hint">
                 <font-awesome-icon icon="fa-regular fa-face-sad-tear" class="text-6xl"/>
@@ -89,17 +96,20 @@ const hasPacks = computed(() => props.packs.length > 0);
             </div>
         </div>
 
+        <!-- SEARCH -->
         <div v-if="search && searchResult.length>0">
             <div class="grid grid-cols-4 gap-2">
                 <BetterImage v-for="sticker in searchResult"
                              :key="`ss${sticker.id}`"
                              :url="route('webapp.sticker.preview', {sticker: sticker.id, text: text})"
                              @click="$emit('send', sticker.id);"
+                             v-on-long-press.prevent="()=>$emit('menu', {mode: 'default', sticker: sticker.id, text: text})"
                              @contextmenu.prevent="$emit('menu', {mode: 'default', sticker: sticker.id, text: text});"
                 />
             </div>
         </div>
 
+        <!-- STICKERS -->
         <div v-if="!search" v-for="pack in packs" :key="`p${pack.id}`" class="pb-2 mb-2">
             <div class="flex mb-2">
                 <a :id="`P${pack.id}`" class="flex-auto text-tg-hint font-semibold text-sm block cursor-default"
@@ -116,6 +126,7 @@ const hasPacks = computed(() => props.packs.length > 0);
                              :key="`s${sticker.id}`"
                              :url="route('webapp.sticker.preview', {sticker: sticker.id, text: text})"
                              @click="$emit('send', sticker.id);"
+                             v-on-long-press.prevent="()=>$emit('menu', {mode: 'default', sticker: sticker.id, text: text})"
                              @contextmenu.prevent="$emit('menu', {mode: 'default', sticker: sticker.id, text: text});"
                 />
             </div>
