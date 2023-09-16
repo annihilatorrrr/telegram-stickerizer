@@ -9,7 +9,7 @@ use SergiX44\Nutgram\Nutgram;
 Route::post('/hook', fn(Nutgram $bot) => $bot->run());
 
 Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
-    Route::get('/', [WebAppController::class, 'index'])->name('index');
+    Route::get('/', [WebAppController::class, 'index'])->name('index')->middleware('cache.headers:private;no_cache;must_revalidate;no_store;max_age=0;etag');
     Route::get('/addstickers', [WebAppController::class, 'addStickers'])->name('addstickers');
     Route::get('store', [WebAppController::class, 'store'])->name('store');
 
