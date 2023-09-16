@@ -29,4 +29,5 @@ body {
     background-color: var(--tg-scheme);
     color: var(--tg-theme-text-color) !important;
     height: 100vh;
+    user-select: none;
 }

@@ -39,4 +39,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+#input-text{
+  user-select: text;
+}
 </style>
