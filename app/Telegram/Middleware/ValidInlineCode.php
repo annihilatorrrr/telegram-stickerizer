@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Middleware;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultsButton;
@@ -22,6 +23,8 @@ class ValidInlineCode
                     web_app: new WebAppInfo(route('webapp.index', [
                         'text' => '',
                         'user_id' => $bot->userId(),
+                        'lang' => App::getLocale(),
+                        'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
                     ])),
                 )
             );
