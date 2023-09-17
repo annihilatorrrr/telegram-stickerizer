@@ -21,7 +21,7 @@ gdpr,description,Here you can manage your GDPR data.,Qui puoi gestire i tuoi dat
 gdpr,download.button,Download my data,Scarica i miei dati,,
 gdpr,download.caption,This file contains all your saved data.,Questo file contiene i tuoi dati personali salvati nel bot.,,
 inline,start,Start using the bot inline,Inizia ad usare il bot inline,,
-inline,create,Click here to create your sticker!,Click qui per creare il tuo sticker!,,
+inline,create,Click here to create your sticker!,Clicca qui per creare il tuo sticker!,,
 inline,blocked,You need to unblock the bot first!,Devi sbloccare il bot per utilizzarlo!,,
 inline,not_started,You need to start the bot first!,Devi avviare il bot per utilizzarlo!,,
 inline,invalid_code,Sticker not found!,Sticker non trovato!,,
