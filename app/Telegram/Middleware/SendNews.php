@@ -4,6 +4,7 @@ namespace App\Telegram\Middleware;
 
 use App\Models\User;
 use SergiX44\Nutgram\Nutgram;
+use SergiX44\Nutgram\Telegram\Properties\ChatMemberStatus;
 use function App\Helpers\settings;
 
 class SendNews
@@ -27,12 +28,12 @@ class SendNews
 
         $user = $bot->get(User::class);
 
-        if (!$user->hasNewsEnabled()) {
+        if ($bot->chatMember() && $bot->chatMember()->new_chat_member->status !== ChatMemberStatus::MEMBER) {
             $next($bot);
             return;
         }
 
-        if ($user->isNewsAlreadyNotified()) {
+        if (!$user->canReceiveNews()) {
             $next($bot);
             return;
         }

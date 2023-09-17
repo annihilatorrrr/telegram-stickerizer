@@ -120,6 +120,14 @@ class User extends Model
         return $this->settings()->get('news.notified_at') !== null;
     }
 
+    public function canReceiveNews(): bool
+    {
+        return $this->started_at !== null &&
+            $this->blocked_at === null &&
+            $this->hasNewsEnabled() &&
+            !$this->isNewsAlreadyNotified();
+    }
+
     public function setLocale(): void
     {
         App::setLocale($this->getLocale());
