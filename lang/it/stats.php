@@ -15,5 +15,6 @@ return [
         'total' => 'Totale: :value',
     ],
     'last_update' => '🕒 Ultimo aggiornamento',
+    'active_users' => '✳️ Utenti attivi',
 
 ];
