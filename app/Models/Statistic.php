@@ -39,6 +39,9 @@ class Statistic extends Model
             ->where('action', 'sticker.sent')
             ->count();
 
+        // add old stats from old bot version
+        $stickersSentTotal += 1_630_754;
+
         $usersToday = User::whereBetween('created_at', [$date->startOfDay(), $date->endOfDay()])->count();
         $usersWeek = User::whereBetween('created_at', [$date->startOfWeek(), $date->endOfWeek()])->count();
         $usersMonth = User::whereBetween('created_at', [$date->startOfMonth(), $date->endOfMonth()])->count();
