@@ -13,6 +13,7 @@ return [
         'month' => 'Questo mese: :value',
         'year' => 'Quest\'anno: :value',
         'total' => 'Totale: :value',
+        'yesterday' => 'Ieri: :value',
     ],
     'last_update' => '🕒 Ultimo aggiornamento',
     'active_users' => '✳️ Utenti attivi',

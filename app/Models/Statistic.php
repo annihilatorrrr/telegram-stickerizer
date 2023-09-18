@@ -20,6 +20,10 @@ class Statistic extends Model
         $date = CarbonImmutable::now();
 
         // stickers sent
+        $stickersSentYesterday = self::query()
+            ->whereBetween('collected_at', [$date->subDay()->startOfDay(), $date->subDay()->endOfDay()])
+            ->where('action', 'sticker.sent')
+            ->count();
         $stickersSentToday = self::query()
             ->whereBetween('collected_at', [$date->startOfDay(), $date->endOfDay()])
             ->where('action', 'sticker.sent')
@@ -44,6 +48,10 @@ class Statistic extends Model
         $stickersSentTotal += 1_630_754;
 
         //active users
+        $activeUsersYesterday = self::query()
+            ->distinct()
+            ->whereBetween('collected_at', [$date->subDay()->startOfDay(), $date->subDay()->endOfDay()])
+            ->count('user_id');
         $activeUsersToday = self::query()
             ->distinct()
             ->whereBetween('collected_at', [$date->startOfDay(), $date->endOfDay()])
@@ -62,6 +70,8 @@ class Statistic extends Model
             ->count('user_id');
 
         // users
+        $usersYesterday = User::whereBetween('created_at',
+            [$date->subDay()->startOfDay(), $date->subDay()->endOfDay()])->count();
         $usersToday = User::whereBetween('created_at', [$date->startOfDay(), $date->endOfDay()])->count();
         $usersWeek = User::whereBetween('created_at', [$date->startOfWeek(), $date->endOfWeek()])->count();
         $usersMonth = User::whereBetween('created_at', [$date->startOfMonth(), $date->endOfMonth()])->count();
@@ -69,15 +79,18 @@ class Statistic extends Model
         $usersTotal = User::count();
 
         return [
+            'stickersSentYesterday' => number_format($stickersSentYesterday, thousands_separator: '˙'),
             'stickersSentToday' => number_format($stickersSentToday, thousands_separator: '˙'),
             'stickersSentWeek' => number_format($stickersSentWeek, thousands_separator: '˙'),
             'stickersSentMonth' => number_format($stickersSentMonth, thousands_separator: '˙'),
             'stickersSentYear' => number_format($stickersSentYear, thousands_separator: '˙'),
             'stickersSentTotal' => number_format($stickersSentTotal, thousands_separator: '˙'),
+            'activeUsersYesterday' => number_format($activeUsersYesterday, thousands_separator: '˙'),
             'activeUsersToday' => number_format($activeUsersToday, thousands_separator: '˙'),
             'activeUsersWeek' => number_format($activeUsersWeek, thousands_separator: '˙'),
             'activeUsersMonth' => number_format($activeUsersMonth, thousands_separator: '˙'),
             'activeUsersYear' => number_format($activeUsersYear, thousands_separator: '˙'),
+            'usersYesterday' => number_format($usersYesterday, thousands_separator: '˙'),
             'usersToday' => number_format($usersToday, thousands_separator: '˙'),
             'usersWeek' => number_format($usersWeek, thousands_separator: '˙'),
             'usersMonth' => number_format($usersMonth, thousands_separator: '˙'),
