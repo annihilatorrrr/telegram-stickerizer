@@ -2,6 +2,8 @@
 
 namespace App\Telegram\Handlers;
 
+use App\Models\Sticker;
+use App\Models\StickerPackResolver;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
@@ -55,13 +57,19 @@ class InlineQueryHandler
         $messageID = Str::after($bot->chosenInlineResult()->query, 'Ꜣ');
 
         //get sticker data
-        [, $stickerID, $text] = Cache::get($messageID);
+        [, $stickerFileUniqueID, $stickerID, $text] = Cache::get($messageID);
 
         //delete from cache
         Cache::delete($messageID);
 
         //delete sticker from private chat
         rescue(fn() => $bot->deleteMessage($bot->userId(), $messageID), report: false);
+
+        //save sticker file id to resolvers table
+        StickerPackResolver::create([
+            'file_id' => $stickerFileUniqueID,
+            'pack_id' => Sticker::find($stickerID)->pack_id,
+        ]);
 
         //save sticker to user's history if enabled
         if ($user->hasStickerHistoryEnabled()) {

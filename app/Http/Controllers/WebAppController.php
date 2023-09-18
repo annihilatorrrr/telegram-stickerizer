@@ -116,7 +116,8 @@ class WebAppController extends Controller
         );
 
         //save sticker data to cache
-        Cache::put($message->message_id, [$message->sticker->file_id, $stickerID, $text]);
+        Cache::put($message->message_id,
+            [$message->sticker->file_id, $message->sticker->file_unique_id, $stickerID, $text]);
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];

@@ -14,6 +14,7 @@ use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
+use App\Telegram\Handlers\StickerHandler;
 use App\Telegram\Handlers\UpdateUserStatus;
 use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CollectUser;
@@ -45,6 +46,7 @@ $bot->middleware(SendNews::class);
 $bot->onMyChatMember(UpdateUserStatus::class);
 $bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
 $bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
+$bot->onSticker(StickerHandler::class);
 
 $bot->group(function (Nutgram $bot) {
     $bot->onPreCheckoutQuery([DonateCommand::class, 'precheckout']);
