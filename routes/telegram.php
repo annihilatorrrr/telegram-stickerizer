@@ -47,6 +47,7 @@ $bot->onMyChatMember(UpdateUserStatus::class);
 $bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
 $bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
 $bot->onSticker(StickerHandler::class);
+$bot->onCallbackQueryData('stats:{value}', [StatsCommand::class, 'updateStatsMessage']);
 
 $bot->group(function (Nutgram $bot) {
     $bot->onPreCheckoutQuery([DonateCommand::class, 'precheckout']);

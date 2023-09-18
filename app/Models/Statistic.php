@@ -79,23 +79,29 @@ class Statistic extends Model
         $usersTotal = User::count();
 
         return [
-            'stickersSentYesterday' => number_format($stickersSentYesterday, thousands_separator: '˙'),
-            'stickersSentToday' => number_format($stickersSentToday, thousands_separator: '˙'),
-            'stickersSentWeek' => number_format($stickersSentWeek, thousands_separator: '˙'),
-            'stickersSentMonth' => number_format($stickersSentMonth, thousands_separator: '˙'),
-            'stickersSentYear' => number_format($stickersSentYear, thousands_separator: '˙'),
-            'stickersSentTotal' => number_format($stickersSentTotal, thousands_separator: '˙'),
-            'activeUsersYesterday' => number_format($activeUsersYesterday, thousands_separator: '˙'),
-            'activeUsersToday' => number_format($activeUsersToday, thousands_separator: '˙'),
-            'activeUsersWeek' => number_format($activeUsersWeek, thousands_separator: '˙'),
-            'activeUsersMonth' => number_format($activeUsersMonth, thousands_separator: '˙'),
-            'activeUsersYear' => number_format($activeUsersYear, thousands_separator: '˙'),
-            'usersYesterday' => number_format($usersYesterday, thousands_separator: '˙'),
-            'usersToday' => number_format($usersToday, thousands_separator: '˙'),
-            'usersWeek' => number_format($usersWeek, thousands_separator: '˙'),
-            'usersMonth' => number_format($usersMonth, thousands_separator: '˙'),
-            'usersYear' => number_format($usersYear, thousands_separator: '˙'),
-            'usersTotal' => number_format($usersTotal, thousands_separator: '˙'),
+            'stickers_sent' => [
+                'yesterday' => number_format($stickersSentYesterday, thousands_separator: '˙'),
+                'today' => number_format($stickersSentToday, thousands_separator: '˙'),
+                'week' => number_format($stickersSentWeek, thousands_separator: '˙'),
+                'month' => number_format($stickersSentMonth, thousands_separator: '˙'),
+                'year' => number_format($stickersSentYear, thousands_separator: '˙'),
+                'total' => number_format($stickersSentTotal, thousands_separator: '˙'),
+            ],
+            'active_users' => [
+                'yesterday' => number_format($activeUsersYesterday, thousands_separator: '˙'),
+                'today' => number_format($activeUsersToday, thousands_separator: '˙'),
+                'week' => number_format($activeUsersWeek, thousands_separator: '˙'),
+                'month' => number_format($activeUsersMonth, thousands_separator: '˙'),
+                'year' => number_format($activeUsersYear, thousands_separator: '˙'),
+            ],
+            'users' => [
+                'yesterday' => number_format($usersYesterday, thousands_separator: '˙'),
+                'today' => number_format($usersToday, thousands_separator: '˙'),
+                'week' => number_format($usersWeek, thousands_separator: '˙'),
+                'month' => number_format($usersMonth, thousands_separator: '˙'),
+                'year' => number_format($usersYear, thousands_separator: '˙'),
+                'total' => number_format($usersTotal, thousands_separator: '˙'),
+            ],
             'lastUpdate' => now()->format('Y-m-d H:i:s e'),
         ];
     }
