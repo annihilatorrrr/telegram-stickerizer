@@ -181,6 +181,7 @@ const openStorePage = () => {
 onMounted(() => {
     useWebAppBackButton().hideBackButton();
     setScheme();
+    webapp.setHeaderColor('#056104');
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
     loadLanguageAsync(window.initData.lang ?? 'en');

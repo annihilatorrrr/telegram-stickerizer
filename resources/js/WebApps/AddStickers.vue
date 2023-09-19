@@ -106,6 +106,7 @@ watch(user, (newUser) => {
 onMounted(async () => {
     setScheme();
     webapp.onEvent('themeChanged', () => setScheme());
+    webapp.setHeaderColor('#056104');
     webapp.expand();
     await loadUser();
     await loadPack();
