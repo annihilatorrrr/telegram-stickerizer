@@ -1,4 +1,4 @@
-import { Telegram } from "@twa-dev/types"
+import {Telegram} from "@twa-dev/types"
 
 declare global {
     interface InitData {
@@ -6,6 +6,7 @@ declare global {
         fingerprint?: string;
         text?: string;
         lang?: string;
+        bot_username?: string;
     }
 
     interface Window {
