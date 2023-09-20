@@ -33,4 +33,12 @@ class Pack extends Model
     {
         return sprintf('https://t.me/%s/addstickers?startapp=%s', config('bot.username'), $this->code);
     }
+
+    public function getIconUrl(): string
+    {
+        return route('webapp.sticker.preview', [
+            'sticker' => $this->stickers->first()->id,
+            'text' => 'T',
+        ]);
+    }
 }

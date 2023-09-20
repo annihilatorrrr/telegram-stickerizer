@@ -44,9 +44,8 @@ $bot->middleware(SendNews::class);
 */
 
 $bot->onMyChatMember(UpdateUserStatus::class);
-$bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
-$bot->onChosenInlineResult([InlineQueryHandler::class, 'chosen']);
 $bot->onSticker(StickerHandler::class);
+$bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
 $bot->onCallbackQueryData('stats:{value}', [StatsCommand::class, 'updateStatsMessage']);
 
 $bot->group(function (Nutgram $bot) {
@@ -56,9 +55,11 @@ $bot->group(function (Nutgram $bot) {
 
 $bot->group(function (Nutgram $bot) {
     $bot->onInlineQuery([InlineQueryHandler::class, 'input']);
-    $bot->onInlineQueryText('^Ꜣ(.*)', [InlineQueryHandler::class, 'result'])
-        ->middleware(ValidInlineCode::class);
+    $bot->onInlineQueryText('^Ꜣ(.*)', [InlineQueryHandler::class, 'result'])->middleware(ValidInlineCode::class);
+    $bot->onInlineQueryText('§{code}', [InlineQueryHandler::class, 'sharePack']);
 })->middleware(InlineAllowed::class);
+
+$bot->onChosenInlineResultQuery('Ꜣ{messageID}', [InlineQueryHandler::class, 'chosenSticker']);
 
 /*
 |--------------------------------------------------------------------------

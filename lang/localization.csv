@@ -91,3 +91,5 @@ webapp,open_store,Open the store to install new stickers,Apri lo store per insta
 webapp,remove_pack,Are you sure you want to remove this pack?,Vuoi veramente eliminare questo pack?,,
 stats,active_users,✳️ Active users,✳️ Utenti attivi,,
 stats,range.yesterday,Yesterday: :value,Ieri: :value,,
+common,share,Share,Condividi,,
+common,copy_link,Copy link,Copia link,,

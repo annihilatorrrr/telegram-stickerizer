@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Handlers;
 
+use App\Models\Pack;
 use App\Models\Sticker;
 use App\Models\StickerPackResolver;
 use App\Models\User;
@@ -9,10 +10,14 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use SergiX44\Nutgram\Nutgram;
+use SergiX44\Nutgram\Telegram\Properties\ParseMode;
+use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultArticle;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultCachedSticker;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultsButton;
+use SergiX44\Nutgram\Telegram\Types\Input\InputTextMessageContent;
 use SergiX44\Nutgram\Telegram\Types\WebApp\WebAppInfo;
 use function App\Helpers\stats;
+use function App\Helpers\message;
 
 class InlineQueryHandler
 {
@@ -48,13 +53,10 @@ class InlineQueryHandler
         );
     }
 
-    public function chosen(Nutgram $bot): void
+    public function chosenSticker(Nutgram $bot, string $messageID): void
     {
         //get user
         $user = $bot->get(User::class);
-
-        //get code
-        $messageID = Str::after($bot->chosenInlineResult()->query, 'Ꜣ');
 
         //get sticker data
         [, $stickerFileUniqueID, $stickerID, $text] = Cache::get($messageID);
@@ -81,5 +83,34 @@ class InlineQueryHandler
 
         //save stats
         stats('sticker.sent', ['sticker_id' => $stickerID]);
+    }
+
+
+    public function sharePack(Nutgram $bot, string $code)
+    {
+        $pack = Pack::firstWhere('code', $code);
+
+        $results = [];
+
+        if($pack !== null) {
+            $results = [
+                InlineQueryResultArticle::make(
+                    id: $pack->id,
+                    title: $pack->name,
+                    input_message_content: InputTextMessageContent::make(
+                        message_text: message('pack', [
+                            'name' => $pack->name,
+                            'count' => $pack->stickers()->count(),
+                            'url' => $pack->getShareUrl(),
+                        ]),
+                        parse_mode: ParseMode::HTML,
+                    ),
+                    description: trans_choice('webapp.sticker_count', ['count' => $pack->stickers()->count()]),
+                    thumbnail_url: $pack->getIconUrl()
+                ),
+            ];
+        }
+
+        $bot->answerInlineQuery(results: $results, cache_time: 0);
     }
 }

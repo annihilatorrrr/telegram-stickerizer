@@ -19,9 +19,3 @@ ij_html_indent_size = 0
 
 [*.md]
 trim_trailing_whitespace = false
-
-[*.{yml,yaml}]
-indent_size = 2
-
-[docker-compose.yml]
-indent_size = 4

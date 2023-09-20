@@ -15,5 +15,7 @@ return [
     'template' => 'Template',
     'add' => 'Aggiungi',
     'remove' => 'Rimuovi',
+    'share' => 'Condividi',
+    'copy_link' => 'Copia link',
 
 ];
