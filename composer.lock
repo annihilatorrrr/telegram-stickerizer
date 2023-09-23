@@ -2551,16 +2551,16 @@
         },
         {
             "name": "nutgram/laravel",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nutgram/laravel.git",
-                "reference": "b02fa875108221131237fc3d8ba0334af09e0796"
+                "reference": "36f763e87f68430c10632ebb77cb7ff9a42097c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nutgram/laravel/zipball/b02fa875108221131237fc3d8ba0334af09e0796",
-                "reference": "b02fa875108221131237fc3d8ba0334af09e0796",
+                "url": "https://api.github.com/repos/nutgram/laravel/zipball/36f763e87f68430c10632ebb77cb7ff9a42097c6",
+                "reference": "36f763e87f68430c10632ebb77cb7ff9a42097c6",
                 "shasum": ""
             },
             "require": {
@@ -2585,6 +2585,9 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "src/Support/Helpers.php"
+                ],
                 "psr-4": {
                     "Nutgram\\Laravel\\": "src/"
                 }
@@ -2617,7 +2620,7 @@
                 "telegram"
             ],
             "support": {
-                "source": "https://github.com/nutgram/laravel/tree/1.1.0"
+                "source": "https://github.com/nutgram/laravel/tree/1.2.0"
             },
             "funding": [
                 {
@@ -2629,20 +2632,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-10T20:18:24+00:00"
+            "time": "2023-09-23T20:56:53+00:00"
         },
         {
             "name": "nutgram/nutgram",
-            "version": "4.8.0",
+            "version": "4.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nutgram/nutgram.git",
-                "reference": "c0f388e278312f22d1e646f02d24ab95f90b67c4"
+                "reference": "08888f86e2970dc6cdc9de2f2cca01b073c0ad63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/c0f388e278312f22d1e646f02d24ab95f90b67c4",
-                "reference": "c0f388e278312f22d1e646f02d24ab95f90b67c4",
+                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/08888f86e2970dc6cdc9de2f2cca01b073c0ad63",
+                "reference": "08888f86e2970dc6cdc9de2f2cca01b073c0ad63",
                 "shasum": ""
             },
             "require": {
@@ -2701,7 +2704,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nutgram/nutgram/issues",
-                "source": "https://github.com/nutgram/nutgram/tree/4.8.0"
+                "source": "https://github.com/nutgram/nutgram/tree/4.9.0"
             },
             "funding": [
                 {
@@ -2713,7 +2716,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-20T19:52:06+00:00"
+            "time": "2023-09-22T21:58:08+00:00"
         },
         {
             "name": "oxmohsen/validating-data",
@@ -3176,16 +3179,16 @@
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31"
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/0955afe48220520692d2d09f7ab7e0f93ffd6a31",
-                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "shasum": ""
             },
             "require": {
@@ -3222,9 +3225,9 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-client"
             },
-            "time": "2023-04-10T20:12:12+00:00"
+            "time": "2023-09-23T14:17:50+00:00"
         },
         {
             "name": "psr/http-factory",
