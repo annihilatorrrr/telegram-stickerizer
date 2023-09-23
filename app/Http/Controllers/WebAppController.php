@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
-use function App\Helpers\webAppData;
+use function Nutgram\Laravel\Support\webAppData;
 
 class WebAppController extends Controller
 {

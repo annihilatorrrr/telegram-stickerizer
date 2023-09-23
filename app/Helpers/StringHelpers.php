@@ -5,7 +5,6 @@ namespace App\Helpers;
 use App\Facades\Stats;
 use App\Support\AppSettings;
 use Illuminate\Support\Str;
-use SergiX44\Nutgram\Telegram\Web\WebAppData;
 
 function message(string $view, array $values = []): string
 {
@@ -29,9 +28,4 @@ function trans_bool(bool $condition, string $trueKey, string $falseKey)
 function settings(): AppSettings
 {
     return app(AppSettings::class);
-}
-
-function webAppData(): ?WebAppData
-{
-    return request()?->get('webAppData');
 }
