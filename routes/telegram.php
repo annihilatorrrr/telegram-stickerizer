@@ -12,6 +12,7 @@ use App\Telegram\Commands\PrivacyCommand;
 use App\Telegram\Commands\SettingsCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
+use App\Telegram\Exceptions\MessageNotModifiedException;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
 use App\Telegram\Handlers\StickerHandler;
@@ -86,5 +87,6 @@ $bot->registerCommand(NewsCommand::class)->middleware(DevOnly::class);
 |--------------------------------------------------------------------------
 */
 
+$bot->registerApiException(MessageNotModifiedException::class);
 $bot->onApiError([ExceptionsHandler::class, 'api']);
 $bot->onException([ExceptionsHandler::class, 'global']);
