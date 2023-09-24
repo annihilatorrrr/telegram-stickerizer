@@ -17,5 +17,6 @@ return [
     'remove' => 'Remove',
     'share' => 'Share',
     'copy_link' => 'Copy link',
+    'install_count' => '1 install |:count installs',
 
 ];

@@ -41,4 +41,9 @@ class Pack extends Model
             'text' => 'T',
         ]);
     }
+
+    public function installs(): int
+    {
+        return $this->users()->count();
+    }
 }

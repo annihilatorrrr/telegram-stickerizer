@@ -44,7 +44,8 @@ const handlePack = async (pack: Pack) => {
                     {{ pack.name }}
                 </p>
                 <p class="text-tg-hint text-xs">
-                    {{ trans_choice('webapp.sticker_count', pack.stickers_count) }}
+                    {{ trans_choice('webapp.sticker_count', pack.stickers_count) }} |
+                    {{ trans_choice('common.install_count', pack.install_count) }}
                 </p>
             </div>
             <p class="flex-none">

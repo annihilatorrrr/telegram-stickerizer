@@ -8,8 +8,8 @@ import User from "@/Types/User";
 import Pack from "@/Types/Pack";
 import {loadLanguageAsync, trans, trans_choice} from "laravel-vue-i18n";
 import BetterImage from "@/Components/BetterImage.vue";
-import { type MenuOptions, ContextMenu, ContextMenuItem } from '@imengyu/vue3-context-menu';
-import { useClipboard } from '@vueuse/core';
+import {ContextMenu, ContextMenuItem, type MenuOptions} from '@imengyu/vue3-context-menu';
+import {useClipboard} from '@vueuse/core';
 
 const { copy } = useClipboard();
 
@@ -167,7 +167,13 @@ onMounted(async () => {
     <div class="h-full p-3" :class="{PackFound:pack}">
         <div v-if="pack">
             <div class="flex">
-                <h1 class="flex-1 text-xl mb-3 ">{{ pack.name }}</h1>
+                <div class="flex-1 mb-3 flex flex-col">
+                    <h1 class="text-xl">{{ pack.name }}</h1>
+                    <p class="text-tg-hint text-xs">
+                        {{ trans_choice('webapp.sticker_count', pack.stickers_count) }} |
+                        {{ trans_choice('common.install_count', pack.install_count) }}
+                    </p>
+                </div>
                 <button @click="menuClick" class="h-full px-3 aspect-square rounded-full">
                     <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="text-tg-hint"/>
                 </button>

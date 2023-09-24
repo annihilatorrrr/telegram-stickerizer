@@ -7,6 +7,7 @@ export default interface Pack {
     icon: string;
     share_url: string;
     stickers_count: number;
+    install_count: number;
     stickers: Sticker[];
     installed?: boolean;
 }

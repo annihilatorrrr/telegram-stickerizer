@@ -28,6 +28,7 @@ class PackResource extends JsonResource
             'icon' => $this->getIconUrl(),
             'share_url' => $this->getShareUrl(),
             'stickers_count' => $this->stickers()->count(),
+            'install_count' => $this->installs(),
             'stickers' => StickerResource::collection($this->stickers),
             ...$userData,
         ];
