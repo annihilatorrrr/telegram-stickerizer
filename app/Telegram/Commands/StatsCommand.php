@@ -32,11 +32,7 @@ class StatsCommand extends Command
         $bot->sendMessage(
             text: $this->getMessage($data, 'stickers_sent'),
             parse_mode: ParseMode::HTML,
-            reply_markup: InlineKeyboardMarkup::make()->addRow(
-                InlineKeyboardButton::make(__('stats.stickers_sent'), callback_data: 'stats:stickers_sent'),
-                InlineKeyboardButton::make(__('stats.active_users'), callback_data: 'stats:active_users'),
-                InlineKeyboardButton::make(__('stats.users'), callback_data: 'stats:users'),
-            ),
+            reply_markup: $this->getKeyboard(),
         );
 
         stats('command.stats');
@@ -57,11 +53,7 @@ class StatsCommand extends Command
         $bot->editMessageText(
             text: $this->getMessage($data, $value),
             parse_mode: ParseMode::HTML,
-            reply_markup: InlineKeyboardMarkup::make()->addRow(
-                InlineKeyboardButton::make(__('stats.stickers_sent'), callback_data: 'stats:stickers_sent'),
-                InlineKeyboardButton::make(__('stats.active_users'), callback_data: 'stats:active_users'),
-                InlineKeyboardButton::make(__('stats.users'), callback_data: 'stats:users'),
-            ),
+            reply_markup: $this->getKeyboard(),
         );
 
         $bot->answerCallbackQuery();
@@ -80,5 +72,14 @@ class StatsCommand extends Command
             ...$data[$value],
             'lastUpdate' => $data['lastUpdate'],
         ]);
+    }
+
+    protected function getKeyboard(): InlineKeyboardMarkup
+    {
+        return InlineKeyboardMarkup::make()->addRow(
+            InlineKeyboardButton::make(__('stats.stickers_sent'), callback_data: 'stats:stickers_sent'),
+            InlineKeyboardButton::make(__('stats.active_users'), callback_data: 'stats:active_users'),
+            InlineKeyboardButton::make(__('stats.users'), callback_data: 'stats:users'),
+        );
     }
 }
