@@ -8,7 +8,6 @@ use App\Models\StickerPackResolver;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultArticle;
@@ -16,8 +15,8 @@ use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultCachedSticker;
 use SergiX44\Nutgram\Telegram\Types\Inline\InlineQueryResultsButton;
 use SergiX44\Nutgram\Telegram\Types\Input\InputTextMessageContent;
 use SergiX44\Nutgram\Telegram\Types\WebApp\WebAppInfo;
-use function App\Helpers\stats;
 use function App\Helpers\message;
+use function App\Helpers\stats;
 
 class InlineQueryHandler
 {
@@ -92,7 +91,7 @@ class InlineQueryHandler
 
         $results = [];
 
-        if($pack !== null) {
+        if ($pack !== null) {
             $results = [
                 InlineQueryResultArticle::make(
                     id: $pack->id,
@@ -112,5 +111,14 @@ class InlineQueryHandler
         }
 
         $bot->answerInlineQuery(results: $results, cache_time: 0);
+    }
+
+    public function sharedPack(Nutgram $bot, string $code)
+    {
+        $pack = Pack::firstWhere('code', $code);
+
+        if ($pack !== null) {
+            stats('pack.shared', ['pack_id' => $pack->id]);
+        }
     }
 }

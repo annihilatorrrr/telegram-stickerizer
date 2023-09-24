@@ -27,10 +27,12 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
         Route::get('packs', [WebAppController::class, 'packs'])->name('packs');
         Route::get('search', [WebAppController::class, 'search'])->name('search');
         Route::post('sticker/send', [WebAppController::class, 'sendSticker'])->name('sticker.send');
+
         Route::get('sticker/history', [WebAppController::class, 'history'])->name('sticker.history.list');
         Route::delete('sticker/history/clear', [WebAppController::class, 'clearHistory'])->name('sticker.clear.history');
-        Route::delete('sticker/favorite/clear', [WebAppController::class, 'clearFavorite'])->name('sticker.clear.favorite');
+
         Route::get('sticker/favorite', [WebAppController::class, 'getFavoriteStickers'])->name('sticker.favorite.list');
+        Route::delete('sticker/favorite/clear', [WebAppController::class, 'clearFavorite'])->name('sticker.clear.favorite');
         Route::post('sticker/favorite', [WebAppController::class, 'saveFavoriteSticker'])->name('sticker.favorite.save');
         Route::delete('sticker/favorite/{favorite}', [WebAppController::class, 'removeFavoriteSticker'])->name('sticker.favorite.delete');
 
