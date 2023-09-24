@@ -92,6 +92,7 @@ class User extends Model
             'feedback' => $this->feedback->toArray(),
             'stickers_favorites' => $this->stickersFavorites->toArray(),
             'stickers_history' => $this->stickersHistory->toArray(),
+            'installed_packs' => $this->packs()->pluck('name')->toArray(),
             'statistics' => $this->statistics()
                 ->selectRaw('action, count(action) as total')
                 ->groupBy('action')
