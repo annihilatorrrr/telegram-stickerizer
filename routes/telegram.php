@@ -13,6 +13,7 @@ use App\Telegram\Commands\SettingsCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
 use App\Telegram\Exceptions\MessageNotModifiedException;
+use App\Telegram\Exceptions\QueryTooOldException;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
 use App\Telegram\Handlers\StickerHandler;
@@ -90,5 +91,6 @@ $bot->registerCommand(NewsCommand::class)->middleware(DevOnly::class);
 */
 
 $bot->registerApiException(MessageNotModifiedException::class);
+$bot->registerApiException(QueryTooOldException::class);
 $bot->onApiError([ExceptionsHandler::class, 'api']);
 $bot->onException([ExceptionsHandler::class, 'global']);
