@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
+use function App\Helpers\stats;
 use function Nutgram\Laravel\Support\webAppData;
 
 class WebAppController extends Controller
@@ -63,12 +64,16 @@ class WebAppController extends Controller
     {
         $user = User::find(webAppData()?->user->id ?? $request->input('user_id'));
         $user->packs()->syncWithoutDetaching($pack->id);
+
+        stats('pack.installed', ['pack' => $pack->id]);
     }
 
     public function removePack(Request $request, Pack $pack)
     {
         $user = User::find(webAppData()?->user->id ?? $request->input('user_id'));
         $user->packs()->detach($pack->id);
+
+        stats('pack.uninstalled', ['pack' => $pack->id]);
     }
 
     public function user()
@@ -174,6 +179,8 @@ class WebAppController extends Controller
         StickersHistory::query()
             ->where('user_id', $request->input('user_id'))
             ->delete();
+
+        stats('sticker.history.clear');
     }
 
     public function clearFavorite(Request $request)
@@ -181,6 +188,8 @@ class WebAppController extends Controller
         StickersFavorite::query()
             ->where('user_id', $request->input('user_id'))
             ->delete();
+
+        stats('sticker.favorite.clear');
     }
 
     public function getFavoriteStickers(Request $request)
@@ -195,15 +204,21 @@ class WebAppController extends Controller
 
     public function saveFavoriteSticker(Request $request)
     {
+        $stickerID = (int)$request->input('sticker_id');
+
         StickersFavorite::create([
             'user_id' => $request->input('user_id'),
-            'sticker_id' => (int)$request->input('sticker_id'),
+            'sticker_id' => $stickerID,
             'text' => $request->input('text'),
         ]);
+
+        stats('sticker.favorite.save', ['sticker_id' => $stickerID]);
     }
 
     public function removeFavoriteSticker(Request $request, StickersFavorite $favorite)
     {
         $favorite->delete();
+
+        stats('sticker.favorite.remove', ['sticker_id' => $favorite->sticker_id]);
     }
 }

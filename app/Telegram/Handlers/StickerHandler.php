@@ -6,6 +6,7 @@ use App\Models\StickerPackResolver;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use function App\Helpers\message;
+use function App\Helpers\stats;
 
 class StickerHandler
 {
@@ -26,5 +27,7 @@ class StickerHandler
             parse_mode: ParseMode::HTML,
             reply_to_message_id: $bot->messageId(),
         );
+
+        stats('pack.resolved', ['pack_id' => $sticker->pack->id]);
     }
 }
