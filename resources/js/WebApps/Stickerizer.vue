@@ -30,16 +30,20 @@ const setScheme = function () {
 }
 
 const sendStickerCode = async (stickerID, forcedText) => {
+    forcedText = forcedText || null;
+
     if (webapp.platform === 'unknown') {
         alert(trans('webapp.platform_not_supported'));
         return;
     }
 
-    if (forcedText === undefined && text.value.length === 0) {
+    if (forcedText === null && text.value.length === 0) {
         webapp.HapticFeedback.notificationOccurred('error');
         webapp.showAlert(trans('webapp.empty'));
         return;
     }
+
+    return;
 
     loading.value = true;
     const response = await axios.post(route('webapp.sticker.send'), {
