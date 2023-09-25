@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Facades\Stats;
+use App\Models\User;
 use App\Support\AppSettings;
 use Illuminate\Support\Str;
 
@@ -28,4 +29,9 @@ function trans_bool(bool $condition, string $trueKey, string $falseKey)
 function settings(): AppSettings
 {
     return app(AppSettings::class);
+}
+
+function miniAppUser(): User
+{
+    return request()->attributes->get('user');
 }

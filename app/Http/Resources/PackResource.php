@@ -2,17 +2,16 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use function Nutgram\Laravel\Support\webAppData;
+use function App\Helpers\miniAppUser;
 
 /** @mixin \App\Models\Pack */
 class PackResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $user = User::find(webAppData()?->user?->id ?? $request->input('user_id'));
+        $user = miniAppUser();
 
         $userData = [];
         if ($user !== null) {

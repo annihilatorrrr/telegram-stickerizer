@@ -11,19 +11,18 @@ use App\Models\Pack;
 use App\Models\Sticker;
 use App\Models\StickersFavorite;
 use App\Models\StickersHistory;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
+use function App\Helpers\miniAppUser;
 use function App\Helpers\stats;
-use function Nutgram\Laravel\Support\webAppData;
 
-class WebAppController extends Controller
+class MiniAppController extends Controller
 {
-    public function index(Request $request)
+    public function stickerizer(Request $request)
     {
         return view('webapp.main', [
             'initData' => [
@@ -35,7 +34,7 @@ class WebAppController extends Controller
         ]);
     }
 
-    public function addStickers(Request $request)
+    public function addStickers()
     {
         return view('webapp.addstickers', [
             'initData' => [
@@ -55,34 +54,6 @@ class WebAppController extends Controller
         ]);
     }
 
-    public function pack(Pack $pack)
-    {
-        return new PackResource($pack);
-    }
-
-    public function addPack(Request $request, Pack $pack)
-    {
-        $user = User::find(webAppData()?->user->id ?? $request->input('user_id'));
-        $user->packs()->syncWithoutDetaching($pack->id);
-
-        stats('pack.installed', ['pack' => $pack->id]);
-    }
-
-    public function removePack(Request $request, Pack $pack)
-    {
-        $user = User::find(webAppData()?->user->id ?? $request->input('user_id'));
-        $user->packs()->detach($pack->id);
-
-        stats('pack.uninstalled', ['pack' => $pack->id]);
-    }
-
-    public function user()
-    {
-        $user = User::find(webAppData()->user->id);
-
-        return new UserResource($user);
-    }
-
     public function preview(Request $request, Sticker $sticker)
     {
         $text = $request->input('text') ?: 'TEXT';
@@ -99,10 +70,38 @@ class WebAppController extends Controller
         return ImageFacade::make($dataUrl)->response('webp', 100);
     }
 
+    public function pack(Pack $pack)
+    {
+        return new PackResource($pack);
+    }
+
+    public function addPack(Pack $pack)
+    {
+        $user = miniAppUser();
+        $user->packs()->syncWithoutDetaching($pack->id);
+
+        stats('pack.installed', ['pack' => $pack->id]);
+    }
+
+    public function removePack(Pack $pack)
+    {
+        $user = miniAppUser();
+        $user->packs()->detach($pack->id);
+
+        stats('pack.uninstalled', ['pack' => $pack->id]);
+    }
+
+    public function user()
+    {
+        $user = miniAppUser();
+
+        return new UserResource($user);
+    }
+
     public function sendSticker(Request $request, Nutgram $bot)
     {
         //get input
-        $userID = $request->input('user_id');
+        $user = miniAppUser();
         $stickerID = (int)$request->input('sticker_id');
         $text = $request->input('text') ?: 'TEXT';
 
@@ -116,21 +115,25 @@ class WebAppController extends Controller
         //send sticker to user
         $message = $bot->sendSticker(
             sticker: InputFile::make($stickerResource, 'sticker.webp'),
-            chat_id: $userID,
+            chat_id: $user->id,
             disable_notification: true,
         );
 
         //save sticker data to cache
-        Cache::put($message->message_id,
-            [$message->sticker->file_id, $message->sticker->file_unique_id, $stickerID, $text]);
+        Cache::put($message->message_id, [
+            $message->sticker->file_id,
+            $message->sticker->file_unique_id,
+            $stickerID,
+            $text
+        ]);
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];
     }
 
-    public function packs(Request $request)
+    public function packs()
     {
-        $packs = User::find($request->input('user_id'))
+        $packs = miniAppUser()
             ->packs()
             ->with('stickers')
             ->get();
@@ -149,7 +152,7 @@ class WebAppController extends Controller
 
     public function search(Request $request)
     {
-        $user = User::find($request->input('user_id'));
+        $user = miniAppUser();
         $tags = Str::of($request->input('search'))
             ->explode(' ')
             ->filter()
@@ -164,38 +167,42 @@ class WebAppController extends Controller
         return StickerResource::collection($stickers);
     }
 
-    public function history(Request $request)
+    public function history()
     {
+        $user = miniAppUser();
         $history = StickersHistory::query()
-            ->where('user_id', $request->input('user_id'))
+            ->where('user_id', $user->id)
             ->latest()
             ->get();
 
         return StickersHistoryResource::collection($history);
     }
 
-    public function clearHistory(Request $request)
+    public function clearHistory()
     {
+        $user = miniAppUser();
         StickersHistory::query()
-            ->where('user_id', $request->input('user_id'))
+            ->where('user_id', $user->id)
             ->delete();
 
         stats('sticker.history.clear');
     }
 
-    public function clearFavorite(Request $request)
+    public function clearFavorite()
     {
+        $user = miniAppUser();
         StickersFavorite::query()
-            ->where('user_id', $request->input('user_id'))
+            ->where('user_id', $user->id)
             ->delete();
 
         stats('sticker.favorite.clear');
     }
 
-    public function getFavoriteStickers(Request $request)
+    public function getFavoriteStickers()
     {
+        $user = miniAppUser();
         $favorites = StickersFavorite::query()
-            ->where('user_id', $request->input('user_id'))
+            ->where('user_id', $user->id)
             ->latest()
             ->get();
 
@@ -204,10 +211,11 @@ class WebAppController extends Controller
 
     public function saveFavoriteSticker(Request $request)
     {
+        $user = miniAppUser();
         $stickerID = (int)$request->input('sticker_id');
 
         StickersFavorite::create([
-            'user_id' => $request->input('user_id'),
+            'user_id' => $user->id,
             'sticker_id' => $stickerID,
             'text' => $request->input('text'),
         ]);
@@ -215,7 +223,7 @@ class WebAppController extends Controller
         stats('sticker.favorite.save', ['sticker_id' => $stickerID]);
     }
 
-    public function removeFavoriteSticker(Request $request, StickersFavorite $favorite)
+    public function removeFavoriteSticker(StickersFavorite $favorite)
     {
         $favorite->delete();
 
