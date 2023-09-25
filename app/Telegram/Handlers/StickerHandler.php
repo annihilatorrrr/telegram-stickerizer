@@ -21,7 +21,8 @@ class StickerHandler
         $bot->sendMessage(
             text: message('pack', [
                 'name' => $sticker->pack->name,
-                'count' => $sticker->pack->stickers()->count(),
+                'stickerCount' => $sticker->pack->stickers()->count(),
+                'installCount' => $sticker->pack->installs(),
                 'url' => $sticker->pack->getShareUrl(),
             ]),
             parse_mode: ParseMode::HTML,

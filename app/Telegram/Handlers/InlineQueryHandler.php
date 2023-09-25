@@ -99,7 +99,8 @@ class InlineQueryHandler
                     input_message_content: InputTextMessageContent::make(
                         message_text: message('pack', [
                             'name' => $pack->name,
-                            'count' => $pack->stickers()->count(),
+                            'stickerCount' => $pack->stickers()->count(),
+                            'installCount' => $pack->installs(),
                             'url' => $pack->getShareUrl(),
                         ]),
                         parse_mode: ParseMode::HTML,
