@@ -34,5 +34,6 @@ jobs:
             php8.2 artisan view:cache
             php8.2 artisan event:cache
             php8.2 artisan nutgram:register-commands
+            php8.2 artisan stats:update
             php8.2 artisan up
             echo 'DONE!'
