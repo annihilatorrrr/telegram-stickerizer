@@ -43,8 +43,6 @@ const sendStickerCode = async (stickerID, forcedText) => {
         return;
     }
 
-    return;
-
     loading.value = true;
     const response = await axios.post(route('webapp.sticker.send'), {
         user_id: window.initData.user_id,
