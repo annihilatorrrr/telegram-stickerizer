@@ -22,9 +22,22 @@
   - Style tools: SCSS, TailwindCSS
 
 ## 🗃️ Flow chart
-TODO
+![flow](.assets/flow/flow.png)
 
 ## 🚀 Setup guide
+
+<details>
+    <summary>On a Development environment</summary>
+
+### 🛡 Requirements
+- Docker
+- Docker Compose
+- GIT
+- ngrok
+
+### 📦 Installation
+TODO
+</details>
 
 <details>
     <summary>On a Production environment</summary>
@@ -37,19 +50,6 @@ TODO
 - NodeJS ≥ 16.0
 - Crontab (to update cached statistics)
 - GIT
-
-### 📦 Installation
-TODO
-</details>
-
-<details>
-    <summary>On a Development environment</summary>
-
-### 🛡 Requirements
-- Docker
-- Docker Compose
-- GIT
-- ngrok
 
 ### 📦 Installation
 TODO
