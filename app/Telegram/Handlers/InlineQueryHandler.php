@@ -27,7 +27,7 @@ class InlineQueryHandler
             cache_time: 0,
             button: InlineQueryResultsButton::make(
                 text: __('inline.create'),
-                web_app: new WebAppInfo(route('webapp.index', [
+                web_app: new WebAppInfo(route('webapp.stickerizer', [
                     'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->userId(),
                     'lang' => App::getLocale(),

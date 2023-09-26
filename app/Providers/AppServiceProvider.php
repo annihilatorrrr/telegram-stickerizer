@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         AboutCommand::add('Telegram WebApp', fn () => [
-            'Main' => route('webapp.index'),
+            'Main' => route('webapp.stickerizer'),
             'Add Stickers' => route('webapp.addstickers'),
         ]);
     }

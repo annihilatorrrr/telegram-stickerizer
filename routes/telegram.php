@@ -17,7 +17,6 @@ use App\Telegram\Exceptions\QueryTooOldException;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
 use App\Telegram\Handlers\StickerHandler;
-use App\Telegram\Handlers\UpdateUserStatus;
 use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CheckUserBlocked;
 use App\Telegram\Middleware\CollectUser;

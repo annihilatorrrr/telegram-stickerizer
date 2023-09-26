@@ -8,9 +8,9 @@ use SergiX44\Nutgram\Nutgram;
 Route::post('/hook', fn(Nutgram $bot) => $bot->run());
 
 Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
-    Route::get('/', [MiniAppController::class, 'stickerizer'])->name('index')->middleware('cache.headers:private;no_cache;must_revalidate;no_store;max_age=0;etag');
-    Route::get('/addstickers', [MiniAppController::class, 'addStickers'])->name('addstickers');
-    Route::get('store', [MiniAppController::class, 'store'])->name('store');
+    Route::get('/page/stickerizer', [MiniAppController::class, 'stickerizer'])->name('stickerizer')->middleware('cache.headers:private;no_cache;must_revalidate;no_store;max_age=0;etag');
+    Route::get('/page/addstickers', [MiniAppController::class, 'addStickers'])->name('addstickers');
+    Route::get('/page/store', [MiniAppController::class, 'store'])->name('store');
 
     Route::get('sticker/preview/{sticker}.webp', [MiniAppController::class, 'preview'])->name('sticker.preview')
         ->middleware('cache.headers:public;max_age=1800;etag');
