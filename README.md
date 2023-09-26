@@ -6,7 +6,7 @@
 ![status](https://img.shields.io/badge/status-online-green)
 [![link](https://img.shields.io/badge/news-%40LKS93C-blue)](https://t.me/LKS93C)
 [![link](https://img.shields.io/badge/support-%40Lukasss93Support-orange)](https://t.me/Lukasss93Support)
-![GitHub](https://img.shields.io/github/license/Lukasss93/telegram-stickeroptimizer)
+![GitHub](https://img.shields.io/github/license/Lukasss93/telegram-stickerizer)
 
 > This bot let's you create stickers on the fly, via [Telegram Mini App](https://core.telegram.org/bots/webapps).
 
@@ -41,7 +41,7 @@ TODO
 ### 📦 Installation
 TODO
 </details>
-<br>
+
 <details>
     <summary>On a Development environment</summary>
 
