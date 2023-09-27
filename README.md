@@ -133,7 +133,7 @@
 </details>
 
 ## 🎢 Usage
-TODO
+![flow](.assets/usage.png)
 
 ## 🌠 Continuous deployment
 This project will be updated in production at **every pushed tag** to master branch.<br>
