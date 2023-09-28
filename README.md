@@ -37,61 +37,57 @@
 - Telegram Bot Token
 
 ### 📦 Installation
-1. Clone this repository
+1. Run ngrok (only for testing mini app)<br>
+    Remember to set your ngrok token as specified [here](https://dashboard.ngrok.com/get-started/setup)<br>
+    ```bash
+    ngrok http 80 --hostname=yourdomain
+    ```
+2. Clone this repository
     ```bash
     git clone https://github.com/lukasss93/telegram-stickerizer.git
     ```
-2. Enter in the project folder
+3. Enter in the project folder
     ```bash
     cd telegram-stickerizer
     ``` 
-3. Run the docker containers
+4. Run the docker containers
     ```bash
     docker-compose up -d
     ```
-4. Enter in the container console
+5. Enter in the container console
     ```bash
     docker exec -it telegram-stickerizer-app bash
     ```
-5. Install dependencies
+6. Install dependencies
     ```bash
-    composer install
-    npm install
+    composer install && npm install
     ```
-6. Init .env file
+7. Init .env file
     ```bash
     composer run init-env
     ```
-7. Edit the .env file
+8. Edit the .env file
     - Set the `TELEGRAM_TOKEN` variable with your `bot token`
     - Set the `APP_URL` variable with your `ngrok url`
     - Set the `DB_HOST` variable with `db`
     - Set the `DB_DATABASE` variable with `botdb`
     - Set the `DB_USERNAME` variable with `botdb`
     - Set the `DB_PASSWORD` variable with `botdb`
-8. Build frontend
+9. Build frontend
     ```bash
     npm run build
     ```
-9. Fix laravel permissions
+10. Fix project permissions
     ```bash
-    chmod -R 775 bootstrap/ storage/
-    chown -R www-data:www-data bootstrap/ storage/
+    chmod -R 775 bootstrap/ storage/ && chown -R www-data:www-data bootstrap/ storage/
     ```
-10. Initialize the database
+11. Initialize the database
     ```bash
-    php artisan migrate:fresh
-    php artisan db:seed --class="Database\Seeders\PacksSeeder"
+    php artisan migrate:fresh && php artisan db:seed --class="Database\Seeders\PacksSeeder"
     ```
-11. Register bot commands
+12. Register bot commands
     ```bash
     php artisan nutgram:register-commands
-    ```
-12. Run ngrok (only for testing mini app)<br>
-    Remember to set your ngrok token as specified [here](https://dashboard.ngrok.com/get-started/setup)<br>
-    ⚠**️ You need to launch this command outside the container!**
-    ```bash
-    ngrok http 80 --hostname=yourdomain
     ```
 13. Start the bot
     ```bash
