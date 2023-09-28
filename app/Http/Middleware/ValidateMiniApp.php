@@ -17,7 +17,7 @@ class ValidateMiniApp
     public function handle(Request $request, Closure $next)
     {
         //inputs
-        $initData = $request->input('initData', '');
+        $initData = $request->input('initData') ?: '';
         $fingerprint = $request->input('fingerprint');
         $user_id = $request->input('user_id');
 
