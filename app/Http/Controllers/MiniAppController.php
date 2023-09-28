@@ -28,7 +28,6 @@ class MiniAppController extends Controller
             'initData' => [
                 'text' => $request->input('text'),
                 'user_id' => $request->input('user_id'),
-                'lang' => $request->input('lang', config('app.locale')),
                 'fingerprint' => $request->input('fingerprint'),
             ]
         ]);
@@ -48,7 +47,6 @@ class MiniAppController extends Controller
         return view('webapp.store', [
             'initData' => [
                 'user_id' => $request->input('user_id'),
-                'lang' => $request->input('lang', config('app.locale')),
                 'fingerprint' => $request->input('fingerprint'),
             ]
         ]);

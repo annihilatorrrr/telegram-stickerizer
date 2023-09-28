@@ -3,13 +3,16 @@ import InputPanel from "@/Components/InputPanel.vue";
 import StickersPanel from "@/Components/StickersPanel.vue";
 import Menu from "@/Components/Menu.vue";
 import PacksPanel from "@/Components/PacksPanel.vue";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 import {useWebAppBackButton, useWebAppPopup} from "vue-tg";
+import axios from "axios";
+import route from "ziggy-js";
 
 const loading = ref(false);
+const user = ref(null);
 const search = ref('');
 const favorites = ref([]);
 const history = ref([]);
@@ -175,18 +178,36 @@ const removePack = (packID) => {
 const openStorePage = () => {
     location.href = route('webapp.store', {
         user_id: window.initData.user_id,
-        lang: window.initData?.lang,
         fingerprint: window.initData.fingerprint,
     });
 };
 
-onMounted(() => {
+const loadUser = async () => {
+    try {
+        const response = await axios.get(route('webapp.user'), {
+            params: {
+                user_id: window.initData.user_id,
+                fingerprint: window.initData.fingerprint,
+            },
+        });
+        user.value = response.data;
+    } catch (e) {
+    }
+};
+
+watch(user, (newUser) => {
+    if (newUser) {
+        loadLanguageAsync(newUser.language ?? 'en');
+    }
+});
+
+onMounted(async () => {
     useWebAppBackButton().hideBackButton();
     setScheme();
     webapp.setHeaderColor('#056104');
     webapp.onEvent('themeChanged', () => setScheme());
     webapp.expand();
-    loadLanguageAsync(window.initData.lang ?? 'en');
+    await loadUser();
     loadFavorites();
     loadHistory();
     loadPacks();
