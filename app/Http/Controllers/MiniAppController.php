@@ -14,6 +14,7 @@ use App\Models\StickersHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
@@ -35,11 +36,7 @@ class MiniAppController extends Controller
 
     public function addStickers()
     {
-        return view('webapp.addstickers', [
-            'initData' => [
-                'bot_username' => config('bot.username'),
-            ],
-        ]);
+        return Inertia::render('AddStickers');
     }
 
     public function store(Request $request)
@@ -87,6 +84,13 @@ class MiniAppController extends Controller
         $user->packs()->detach($pack->id);
 
         stats('pack.uninstalled', ['pack' => $pack->id]);
+    }
+
+    public function me()
+    {
+        return [
+            'botName' => config('bot.username'),
+        ];
     }
 
     public function user()
