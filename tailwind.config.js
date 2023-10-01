@@ -22,7 +22,6 @@ export default {
     theme: {
         extend: {
             colors: {
-                'stickerizer': 'var(--stickerizer)',
                 'tg-scheme': 'var(--tg-scheme)',
                 'tg-bg': 'var(--tg-theme-bg-color)',
                 'tg-text': 'var(--tg-theme-text-color)',
@@ -31,15 +30,6 @@ export default {
                 'tg-link': 'var(--tg-theme-link-color)',
                 'tg-hint': 'var(--tg-theme-hint-color)',
                 'tg-bg-secondary': 'var(--tg-theme-secondary-bg-color)',
-
-                'stickerizer-900': 'var(--stickerizer-900)',
-                'stickerizer-800': 'var(--stickerizer-800)',
-                'stickerizer-700': 'var(--stickerizer-700)',
-                'stickerizer-600': 'var(--stickerizer-600)',
-                'stickerizer-400': 'var(--stickerizer-400)',
-                'stickerizer-300': 'var(--stickerizer-300)',
-                'stickerizer-200': 'var(--stickerizer-200)',
-                'stickerizer-100': 'var(--stickerizer-100)',
 
                 'tg-scheme-900': 'var(--tg-scheme-900)',
                 'tg-scheme-800': 'var(--tg-scheme-800)',
@@ -112,6 +102,21 @@ export default {
                 'tg-bg-secondary-300': 'var(--tg-theme-secondary-bg-color-300)',
                 'tg-bg-secondary-200': 'var(--tg-theme-secondary-bg-color-200)',
                 'tg-bg-secondary-100': 'var(--tg-theme-secondary-bg-color-100)',
+
+                'stickerizer': {
+                    DEFAULT: '#056104',
+                    50: '#96FB95',
+                    100: '#76F975',
+                    200: '#37F735',
+                    300: '#0CE009',
+                    400: '#08A107',
+                    500: '#056104',
+                    600: '#045203',
+                    700: '#034403',
+                    800: '#033502',
+                    900: '#022602',
+                    950: '#021F01'
+                },
             }
         },
         future: {
