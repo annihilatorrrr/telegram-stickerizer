@@ -28,10 +28,10 @@ class InlineQueryHandler
             button: InlineQueryResultsButton::make(
                 text: __('inline.create'),
                 web_app: new WebAppInfo(route('webapp.stickerizer', [
-                    'text' => $bot->inlineQuery()->query,
                     'user_id' => $bot->userId(),
-                    'lang' => App::getLocale(),
                     'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
+                    'text' => $bot->inlineQuery()->query,
+                    'lang' => App::getLocale(),
                 ])),
             )
         );

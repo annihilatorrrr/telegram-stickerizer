@@ -25,12 +25,12 @@ class MiniAppController extends Controller
 {
     public function stickerizer(Request $request)
     {
-        return view('webapp.main', [
+        return Inertia::render('Stickerizer', [
             'initData' => [
-                'text' => $request->input('text'),
                 'user_id' => $request->input('user_id'),
                 'fingerprint' => $request->input('fingerprint'),
-            ]
+            ],
+            'text' => $request->input('text'),
         ]);
     }
 
@@ -41,11 +41,11 @@ class MiniAppController extends Controller
 
     public function store(Request $request)
     {
-        return view('webapp.store', [
+        return Inertia::render('Store', [
             'initData' => [
                 'user_id' => $request->input('user_id'),
                 'fingerprint' => $request->input('fingerprint'),
-            ]
+            ],
         ]);
     }
 
