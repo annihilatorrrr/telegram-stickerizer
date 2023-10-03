@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '@css/webapp.scss';
-import {MainButton} from "vue-tg";
+import {MainButton, BackButton} from "vue-tg";
 import {computed, onMounted, ref, watch} from "vue";
 import axios from "axios";
 import route from "ziggy-js";
@@ -13,6 +13,13 @@ import BetterImage from "@/Components/BetterImage.vue";
 import {ContextMenu, ContextMenuItem, type MenuOptions} from '@imengyu/vue3-context-menu';
 import {useClipboard} from '@vueuse/core';
 import WebApp from '@twa-dev/sdk';
+
+interface Props {
+    initData?: string;
+    packCode: number;
+    canGoBack: boolean;
+}
+const props = defineProps<Props>();
 
 const { copy } = useClipboard();
 const menuOpen = ref(false);
@@ -46,7 +53,7 @@ const loadMe = async () => {
     try {
         const response = await axios.get(route('webapp.me'), {
             params: {
-                initData: WebApp.initData,
+                initData: WebApp.initData || props.initData,
             },
         });
         me.value = response.data;
@@ -59,7 +66,7 @@ const loadUser = async () => {
     try {
         const response = await axios.get(route('webapp.user'), {
             params: {
-                initData: WebApp.initData,
+                initData: WebApp.initData || props.initData,
             },
         });
         user.value = response.data;
@@ -70,10 +77,9 @@ const loadUser = async () => {
 
 const loadPack = async () => {
     try {
-        const packCode = WebApp.initDataUnsafe.start_param;
-        const response = await axios.get(route('webapp.pack', {pack: packCode}), {
+        const response = await axios.get(route('webapp.pack', {pack: props.packCode}), {
             params: {
-                initData: WebApp.initData,
+                initData: WebApp.initData || props.initData,
             },
         });
         pack.value = response.data;
@@ -136,6 +142,8 @@ const copyPackUrl = () => {
     copy(pack.value.share_url);
 };
 
+const goBack = () => window.history.back();
+
 watch(user, (newUser) => {
     if (newUser) {
         loadLanguageAsync(newUser.language ?? 'en');
@@ -167,6 +175,8 @@ onMounted(async () => {
             </template>
         </context-menu-item>
     </context-menu>
+
+    <BackButton :visible="props.canGoBack" @click="goBack"/>
 
     <MainButton
             v-if="pack"

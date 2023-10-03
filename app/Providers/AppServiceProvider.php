@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\HashData\HashDataService;
 use App\Support\Stats\StatsDatabaseService;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $this->app->bind('stats', fn() => new StatsDatabaseService());
+        $this->app->bind('hashdata', fn() => new HashDataService());
     }
 
     /**

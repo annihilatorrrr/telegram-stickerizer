@@ -9,10 +9,9 @@ import {loadLanguageAsync} from 'laravel-vue-i18n';
 import axios from "axios";
 import User from "@/Types/User";
 import WebApp from '@twa-dev/sdk';
-import InlineInitData from "@/Types/InlineInitData";
 
 interface Props {
-    initData: InlineInitData;
+    initData: string;
 }
 const props = defineProps<Props>();
 
@@ -31,8 +30,7 @@ const setScheme = function () {
 
 const loadTrendingPacks = async () => {
     const response = await axios.get(route('webapp.packs.trending', {
-        user_id: props.initData.user_id,
-        fingerprint: props.initData.fingerprint,
+        initData: props.initData,
     }));
     packs.value = response.data;
 };
@@ -41,8 +39,7 @@ const loadUser = async () => {
     try {
         const response = await axios.get(route('webapp.user'), {
             params: {
-                user_id: props.initData.user_id,
-                fingerprint: props.initData.fingerprint,
+                initData: props.initData,
             },
         });
         user.value = response.data;
@@ -70,7 +67,7 @@ onMounted(async () => {
 
 <template>
     <BackButton :visible="true" @click="goBack"/>
-    <StorePack v-for="pack in packs" :key="pack.id" :pack="pack"/>
+    <StorePack v-for="pack in packs" :key="pack.id" :pack="pack" :init-data="props.initData"/>
 </template>
 
 <style scoped lang="scss">

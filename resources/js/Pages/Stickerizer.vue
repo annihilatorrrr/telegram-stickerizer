@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import '@css/webapp.scss';
-import InlineInitData from "@/Types/InlineInitData";
 import InputPanel from "@/Components/InputPanel.vue";
 import StickersPanel from "@/Components/StickersPanel.vue";
 import Menu from "@/Components/Menu.vue";
@@ -14,7 +13,7 @@ import route from "ziggy-js";
 import WebApp from '@twa-dev/sdk';
 
 interface Props {
-    initData: InlineInitData;
+    initData: string;
     text: string;
 }
 const props = defineProps<Props>();
@@ -53,8 +52,7 @@ const sendStickerCode = async (stickerID:number, forcedText:string = null) => {
 
     loading.value = true;
     const response = await axios.post(route('webapp.sticker.send'), {
-        user_id: props.initData.user_id,
-        fingerprint: props.initData.fingerprint,
+        initData: props.initData,
         text: forcedText ?? text.value,
         sticker_id: stickerID,
     });
@@ -81,8 +79,7 @@ const loadUser = async () => {
     try {
         const response = await axios.get(route('webapp.user'), {
             params: {
-                user_id: props.initData.user_id,
-                fingerprint: props.initData.fingerprint,
+                initData: props.initData,
             },
         });
         user.value = response.data;
@@ -93,8 +90,7 @@ const loadUser = async () => {
 const loadPacks = async () => {
     const response = await axios.get(route('webapp.packs'), {
         params: {
-            user_id: props.initData.user_id,
-            fingerprint: props.initData.fingerprint,
+            initData: props.initData,
         },
     });
     packs.value = response.data;
@@ -103,8 +99,7 @@ const loadPacks = async () => {
 const loadHistory = async () => {
     const response = await axios.get(route('webapp.sticker.history.list'), {
         params: {
-            user_id: props.initData.user_id,
-            fingerprint: props.initData.fingerprint,
+            initData: props.initData,
         }
     });
     history.value = response.data;
@@ -113,8 +108,7 @@ const loadHistory = async () => {
 const loadFavorites = async () => {
     const response = await axios.get(route('webapp.sticker.favorite.list'), {
         params: {
-            user_id: props.initData.user_id,
-            fingerprint: props.initData.fingerprint,
+            initData: props.initData,
         }
     });
     favorites.value = response.data;
@@ -126,8 +120,7 @@ const clearHistory = async () => {
             loading.value = true;
             await axios.delete(route('webapp.sticker.clear.history'), {
                 params: {
-                    user_id: props.initData.user_id,
-                    fingerprint: props.initData.fingerprint,
+                    initData: props.initData,
                 }
             });
             await loadHistory();
@@ -142,8 +135,7 @@ const clearFavorites = async () => {
             loading.value = true;
             await axios.delete(route('webapp.sticker.clear.favorite'), {
                 params: {
-                    user_id: props.initData.user_id,
-                    fingerprint: props.initData.fingerprint,
+                    initData: props.initData,
                 }
             });
             await loadFavorites();
@@ -158,8 +150,7 @@ const openMenu = (data:any) => {
 
 const saveFavorite = async (sticker:number, text:string) => {
     await axios.post(route('webapp.sticker.favorite.save'), {
-        user_id: props.initData.user_id,
-        fingerprint: props.initData.fingerprint,
+        initData: props.initData,
         sticker_id: sticker,
         text: text,
     });
@@ -169,8 +160,7 @@ const saveFavorite = async (sticker:number, text:string) => {
 const removeFavorite = async (favorite_id:number) => {
     await axios.delete(route('webapp.sticker.favorite.delete', {favorite: favorite_id}), {
         params: {
-            user_id: props.initData.user_id,
-            fingerprint: props.initData.fingerprint,
+            initData: props.initData,
         }
     });
     await loadFavorites();
@@ -180,8 +170,7 @@ const removePack = (packID:number) => {
     WebApp.showConfirm(trans('webapp.remove_pack'), async function (result) {
         if (result) {
             await axios.post(route('webapp.store.pack.remove', {pack: packID}), {
-                user_id: props.initData.user_id,
-                fingerprint: props.initData.fingerprint,
+                initData: props.initData,
             });
             await loadPacks();
         }
@@ -190,8 +179,7 @@ const removePack = (packID:number) => {
 
 const openStorePage = () => {
     location.href = route('webapp.store', {
-        user_id: props.initData.user_id,
-        fingerprint: props.initData.fingerprint,
+        initData: props.initData,
     });
 };
 

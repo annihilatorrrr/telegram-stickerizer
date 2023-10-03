@@ -26,26 +26,26 @@ class MiniAppController extends Controller
     public function stickerizer(Request $request)
     {
         return Inertia::render('Stickerizer', [
-            'initData' => [
-                'user_id' => $request->input('user_id'),
-                'fingerprint' => $request->input('fingerprint'),
-            ],
+            'initData' => $request->input('initData'),
             'text' => $request->input('text'),
         ]);
     }
 
-    public function addStickers()
+    public function addStickers(Request $request)
     {
-        return Inertia::render('AddStickers');
+        $packCode = $request->input('tgWebAppStartParam') ?? $request->input('packCode');
+
+        return Inertia::render('AddStickers', [
+            'initData' => $request->input('initData'),
+            'packCode' => $packCode,
+            'canGoBack' => $request->boolean('canGoBack', false),
+        ]);
     }
 
     public function store(Request $request)
     {
         return Inertia::render('Store', [
-            'initData' => [
-                'user_id' => $request->input('user_id'),
-                'fingerprint' => $request->input('fingerprint'),
-            ],
+            'initData' => $request->input('initData'),
         ]);
     }
 
@@ -76,6 +76,16 @@ class MiniAppController extends Controller
         $user->packs()->syncWithoutDetaching($pack->id);
 
         stats('pack.installed', ['pack' => $pack->id]);
+    }
+
+    public function packs()
+    {
+        $packs = miniAppUser()
+            ->packs()
+            ->with('stickers')
+            ->get();
+
+        return PackResource::collection($packs);
     }
 
     public function removePack(Pack $pack)
@@ -131,16 +141,6 @@ class MiniAppController extends Controller
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];
-    }
-
-    public function packs()
-    {
-        $packs = miniAppUser()
-            ->packs()
-            ->with('stickers')
-            ->get();
-
-        return PackResource::collection($packs);
     }
 
     public function trendingPacks()
