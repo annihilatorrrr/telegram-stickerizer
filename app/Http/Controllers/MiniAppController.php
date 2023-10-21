@@ -54,7 +54,7 @@ class MiniAppController extends Controller
         $text = $request->input('text') ?: 'TEXT';
         $key = md5(sprintf("key_%s-text_%s", $sticker->id, $text));
 
-        $dataUrl = Cache::rememberForever($key, function () use ($text, $sticker) {
+        $dataUrl = Cache::remember($key, now()->addDays(7), function () use ($text, $sticker) {
             return (string)$sticker
                 ->getGenerator()
                 ->generate($text)

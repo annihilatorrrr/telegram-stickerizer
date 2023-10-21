@@ -12,11 +12,13 @@ use App\Telegram\Commands\PrivacyCommand;
 use App\Telegram\Commands\SettingsCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
+use App\Telegram\Commands\UsageCommand;
 use App\Telegram\Exceptions\MessageNotModifiedException;
 use App\Telegram\Exceptions\QueryTooOldException;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
 use App\Telegram\Handlers\StickerHandler;
+use App\Telegram\Handlers\UpdateUserStatus;
 use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CheckUserBlocked;
 use App\Telegram\Middleware\CollectUser;
@@ -35,7 +37,6 @@ use SergiX44\Nutgram\Nutgram;
 */
 
 $bot->middleware(CollectUser::class);
-$bot->middleware(CheckUserBlocked::class);
 $bot->middleware(SetLocale::class);
 $bot->middleware(CheckMaintenance::class);
 $bot->middleware(SendNews::class);
@@ -46,6 +47,7 @@ $bot->middleware(SendNews::class);
 |--------------------------------------------------------------------------
 */
 
+$bot->onMyChatMember(UpdateUserStatus::class);
 $bot->onSticker(StickerHandler::class);
 $bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
 $bot->onCallbackQueryData('stats:{value}', [StatsCommand::class, 'updateStatsMessage']);
@@ -73,6 +75,7 @@ $bot->onChosenInlineResultQuery('§{code}', [InlineQueryHandler::class, 'sharedP
 $bot->onCommand('start (.*)', StartCommand::class);
 $bot->registerCommand(StartCommand::class);
 $bot->registerCommand(HelpCommand::class);
+$bot->registerCommand(UsageCommand::class);
 $bot->registerCommand(SettingsCommand::class);
 $bot->registerCommand(StatsCommand::class);
 $bot->registerCommand(AboutCommand::class);

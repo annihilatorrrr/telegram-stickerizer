@@ -6,8 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Properties\ChatType;
-use SergiX44\Nutgram\Telegram\Types\Chat\ChatMemberBanned;
-use function App\Helpers\stats;
 
 class CollectUser
 {
@@ -37,7 +35,6 @@ class CollectUser
             ]);
 
             $this->checkStartedFromPM($user, $bot);
-            $this->checkBlocked($user, $bot);
 
             return $user;
         });
@@ -48,16 +45,6 @@ class CollectUser
         if ($user->started_at === null && $bot->chat()?->type === ChatType::PRIVATE) {
             $user->started_at = now();
             $user->save();
-        }
-    }
-
-    protected function checkBlocked(User $user, Nutgram $bot): void
-    {
-        if ($bot->chatMember() !== null) {
-            $user->blocked_at = $bot->chatMember()->new_chat_member instanceof ChatMemberBanned ? now() : null;
-            $user->save();
-
-            stats($user->blocked_at === null ? 'user.status.unblocked' : 'user.status.blocked');
         }
     }
 }
