@@ -12,6 +12,7 @@ use App\Telegram\Commands\PrivacyCommand;
 use App\Telegram\Commands\SettingsCommand;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Commands\StatsCommand;
+use App\Telegram\Commands\UsageCommand;
 use App\Telegram\Exceptions\MessageNotModifiedException;
 use App\Telegram\Exceptions\QueryTooOldException;
 use App\Telegram\Handlers\ExceptionsHandler;
@@ -73,6 +74,7 @@ $bot->onChosenInlineResultQuery('§{code}', [InlineQueryHandler::class, 'sharedP
 $bot->onCommand('start (.*)', StartCommand::class);
 $bot->registerCommand(StartCommand::class);
 $bot->registerCommand(HelpCommand::class);
+$bot->registerCommand(UsageCommand::class);
 $bot->registerCommand(SettingsCommand::class);
 $bot->registerCommand(StatsCommand::class);
 $bot->registerCommand(AboutCommand::class);
