@@ -18,6 +18,7 @@ use App\Telegram\Exceptions\QueryTooOldException;
 use App\Telegram\Handlers\ExceptionsHandler;
 use App\Telegram\Handlers\InlineQueryHandler;
 use App\Telegram\Handlers\StickerHandler;
+use App\Telegram\Handlers\UpdateUserStatus;
 use App\Telegram\Middleware\CheckMaintenance;
 use App\Telegram\Middleware\CheckUserBlocked;
 use App\Telegram\Middleware\CollectUser;
@@ -36,7 +37,6 @@ use SergiX44\Nutgram\Nutgram;
 */
 
 $bot->middleware(CollectUser::class);
-$bot->middleware(CheckUserBlocked::class);
 $bot->middleware(SetLocale::class);
 $bot->middleware(CheckMaintenance::class);
 $bot->middleware(SendNews::class);
@@ -47,6 +47,7 @@ $bot->middleware(SendNews::class);
 |--------------------------------------------------------------------------
 */
 
+$bot->onMyChatMember(UpdateUserStatus::class);
 $bot->onSticker(StickerHandler::class);
 $bot->onCallbackQueryData('gdpr.download', [GdprCommand::class, 'downloadData']);
 $bot->onCallbackQueryData('stats:{value}', [StatsCommand::class, 'updateStatsMessage']);
