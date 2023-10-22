@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Handlers;
 
+use App\Facades\HashData;
 use App\Models\Pack;
 use App\Models\Sticker;
 use App\Models\StickerPackResolver;
@@ -28,10 +29,8 @@ class InlineQueryHandler
             button: InlineQueryResultsButton::make(
                 text: __('inline.create'),
                 web_app: new WebAppInfo(route('webapp.stickerizer', [
+                    'initData' => HashData::build(['user_id' => $bot->userId()]),
                     'text' => $bot->inlineQuery()->query,
-                    'user_id' => $bot->userId(),
-                    'lang' => App::getLocale(),
-                    'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
                 ])),
             )
         );

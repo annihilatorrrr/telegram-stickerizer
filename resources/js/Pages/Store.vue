@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import '@css/webapp.scss';
 import {BackButton} from "vue-tg";
 import {onMounted, ref, watch} from "vue";
 import route from "ziggy-js";
@@ -7,25 +8,29 @@ import StorePack from "@/Components/StorePack.vue";
 import {loadLanguageAsync} from 'laravel-vue-i18n';
 import axios from "axios";
 import User from "@/Types/User";
+import WebApp from '@twa-dev/sdk';
 
-const webapp = window.Telegram.WebApp;
+interface Props {
+    initData: string;
+}
+const props = defineProps<Props>();
+
 const packs = ref<Pack[]>([]);
 const user = ref<User>(null);
 
 const goBack = () => window.history.back();
 
 const setScheme = function () {
-    if (webapp.platform === 'unknown') {
+    if (WebApp.platform === 'unknown') {
         document.body.setAttribute('data-scheme', 'dark');
     } else {
-        document.body.setAttribute('data-scheme', webapp.colorScheme);
+        document.body.setAttribute('data-scheme', WebApp.colorScheme);
     }
 }
 
 const loadTrendingPacks = async () => {
     const response = await axios.get(route('webapp.packs.trending', {
-        user_id: window.initData.user_id,
-        fingerprint: window.initData.fingerprint,
+        initData: props.initData,
     }));
     packs.value = response.data;
 };
@@ -34,8 +39,7 @@ const loadUser = async () => {
     try {
         const response = await axios.get(route('webapp.user'), {
             params: {
-                user_id: window.initData.user_id,
-                fingerprint: window.initData.fingerprint,
+                initData: props.initData,
             },
         });
         user.value = response.data;
@@ -53,17 +57,17 @@ onMounted(async () => {
     await loadUser();
     await loadTrendingPacks();
     setScheme();
-    webapp.setHeaderColor('#056104');
-    webapp.onEvent('themeChanged', () => setScheme());
-    webapp.expand();
-    webapp.ready();
+    WebApp.setHeaderColor('#056104');
+    WebApp.onEvent('themeChanged', () => setScheme());
+    WebApp.expand();
+    WebApp.ready();
 });
 
 </script>
 
 <template>
     <BackButton :visible="true" @click="goBack"/>
-    <StorePack v-for="pack in packs" :key="pack.id" :pack="pack"/>
+    <StorePack v-for="pack in packs" :key="pack.id" :pack="pack" :init-data="props.initData"/>
 </template>
 
 <style scoped lang="scss">

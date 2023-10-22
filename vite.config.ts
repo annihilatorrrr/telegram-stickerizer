@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader'
 import i18n from 'laravel-vue-i18n/vite';
 import {fileURLToPath, URL} from "url";
+import {exec} from "child_process";
 
 export default defineConfig({
     plugins: [
@@ -50,6 +51,8 @@ export default defineConfig({
         alias: [
             // @ts-ignore
             { find: '@', replacement: fileURLToPath(new URL('./resources/js', import.meta.url)) },
+            // @ts-ignore
+            { find: '@css', replacement: fileURLToPath(new URL('./resources/css', import.meta.url)) },
         ],
     },
 });

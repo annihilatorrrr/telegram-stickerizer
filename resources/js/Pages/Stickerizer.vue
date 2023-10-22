@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="ts">
+import '@css/webapp.scss';
 import InputPanel from "@/Components/InputPanel.vue";
 import StickersPanel from "@/Components/StickersPanel.vue";
 import Menu from "@/Components/Menu.vue";
@@ -7,9 +8,15 @@ import {computed, onMounted, ref, watch} from "vue";
 import {loadLanguageAsync, trans} from 'laravel-vue-i18n';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
-import {useWebAppBackButton, useWebAppPopup} from "vue-tg";
 import axios from "axios";
 import route from "ziggy-js";
+import WebApp from '@twa-dev/sdk';
+
+interface Props {
+    initData: string;
+    text: string;
+}
+const props = defineProps<Props>();
 
 const loading = ref(false);
 const user = ref(null);
@@ -17,71 +24,73 @@ const search = ref('');
 const favorites = ref([]);
 const history = ref([]);
 const packs = ref([]);
-const text = ref(window.initData.text ?? '');
+const text = ref(props.text ?? '');
 const menuData = ref(null);
-const webapp = window.Telegram.WebApp;
 
 const hasHistory = computed(() => history.value.length > 0);
 const hasFavorites = computed(() => favorites.value.length > 0);
 
 const setScheme = function () {
-    if (webapp.platform === 'unknown') {
+    if (WebApp.platform === 'unknown') {
         document.body.setAttribute('data-scheme', 'dark');
     } else {
-        document.body.setAttribute('data-scheme', webapp.colorScheme);
+        document.body.setAttribute('data-scheme', WebApp.colorScheme);
     }
 }
 
-const sendStickerCode = async (stickerID, forcedText) => {
-    forcedText = forcedText || null;
-
-    if (webapp.platform === 'unknown') {
+const sendStickerCode = async (stickerID:number, forcedText:string = null) => {
+    if (WebApp.platform === 'unknown') {
         alert(trans('webapp.platform_not_supported'));
         return;
     }
 
     if (forcedText === null && text.value.length === 0) {
-        webapp.HapticFeedback.notificationOccurred('error');
-        webapp.showAlert(trans('webapp.empty'));
+        WebApp.HapticFeedback.notificationOccurred('error');
+        WebApp.showAlert(trans('webapp.empty'));
         return;
     }
 
     loading.value = true;
     const response = await axios.post(route('webapp.sticker.send'), {
-        user_id: window.initData.user_id,
-        sticker_id: stickerID,
+        initData: props.initData,
         text: forcedText ?? text.value,
-        fingerprint: window.initData.fingerprint,
+        sticker_id: stickerID,
     });
     loading.value = false;
 
-    webapp.HapticFeedback.notificationOccurred('success');
+    WebApp.HapticFeedback.notificationOccurred('success');
 
-    webapp.switchInlineQuery('Ꜣ' + response.data.telegram_sticker_id);
+    WebApp.switchInlineQuery('Ꜣ' + response.data.telegram_sticker_id);
 };
 
 const showInfo = () => {
     const message = trans('webapp.info') + '\n' + trans('webapp.limit');
 
-    if (webapp.platform === 'unknown') {
+    if (WebApp.platform === 'unknown') {
         alert(message);
         return;
     }
 
-    webapp.HapticFeedback.notificationOccurred('warning');
-    webapp.showAlert(message);
+    WebApp.HapticFeedback.notificationOccurred('warning');
+    WebApp.showAlert(message);
+};
+
+const loadUser = async () => {
+    try {
+        const response = await axios.get(route('webapp.user'), {
+            params: {
+                initData: props.initData,
+            },
+        });
+        user.value = response.data;
+    } catch (e) {
+    }
 };
 
 const loadPacks = async () => {
     const response = await axios.get(route('webapp.packs'), {
         params: {
-            user_id: window.initData.user_id,
-            fingerprint: window.initData.fingerprint,
-        },
-        headers: {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-            'Expires': '0',
+            initData: props.initData,
         },
     });
     packs.value = response.data;
@@ -90,8 +99,7 @@ const loadPacks = async () => {
 const loadHistory = async () => {
     const response = await axios.get(route('webapp.sticker.history.list'), {
         params: {
-            user_id: window.initData.user_id,
-            fingerprint: window.initData.fingerprint,
+            initData: props.initData,
         }
     });
     history.value = response.data;
@@ -100,21 +108,19 @@ const loadHistory = async () => {
 const loadFavorites = async () => {
     const response = await axios.get(route('webapp.sticker.favorite.list'), {
         params: {
-            user_id: window.initData.user_id,
-            fingerprint: window.initData.fingerprint,
+            initData: props.initData,
         }
     });
     favorites.value = response.data;
 };
 
 const clearHistory = async () => {
-    webapp.showConfirm(trans('webapp.clear.history'), async function (result) {
+    WebApp.showConfirm(trans('webapp.clear.history'), async function (result) {
         if (result) {
             loading.value = true;
             await axios.delete(route('webapp.sticker.clear.history'), {
                 params: {
-                    user_id: window.initData.user_id,
-                    fingerprint: window.initData.fingerprint,
+                    initData: props.initData,
                 }
             });
             await loadHistory();
@@ -124,13 +130,12 @@ const clearHistory = async () => {
 };
 
 const clearFavorites = async () => {
-    webapp.showConfirm(trans('webapp.clear.favorites'), async function (result) {
+    WebApp.showConfirm(trans('webapp.clear.favorites'), async function (result) {
         if (result) {
             loading.value = true;
             await axios.delete(route('webapp.sticker.clear.favorite'), {
                 params: {
-                    user_id: window.initData.user_id,
-                    fingerprint: window.initData.fingerprint,
+                    initData: props.initData,
                 }
             });
             await loadFavorites();
@@ -139,36 +144,33 @@ const clearFavorites = async () => {
     });
 };
 
-const openMenu = (data) => {
+const openMenu = (data:any) => {
     menuData.value = data;
 };
 
-const saveFavorite = async (sticker, text) => {
+const saveFavorite = async (sticker:number, text:string) => {
     await axios.post(route('webapp.sticker.favorite.save'), {
-        user_id: window.initData.user_id,
-        fingerprint: window.initData.fingerprint,
+        initData: props.initData,
         sticker_id: sticker,
         text: text,
     });
     await loadFavorites();
-}
+};
 
-const removeFavorite = async (favorite_id) => {
+const removeFavorite = async (favorite_id:number) => {
     await axios.delete(route('webapp.sticker.favorite.delete', {favorite: favorite_id}), {
         params: {
-            user_id: window.initData.user_id,
-            fingerprint: window.initData.fingerprint,
+            initData: props.initData,
         }
     });
     await loadFavorites();
-}
+};
 
-const removePack = (packID) => {
-    useWebAppPopup().showConfirm(trans('webapp.remove_pack'), async function (result) {
+const removePack = (packID:number) => {
+    WebApp.showConfirm(trans('webapp.remove_pack'), async function (result) {
         if (result) {
             await axios.post(route('webapp.store.pack.remove', {pack: packID}), {
-                user_id: window.initData.user_id,
-                fingerprint: window.initData.fingerprint,
+                initData: props.initData,
             });
             await loadPacks();
         }
@@ -177,22 +179,8 @@ const removePack = (packID) => {
 
 const openStorePage = () => {
     location.href = route('webapp.store', {
-        user_id: window.initData.user_id,
-        fingerprint: window.initData.fingerprint,
+        initData: props.initData,
     });
-};
-
-const loadUser = async () => {
-    try {
-        const response = await axios.get(route('webapp.user'), {
-            params: {
-                user_id: window.initData.user_id,
-                fingerprint: window.initData.fingerprint,
-            },
-        });
-        user.value = response.data;
-    } catch (e) {
-    }
 };
 
 watch(user, (newUser) => {
@@ -202,17 +190,18 @@ watch(user, (newUser) => {
 });
 
 onMounted(async () => {
-    useWebAppBackButton().hideBackButton();
+    WebApp.BackButton.hide();
     setScheme();
-    webapp.setHeaderColor('#056104');
-    webapp.onEvent('themeChanged', () => setScheme());
-    webapp.expand();
+    WebApp.setHeaderColor('#056104');
+    WebApp.onEvent('themeChanged', () => setScheme());
+    WebApp.expand();
     await loadUser();
     loadFavorites();
     loadHistory();
     loadPacks();
-    webapp.ready();
+    WebApp.ready();
 });
+
 </script>
 
 <template>
@@ -280,62 +269,62 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .layout {
-  @apply bg-tg-bg;
-  height: 100%;
-
-  --padding-top: 10px;
-  --search-panel-height: 50px;
-  --packs-panel-height: 40px;
-  --input-panel-height: 50px;
-
-  padding-top: calc(var(--search-panel-height) + var(--padding-top));
-
-  #search-panel {
     @apply bg-tg-bg;
-    @apply px-3;
-    @apply flex items-center justify-center h-full;
-    height: var(--search-panel-height);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-
-    #search-box {
-      @apply flex items-center;
-      @apply rounded-3xl w-full px-3 py-1;
-      @apply text-tg-hint bg-tg-bg-secondary;
-
-      #search-input {
-        @apply inline-block flex-auto;
-        @apply text-white bg-transparent caret-tg-button-bg;
-        @apply outline-0 px-1;
-      }
-    }
-  }
-
-  #stickers-panel {
     height: 100%;
 
-    & > div:first-child {
-      @apply px-3;
-      padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height) + var(--padding-top));
+    --padding-top: 10px;
+    --search-panel-height: 50px;
+    --packs-panel-height: 40px;
+    --input-panel-height: 50px;
+
+    padding-top: calc(var(--search-panel-height) + var(--padding-top));
+
+    #search-panel {
+        @apply bg-tg-bg;
+        @apply px-3;
+        @apply flex items-center justify-center h-full;
+        height: var(--search-panel-height);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+
+        #search-box {
+            @apply flex items-center;
+            @apply rounded-3xl w-full px-3 py-1;
+            @apply text-tg-hint bg-tg-bg-secondary;
+
+            #search-input {
+                @apply inline-block flex-auto;
+                @apply text-white bg-transparent caret-tg-button-bg;
+                @apply outline-0 px-1;
+            }
+        }
     }
-  }
 
-  #packs-panel {
-    border-top: 1px solid var(--tg-scheme);
-    height: var(--packs-panel-height);
-    position: fixed;
-    top: calc(var(--tg-viewport-height) - (var(--packs-panel-height) + var(--input-panel-height)));
-    width: 100%;
-  }
+    #stickers-panel {
+        height: 100%;
 
-  #input {
-    border-top: 1px solid var(--tg-scheme);
-    height: var(--input-panel-height);
-    position: fixed;
-    top: calc(var(--tg-viewport-height) - var(--input-panel-height));
-    width: 100%;
-  }
+        & > div:first-child {
+            @apply px-3;
+            padding-bottom: calc(var(--packs-panel-height) + var(--input-panel-height) + var(--padding-top));
+        }
+    }
+
+    #packs-panel {
+        border-top: 1px solid var(--tg-scheme);
+        height: var(--packs-panel-height);
+        position: fixed;
+        top: calc(var(--tg-viewport-height) - (var(--packs-panel-height) + var(--input-panel-height)));
+        width: 100%;
+    }
+
+    #input {
+        border-top: 1px solid var(--tg-scheme);
+        height: var(--input-panel-height);
+        position: fixed;
+        top: calc(var(--tg-viewport-height) - var(--input-panel-height));
+        width: 100%;
+    }
 }
 </style>

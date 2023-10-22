@@ -16,6 +16,7 @@ Route::group(['prefix' => 'webapp', 'as' => 'webapp.'], function () {
         ->middleware('cache.headers:public;max_age=1800;etag');
 
     Route::middleware(ValidateMiniApp::class)->group(function () {
+        Route::get('me', [MiniAppController::class, 'me'])->name('me');
         Route::get('user', [MiniAppController::class, 'user'])->name('user');
 
         Route::get('pack/{pack:code}', [MiniAppController::class, 'pack'])->name('pack');

@@ -1,4 +1,41 @@
-@import "colors";
+@mixin color-shadows($name, $color) {
+    #{$name}-900: color-mix(in srgb, $color, black 70%);
+    #{$name}-800: color-mix(in srgb, $color, black 50%);
+    #{$name}-700: color-mix(in srgb, $color, black 30%);
+    #{$name}-600: color-mix(in srgb, $color, black 10%);
+    #{$name}-400: color-mix(in srgb, $color, white 10%);
+    #{$name}-300: color-mix(in srgb, $color, white 30%);
+    #{$name}-200: color-mix(in srgb, $color, white 50%);
+    #{$name}-100: color-mix(in srgb, $color, white 70%);
+}
+
+:root {
+    --tg-viewport-height: 331px;
+    --tg-viewport-stable-height: 331px;
+    --tg-color-scheme: dark;
+
+    --tg-scheme: black;
+    --tg-theme-bg-color: #17212b;
+    --tg-theme-button-color: #5289c1;
+    --tg-theme-button-text-color: #ffffff;
+    --tg-theme-hint-color: #708599;
+    --tg-theme-link-color: #6ab3f3;
+    --tg-theme-secondary-bg-color: #232e3c;
+    --tg-theme-text-color: #f5f5f5;
+
+    @include color-shadows('--tg-scheme', var(--tg-scheme));
+    @include color-shadows('--tg-theme-bg-color', var(--tg-theme-bg-color));
+    @include color-shadows('--tg-theme-button-color', var(--tg-theme-button-color));
+    @include color-shadows('--tg-theme-button-text-color', var(--tg-theme-button-text-color));
+    @include color-shadows('--tg-theme-hint-color', var(--tg-theme-hint-color));
+    @include color-shadows('--tg-theme-link-color', var(--tg-theme-link-color));
+    @include color-shadows('--tg-theme-secondary-bg-color', var(--tg-theme-secondary-bg-color));
+    @include color-shadows('--tg-theme-text-color', var(--tg-theme-text-color));
+}
+
+body[data-scheme="light"] {
+    --tg-scheme: white;
+}
 
 html{
     scroll-behavior: smooth;
@@ -10,7 +47,7 @@ html, body {
 }
 
 body {
-    background-color: var(--tg-scheme);
+    background-color: var(--tg-theme-bg-color);
     color: var(--tg-theme-text-color) !important;
     height: 100vh;
     user-select: none;

@@ -20,12 +20,7 @@ class ValidInlineCode
                 cache_time: 0,
                 button: InlineQueryResultsButton::make(
                     text: __('inline.invalid_code'),
-                    web_app: new WebAppInfo(route('webapp.stickerizer', [
-                        'text' => '',
-                        'user_id' => $bot->userId(),
-                        'lang' => App::getLocale(),
-                        'fingerprint' => hash_hmac('sha256', $bot->userId(), config('app.key')),
-                    ])),
+                    start_parameter: 'INVALID_CODE',
                 )
             );
             return;

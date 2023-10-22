@@ -9,6 +9,7 @@
         "ext-gd": "*",
         "arispati/emoji-remover": "^0.1.4",
         "guzzlehttp/guzzle": "^7.2",
+        "inertiajs/inertia-laravel": "^0.6.10",
         "intervention/image": "^2.7.2",
         "laravel/framework": "^10.10",
         "laravel/tinker": "^2.8",

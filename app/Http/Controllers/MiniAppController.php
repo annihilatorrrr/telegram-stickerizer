@@ -14,6 +14,7 @@ use App\Models\StickersHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Intervention\Image\Facades\Image as ImageFacade;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Types\Internal\InputFile;
@@ -24,31 +25,27 @@ class MiniAppController extends Controller
 {
     public function stickerizer(Request $request)
     {
-        return view('webapp.main', [
-            'initData' => [
-                'text' => $request->input('text'),
-                'user_id' => $request->input('user_id'),
-                'fingerprint' => $request->input('fingerprint'),
-            ]
+        return Inertia::render('Stickerizer', [
+            'initData' => $request->input('initData'),
+            'text' => $request->input('text'),
         ]);
     }
 
-    public function addStickers()
+    public function addStickers(Request $request)
     {
-        return view('webapp.addstickers', [
-            'initData' => [
-                'bot_username' => config('bot.username'),
-            ],
+        $packCode = $request->input('tgWebAppStartParam') ?? $request->input('packCode');
+
+        return Inertia::render('AddStickers', [
+            'initData' => $request->input('initData'),
+            'packCode' => $packCode,
+            'canGoBack' => $request->boolean('canGoBack', false),
         ]);
     }
 
     public function store(Request $request)
     {
-        return view('webapp.store', [
-            'initData' => [
-                'user_id' => $request->input('user_id'),
-                'fingerprint' => $request->input('fingerprint'),
-            ]
+        return Inertia::render('Store', [
+            'initData' => $request->input('initData'),
         ]);
     }
 
@@ -81,12 +78,29 @@ class MiniAppController extends Controller
         stats('pack.installed', ['pack' => $pack->id]);
     }
 
+    public function packs()
+    {
+        $packs = miniAppUser()
+            ->packs()
+            ->with('stickers')
+            ->get();
+
+        return PackResource::collection($packs);
+    }
+
     public function removePack(Pack $pack)
     {
         $user = miniAppUser();
         $user->packs()->detach($pack->id);
 
         stats('pack.uninstalled', ['pack' => $pack->id]);
+    }
+
+    public function me()
+    {
+        return [
+            'botName' => config('bot.username'),
+        ];
     }
 
     public function user()
@@ -127,16 +141,6 @@ class MiniAppController extends Controller
 
         //return sticker id
         return ['telegram_sticker_id' => $message->message_id];
-    }
-
-    public function packs()
-    {
-        $packs = miniAppUser()
-            ->packs()
-            ->with('stickers')
-            ->get();
-
-        return PackResource::collection($packs);
     }
 
     public function trendingPacks()
